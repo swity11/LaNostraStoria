@@ -148,7 +148,7 @@ button:hover {
     color: #d63384;
 }
 
-/* --- GRIGLIA A 5 COLONNE CON MINIATURE QUADRATE --- */
+/* --- GRIGLIA A 5 COLONNE CON MINIATURE QUADRATE PERFETTE --- */
 .griglia-quadrata {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* 5 foto per riga */
@@ -160,12 +160,12 @@ button:hover {
     overflow-y: auto; 
 }
 
-/* Sostituisci la vecchia regola delle immagini con questa */
+/* Forziamo ogni singolo quadratino a mantenere proporzioni fisse e un'altezza/larghezza identica */
 .griglia-quadrata img {
     width: 100% !important;
-    height: 100% !important;
-    aspect-ratio: 1 / 1 !important; /* Forza in modo assoluto il quadrato 1:1 */
-    object-fit: cover !important;  /* Riempie il quadrato ritagliando l'eccesso senza deformare */
+    height: auto !important;           /* Lascia che l'altezza segua le proporzioni */
+    aspect-ratio: 1 / 1 !important;    /* Forza geometricamente il quadrato perfetto */
+    object-fit: cover !important;     /* Taglia l'immagine al centro senza deformarla */
     cursor: pointer;
     display: block;
     transition: transform 0.2s ease;
@@ -175,7 +175,6 @@ button:hover {
 .griglia-quadrata img:hover {
     transform: scale(0.95);
 }
-
 /* --- Stile Visualizzatore Immagine Singola (con dissolvenza) --- */
 
 /* Contenitore scuro di fondo (inizialmente nascosto) */
