@@ -93,6 +93,11 @@
             <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
         </div>
 
+        <!-- Nuovo pulsante Bucket List -->
+        <button onclick="apriBucketList()" style="margin-bottom: 15px;">
+            ✨ Cose da fare insieme
+        </button>
+
         <button onclick="sorpresa()">
             🎁 Apri la sorpresa
         </button>
@@ -142,6 +147,21 @@
         <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
         <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
     </div>
+
+    <!-- SCHERMATA BUCKET LIST CONDIVISA -->
+    <div id="bucket-schermo" class="schermo-intero" style="display: none;">
+        <div class="galleria-header">
+            <h2>✨ La Nostra Bucket List</h2>
+            <button class="btn-chiudi" onclick="chiudiBucketList()">❌ Chiudi</button>
+        </div>
+        
+        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; box-sizing: border-box;">
+            <div class="chat-input-bar" style="background: transparent; border: none; padding: 0 0 15px 0;">
+                <input type="text" id="input-bucket" placeholder="Nuovo sogno o viaggio da fare..." onkeypress="gestisciInvioBucket(event)">
+                <button id="btn-invia" onclick="aggiungiBucketItem()">+</button>
+            </div>
+            <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
+        </div>
 </div>
 
     <!-- SDK Firebase Compat (Devono stare PRIMA del tuo script.js) -->
