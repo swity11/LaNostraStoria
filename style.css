@@ -11,10 +11,10 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Mantiene il countdown fisso e centrato nei suoi riferimenti */
     min-height: 100vh;
     color: #4a4a4a;
-    position: relative; /* <-- Fondamentale per posizionare gli elementi negli angoli */
+    position: relative;
 }
 
 .container {
@@ -173,13 +173,13 @@ button:hover {
 
 .mini-countdown {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 15px;  /* Distanza dal bordo superiore dello schermo */
+    left: 15px; /* Distanza dal bordo sinistro dello schermo */
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
