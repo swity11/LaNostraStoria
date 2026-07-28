@@ -148,26 +148,28 @@ button:hover {
     color: #d63384;
 }
 
-/* --- GRIGLIA A 5 COLONNE CON SCROLL --- */
+/* --- GRIGLIA A 5 COLONNE CON MINIATURE QUADRATE --- */
 .griglia-quadrata {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Esattamente 5 foto per riga */
-    gap: 4px; /* Spazio piccolissimo tra i quadratini */
+    grid-template-columns: repeat(5, 1fr); /* 5 foto per riga */
+    gap: 4px; 
     padding: 10px;
     box-sizing: border-box;
     width: 100%;
-    flex-grow: 1; /* Occupa tutto lo spazio rimanente sotto l'header */
-    overflow-y: auto; /* Permette di scorrere le foto in verticale se sono tante */
+    flex-grow: 1; 
+    overflow-y: auto; 
 }
 
+/* Sostituisci la vecchia regola delle immagini con questa */
 .griglia-quadrata img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Taglia l'immagine per farla quadrata perfetta */
-    aspect-ratio: 1 / 1; 
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: 1 / 1 !important; /* Forza in modo assoluto il quadrato 1:1 */
+    object-fit: cover !important;  /* Riempie il quadrato ritagliando l'eccesso senza deformare */
     cursor: pointer;
+    display: block;
     transition: transform 0.2s ease;
-    border-radius: 2px; /* Un tocco pulito per i quadratini */
+    border-radius: 2px;
 }
 
 .griglia-quadrata img:hover {
