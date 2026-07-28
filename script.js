@@ -81,50 +81,56 @@ function salvaFoto(event) {
     reader.readAsDataURL(file);
 }
 
+// --- MODIFICA QUESTA FUNZIONE ESISTENTE ---
 function apriGalleria() {
     document.getElementById("galleria-schermo").style.display = "flex";
     const griglia = document.getElementById("griglia-foto");
-    
-    griglia.innerHTML = "";
-    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-    
+    griglia.innerHTML = ""; // Pulisci la griglia prima di caricarla
+
+    // Recupera le foto salvate (o array vuoto)
+    let fotoSalvate = JSON.parse(localStorage.getItem("nostreFoto")) || [];
+
     if (fotoSalvate.length === 0) {
-        griglia.innerHTML = "<p style='grid-column: 1 / -1; color: white; text-align: center;'>Ancora nessuna foto salvata. Aggiungine una! ✨</p>";
+        griglia.innerHTML = "<p style='color:white; grid-column: 1/-1; text-align:center;'>Non hai ancora aggiunto foto.</p>";
         return;
     }
-    
-    fotoSalvate.forEach(fotoBase64 => {
+
+    // Crea i quadratini
+    fotoSalvate.forEach((dataUrl, index) => {
         const img = document.createElement("img");
-        img.src = fotoBase64;
+        img.src = dataUrl;
+        img.alt = "Ricordo di coppia " + (index + 1);
         
-        // Collega l'apertura della foto grande con la dissolvenza
+        // ♥♥♥ Aggiungi l'evento click per ingrandire la foto ♥♥♥
         img.onclick = function() {
-            apriFotoGrande(fotoBase64);
+            apriFotoGrande(dataUrl);
         };
         
         griglia.appendChild(img);
     });
 }
 
-function chiudiGalleria() {
-    document.getElementById("galleria-schermo").style.display = "none";
-    chiudiFotoGrande(); // Chiude anche l'eventuale foto ingrandita
-}
+// --- FUNZIONI AGGIUNTIVE PER GESTIRE L'IMMAGINE SINGOLA ---
 
-// Funzioni per la gestione della foto singola ingrandita con dissolvenza
+// 1. Mostra l'immagine grande con dissolvenza
 function apriFotoGrande(url) {
     const visualizzatore = document.getElementById("visualizzatore-singolo");
     const imgGrande = document.getElementById("immagine-grande");
     
-    imgGrande.src = url;
-    visualizzatore.classList.add("mostra");
+    imgGrande.src = url; // Imposta l'immagine
+    visualizzatore.classList.add("mostra"); // ♥♥♥ Attiva la classe CSS per la dissolvenza ♥♥♥
 }
 
+// 2. Chiudi l'immagine grande con dissolvenza
 function chiudiFotoGrande() {
     const visualizzatore = document.getElementById("visualizzatore-singolo");
-    if (visualizzatore) {
-        visualizzatore.classList.remove("mostra");
-    }
+    visualizzatore.classList.remove("mostra"); // ♥♥♥ Rimuove la classe per nasconderla ♥♥♥
+}
+
+// Modifica la funzione chiudiGalleria per assicurarsi che il visualizzatore sia chiuso
+function chiudiGalleria() {
+    document.getElementById("galleria-schermo").style.display = "none";
+    chiudiFotoGrande(); // Chiudi anche l'eventuale foto ingrandita
 }
 
 function aggiornaMiniCountdown() {
