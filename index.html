@@ -58,9 +58,23 @@
     </div>
 
     <!-- Pulsante Messaggi in alto a destra -->
-<button class="btn-messaggi-top" onclick="apriChat()">
-    💬 <span id="badge-non-letti" class="badge-nascosto"></span>
-</button>
+<!-- Pulsante Menu Hamburger in alto a destra -->
+    <button class="btn-menu-top" onclick="apriMenu()">
+        ☰ <span id="badge-non-letti" class="badge-nascosto"></span>
+    </button>
+
+    <!-- Overlay scuro di sfondo (cliccandolo si chiude il menu) -->
+    <div id="overlay-menu" onclick="chiudiMenu()"></div>
+
+    <!-- Sidebar / Menu a scomparsa -->
+    <div id="sidebar-menu">
+        <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
+        <h3 style="color: #d63384; margin-top: 40px; margin-left: 10px;">Menu 🩷</h3>
+        
+        <!-- Voci del Menu -->
+        <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
+        <!-- Qui in futuro potrai aggiungere altre voci! -->
+    </div>
 
     <!-- Contenitore principale -->
     <div class="container">
