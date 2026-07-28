@@ -315,3 +315,23 @@ button:hover {
 .btn-destra {
     right: 15px;
 }
+
+/* --- ANIMAZIONE CUORICINI VOLANTI --- */
+.cuoricino-volante {
+    position: fixed;
+    bottom: -50px;
+    z-index: 9999;
+    pointer-events: none; /* Per evitare di cliccarli per sbaglio */
+    animation: vola-su 3s linear forwards;
+}
+
+@keyframes vola-su {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
