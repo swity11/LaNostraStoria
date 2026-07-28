@@ -18,41 +18,40 @@
 <body>
 
     <!-- === SCHERMATA DI BLOCCO STILE iPHONE === -->
-<div id="lock-screen" style="display: flex;">
-    <div class="lock-content">
-        <h2>Ciao amore mio🩷</h2>
-        <p>Inserisci il codice per continuare</p>
+    <div id="lock-screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
+        <div class="lock-content" style="display: flex; flex-direction: column; align-items: center;">
+            <h2>Ciao amore mio🩷</h2>
+            <p>Inserisci il codice per continuare</p>
 
-        <!-- Pallini del codice (6 cifre) -->
-        <div class="dots-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-
-        <!-- Scritta crediti posizionata in fondo -->
-        <div class="app-credits">© App sviluppata da Pork</div>
-    </div>
-
-            <!-- Tastierino Numerico -->
-            <div class="keypad">
-                <button class="key-btn" onclick="premiTasto('1')">1</button>
-                <button class="key-btn" onclick="premiTasto('2')">2</button>
-                <button class="key-btn" onclick="premiTasto('3')">3</button>
-                <button class="key-btn" onclick="premiTasto('4')">4</button>
-                <button class="key-btn" onclick="premiTasto('5')">5</button>
-                <button class="key-btn" onclick="premiTasto('6')">6</button>
-                <button class="key-btn" onclick="premiTasto('7')">7</button>
-                <button class="key-btn" onclick="premiTasto('8')">8</button>
-                <button class="key-btn" onclick="premiTasto('9')">9</button>
-                <button class="key-btn invisibile"></button>
-                <button class="key-btn" onclick="premiTasto('0')">0</button>
-                <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
+            <!-- Pallini del codice (6 cifre) -->
+            <div class="dots-container">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
         </div>
+
+        <!-- Tastierino Numerico -->
+        <div class="keypad">
+            <button class="key-btn" onclick="premiTasto('1')">1</button>
+            <button class="key-btn" onclick="premiTasto('2')">2</button>
+            <button class="key-btn" onclick="premiTasto('3')">3</button>
+            <button class="key-btn" onclick="premiTasto('4')">4</button>
+            <button class="key-btn" onclick="premiTasto('5')">5</button>
+            <button class="key-btn" onclick="premiTasto('6')">6</button>
+            <button class="key-btn" onclick="premiTasto('7')">7</button>
+            <button class="key-btn" onclick="premiTasto('8')">8</button>
+            <button class="key-btn" onclick="premiTasto('9')">9</button>
+            <button class="key-btn invisibile"></button>
+            <button class="key-btn" onclick="premiTasto('0')">0</button>
+            <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
+        </div>
+
+        <!-- Scritta crediti posizionata in basso a sinistra nella schermata di blocco -->
+        <div class="app-credits">© App sviluppata da Pork</div>
     </div>
     <!-- ======================================== -->
 
@@ -70,17 +69,20 @@
     <div id="overlay-menu" onclick="chiudiMenu()"></div>
 
     <!-- Sidebar / Menu a scomparsa -->
-    <div id="sidebar-menu">
+    <div id="sidebar-menu" style="position: relative;">
         <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
         <h3 style="color: #d63384; margin-top: 40px; margin-left: 10px;">Menu 🩷</h3>
         
         <!-- Voci del Menu -->
         <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
         <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
+
+        <!-- Scritta crediti nel menu a scomparsa -->
+        <div class="app-credits">© App sviluppata da Pork</div>
     </div>
 
     <!-- Contenitore principale -->
-    <div class="container">
+    <div class="container" style="position: relative;">
         <h1>Per l'amore mio 🩷</h1>
         
         <div class="card">
@@ -118,6 +120,9 @@
         </button>
 
         <p id="secret"></p>
+
+        <!-- Scritta crediti nella schermata principale -->
+        <div class="app-credits">© App sviluppata da Pork</div>
     </div>
 
     <!-- SCHERMATA GALLERIA INTERA -->
@@ -171,7 +176,7 @@
             </div>
             <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
         </div>
-    </div> <!-- <-- QUESTO TAG MANCAVA E CHIUDEVA MALE IL BLOCCO -->
+    </div>
 
     <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
     <div id="magic-schermo" class="schermo-intero" style="display: none;">
