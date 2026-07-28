@@ -764,3 +764,13 @@ button:hover {
     60% { transform: rotate(-10deg) scale(1.05); }
     80% { transform: rotate(10deg) scale(1); }
 }
+
+.app-credits {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    color: rgba(150, 150, 150, 0.6); /* Grigio semi-trasparente */
+    font-size: 11px;
+    pointer-events: none; /* Evita che interferisca con i tocchi */
+    z-index: 5;
+}
