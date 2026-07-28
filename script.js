@@ -462,3 +462,50 @@ function apriChatDalMenu() {
     chiudiMenu(); // Richiude il menu per fare ordine
     setTimeout(apriChat, 300); // Aspetta un attimo che l'animazione finisca, poi apre la chat
 }
+
+// === 9. PALLA DELL'AMORE (MAGIC 8-BALL) ===
+const risposteSfera = [
+    "Certamente sì! 🩷",
+    "Senza alcun dubbio ✨",
+    "È altamente probabile 🥰",
+    "Chiedimelo più tardi... 🤫",
+    "Meglio di no per ora 🙈",
+    "Assolutamente sì, amore mio! 💖",
+    "Le stelle dicono di sì 🌟",
+    "Mh, ci sto pensando... 🤔",
+    "Sicuro al 100%! 💕",
+    "Solo se mi dai un bacio prima 😘",
+    "Le probabilità sono altissime! 🚀",
+    "Chiedi al tuo cuore, lui sa già la risposta 💓",
+    "Sì, ma solo se ordiniamo il gelato 🍨",
+    "Ovviamente sì! Non ci sono dubbi 🌸"
+];
+
+function apriMagicBall() {
+    document.getElementById("magic-schermo").style.display = "flex";
+}
+
+function chiudiMagicBall() {
+    document.getElementById("magic-schermo").style.display = "none";
+}
+
+function apriMagicBallDalMenu() {
+    chiudiMenu(); // Chiude il menu laterale
+    setTimeout(apriMagicBall, 300); // Apre la sfera con la stessa transizione fluida della chat
+}
+
+function chiediAllaSfera() {
+    const ball = document.getElementById("magic-ball");
+    const textElement = document.getElementById("magic-text");
+
+    // Fa partire l'animazione di scuotimento e nasconde il testo temporaneamente
+    ball.classList.add("shake-ball");
+    textElement.style.opacity = "0";
+
+    setTimeout(() => {
+        const indiceCasuale = Math.floor(Math.random() * risposteSfera.length);
+        textElement.innerHTML = risposteSfera[indiceCasuale];
+        textElement.style.opacity = "1";
+        ball.classList.remove("shake-ball");
+    }, 250);
+}
