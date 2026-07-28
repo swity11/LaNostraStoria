@@ -465,20 +465,22 @@ function apriChatDalMenu() {
 
 // === 9. PALLA DELL'AMORE (MAGIC 8-BALL) ===
 const risposteSfera = [
-    "Certamente sì! 🩷",
-    "Senza alcun dubbio ✨",
-    "È altamente probabile 🥰",
-    "Chiedimelo più tardi... 🤫",
-    "Meglio di no per ora 🙈",
-    "Assolutamente sì, amore mio! 💖",
+    "Certamente sì! ✨",
+    "Mh, direi proprio di no 🙈",
+    "È altamente probabile 🩷",
+    "NO PORK",
+    "Assolutamente sì, amore mio! 🩷",
+    "Non ci sperare troppo 😜",
     "Le stelle dicono di sì 🌟",
-    "Mh, ci sto pensando... 🤔",
-    "Sicuro al 100%! 💕",
-    "Solo se mi dai un bacio prima 😘",
-    "Le probabilità sono altissime! 🚀",
-    "Chiedi al tuo cuore, lui sa già la risposta 💓",
+    "Oggi proprio no, riprova domani 🌙",
+    "Sicuro al 100%! 🚀",
+    "Chiedimelo più tardi... 🤫",
     "Sì, ma solo se ordiniamo il gelato 🍨",
-    "Ovviamente sì! Non ci sono dubbi 🌸"
+    "Le probabilità sono bassissime 📉",
+    "Ovviamente sì! Non ci sono dubbi 🩷",
+    "La risposta è un no definitivo ❌",
+    "Mh, ci sto pensando... 🤔",
+    "Forse sì, forse no... 🔮"
 ];
 
 function apriMagicBall() {
@@ -507,5 +509,8 @@ function chiediAllaSfera() {
         textElement.innerHTML = risposteSfera[indiceCasuale];
         textElement.style.opacity = "1";
         ball.classList.remove("shake-ball");
-    }, 250);
+
+        // Esplosione di cuoricini all'apparire della risposta!
+        creaPioggiaDiCuoricini();
+    }, 1200);
 }
