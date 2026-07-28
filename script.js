@@ -104,9 +104,9 @@ function chiudiGalleria() {
     document.getElementById("galleria-schermo").style.display = "none";
 }
 
-function aggiornaCountdownAnniversario() {
+function aggiornaMiniCountdown() {
     const giornoAnniversario = 8;
-    const meseAnniversario = 4; // Maggio
+    const meseAnniversario = 4; // Maggio (0=Gennaio, 4=Maggio)
 
     const oraCorrente = new Date();
     let annoCorrente = oraCorrente.getFullYear();
@@ -120,18 +120,15 @@ function aggiornaCountdownAnniversario() {
     const differenza = prossimoAnniversario - oraCorrente;
 
     if (differenza <= 0) {
-        document.getElementById("timer").innerHTML = "Buon Anniversario Amore Mio! 🎉🩷";
+        document.getElementById("giorni-mancanti").innerHTML = "Oggi! 🎉";
         return;
     }
 
-    const giorni = Math.floor(differenza / (1000 * 60 * 60 * 24));
-    const ore = Math.floor((differenza % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minuti = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
-    const secondi = Math.floor((differenza % (1000 * 60)) / 1000);
+    // Calcola solo i giorni totali rimasti
+    const giorni = Math.ceil(differenza / (1000 * 60 * 60 * 24));
 
-    document.getElementById("timer").innerHTML = 
-        `${giorni} giorni, ${ore} ore, ${minuti} minuti e ${secondi} secondi`;
+    document.getElementById("giorni-mancanti").innerHTML = giorni;
 }
 
-setInterval(aggiornaCountdownAnniversario, 1000);
-aggiornaCountdownAnniversario();
+// Aggiorna all'avvio
+aggiornaMiniCountdown();
