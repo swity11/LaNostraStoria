@@ -18,8 +18,8 @@
 <body>
 
     <!-- === SCHERMATA DI BLOCCO STILE iPHONE === -->
-    <div id="lock-screen" style="display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative;">
-        <div class="lock-content" style="display: flex; flex-direction: column; align-items: center;">
+    <div id="lock-screen">
+        <div class="lock-content">
             <h2>Ciao amore mio🩷</h2>
             <p>Inserisci il codice per continuare</p>
 
@@ -50,7 +50,7 @@
             <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
         </div>
 
-        <!-- Scritta crediti posizionata in basso a sinistra nella schermata di blocco -->
+        <!-- Scritta crediti in basso a sinistra nel blocco -->
         <div class="app-credits">© App sviluppata da Pork</div>
     </div>
     <!-- ======================================== -->
@@ -69,7 +69,7 @@
     <div id="overlay-menu" onclick="chiudiMenu()"></div>
 
     <!-- Sidebar / Menu a scomparsa -->
-    <div id="sidebar-menu" style="position: relative;">
+    <div id="sidebar-menu">
         <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
         <h3 style="color: #d63384; margin-top: 40px; margin-left: 10px;">Menu 🩷</h3>
         
@@ -77,12 +77,12 @@
         <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
         <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
 
-        <!-- Scritta crediti nel menu a scomparsa -->
+        <!-- Scritta crediti nel menu -->
         <div class="app-credits">© App sviluppata da Pork</div>
     </div>
 
     <!-- Contenitore principale -->
-    <div class="container" style="position: relative;">
+    <div class="container">
         <h1>Per l'amore mio 🩷</h1>
         
         <div class="card">
