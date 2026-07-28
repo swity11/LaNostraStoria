@@ -1,4 +1,67 @@
-// --- SEZIONE TIMER ---
+// --- SEZIONE SCHERMATA DI BLOCCO ---
+const codiceSegreto = "080526"; // La vostra data 08/05/26
+let codiceInserito = "";
+
+// Se l'app è già stata sbloccata non chiediamo il codice ad ogni refresh della pagina
+if (sessionStorage.getItem("appSbloccata") === "vero") {
+    document.getElementById("lock-screen").style.display = "none";
+}
+
+function premiTasto(numero) {
+    if (codiceInserito.length < 6) {
+        codiceInserito += numero;
+        aggiornaPallini();
+
+        if (codiceInserito.length === 6) {
+            // Aspetta un istante per far vedere l'ultimo pallino colorato, poi controlla
+            setTimeout(controllaCodice, 200);
+        }
+    }
+}
+
+function cancellaTasto() {
+    if (codiceInserito.length > 0) {
+        codiceInserito = codiceInserito.slice(0, -1);
+        aggiornaPallini();
+    }
+}
+
+function aggiornaPallini() {
+    const pallini = document.querySelectorAll(".dot");
+    pallini.forEach((pallino, index) => {
+        if (index < codiceInserito.length) {
+            pallino.classList.add("pieno");
+        } else {
+            pallino.classList.remove("pieno");
+        }
+    });
+}
+
+function controllaCodice() {
+    if (codiceInserito === codiceSegreto) {
+        // Codice corretto! Effetto dissolvenza
+        const lockScreen = document.getElementById("lock-screen");
+        lockScreen.style.opacity = "0";
+        sessionStorage.setItem("appSbloccata", "vero"); // Memorizza lo sblocco per la sessione attuale
+        
+        setTimeout(() => {
+            lockScreen.style.display = "none";
+        }, 500);
+    } else {
+        // Codice errato: tremano i pallini (stile iPhone)
+        const contenitorePallini = document.querySelector(".dots-container");
+        contenitorePallini.classList.add("errore-shake");
+        
+        // Dopo l'animazione, svuota il codice
+        setTimeout(() => {
+            contenitorePallini.classList.remove("errore-shake");
+            codiceInserito = "";
+            aggiornaPallini();
+        }, 400);
+    }
+}
+
+
 const inizio = new Date("2026-05-08T00:00:00");
 
 function aggiornaContatore() {
