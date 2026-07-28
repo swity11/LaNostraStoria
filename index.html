@@ -1,206 +1,206 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>La nostra storia 🩷</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La nostra storia 🩷</title>
 
-    <!-- Meta tag per trasformarla in una vera App su iPhone e Android -->
-    <meta name="theme-color" content="#ffd1e3">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Noi 🩷">
+    <!-- Meta tag per trasformarla in una vera App su iPhone e Android -->
+    <meta name="theme-color" content="#ffd1e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Noi 🩷">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
 
-    <!-- === SCHERMATA DI BLOCCO STILE iPHONE === -->
-    <div id="lock-screen" style="display: flex;">
-        <div class="lock-content">
-            <h2>Ciao amore mio🩷</h2>
-            <p>Inserisci il codice per continuare</p>
+    <!-- === SCHERMATA DI BLOCCO STILE iPHONE === -->
+    <div id="lock-screen">
+        <div class="lock-content">
+            <h2>Ciao amore mio🩷</h2>
+            <p>Inserisci il codice per continuare</p>
 
-            <!-- Pallini del codice (6 cifre) -->
-            <div class="dots-container">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
+            <!-- Pallini del codice (6 cifre) -->
+            <div class="dots-container">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
 
-            <!-- Tastierino Numerico -->
-            <div class="keypad">
-                <button class="key-btn" onclick="premiTasto('1')">1</button>
-                <button class="key-btn" onclick="premiTasto('2')">2</button>
-                <button class="key-btn" onclick="premiTasto('3')">3</button>
-                <button class="key-btn" onclick="premiTasto('4')">4</button>
-                <button class="key-btn" onclick="premiTasto('5')">5</button>
-                <button class="key-btn" onclick="premiTasto('6')">6</button>
-                <button class="key-btn" onclick="premiTasto('7')">7</button>
-                <button class="key-btn" onclick="premiTasto('8')">8</button>
-                <button class="key-btn" onclick="premiTasto('9')">9</button>
-                <button class="key-btn invisibile"></button>
-                <button class="key-btn" onclick="premiTasto('0')">0</button>
-                <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
-            </div>
-        </div>
-    </div>
-    <!-- ======================================== -->
+            <!-- Tastierino Numerico -->
+            <div class="keypad">
+                <button class="key-btn" onclick="premiTasto('1')">1</button>
+                <button class="key-btn" onclick="premiTasto('2')">2</button>
+                <button class="key-btn" onclick="premiTasto('3')">3</button>
+                <button class="key-btn" onclick="premiTasto('4')">4</button>
+                <button class="key-btn" onclick="premiTasto('5')">5</button>
+                <button class="key-btn" onclick="premiTasto('6')">6</button>
+                <button class="key-btn" onclick="premiTasto('7')">7</button>
+                <button class="key-btn" onclick="premiTasto('8')">8</button>
+                <button class="key-btn" onclick="premiTasto('9')">9</button>
+                <button class="key-btn invisibile"></button>
+                <button class="key-btn" onclick="premiTasto('0')">0</button>
+                <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
+            </div>
+        </div>
+    </div>
+    <!-- ======================================== -->
 
-    <!-- Mini countdown in alto a sinistra -->
-    <div class="mini-countdown">
-        Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
-    </div>
+    <!-- Mini countdown in alto a sinistra -->
+    <div class="mini-countdown">
+        Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
+    </div>
 
-    <!-- Pulsante Menu Hamburger in alto a destra -->
-    <button class="btn-menu-top" onclick="apriMenu()">
-        ☰ <span id="badge-non-letti" class="badge-nascosto"></span>
-    </button>
+    <!-- Pulsante Menu Hamburger in alto a destra -->
+    <button class="btn-menu-top" onclick="apriMenu()">
+        ☰ <span id="badge-non-letti" class="badge-nascosto"></span>
+    </button>
 
-    <!-- Overlay scuro di sfondo -->
-    <div id="overlay-menu" onclick="chiudiMenu()"></div>
+    <!-- Overlay scuro di sfondo -->
+    <div id="overlay-menu" onclick="chiudiMenu()"></div>
 
-    <!-- Sidebar / Menu a scomparsa -->
-    <div id="sidebar-menu">
-        <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
-        <h3 style="color: #d63384; margin-top: 40px; margin-left: 10px;">Menu 🩷</h3>
-        
-        <!-- Voci del Menu -->
-        <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
-        <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
-    </div>
+    <!-- Sidebar / Menu a scomparsa -->
+    <div id="sidebar-menu">
+        <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
+        <h3 style="color: #d63384; margin-top: 40px; margin-left: 10px;">Menu 🩷</h3>
+        
+        <!-- Voci del Menu -->
+        <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
+        <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
+    </div>
 
-    <!-- Contenitore principale -->
-    <div class="container">
-        <h1>Per l'amore mio 🩷</h1>
-        
-        <div class="card">
-            <h2>⏳ Insieme da</h2>
-            <p id="counter">Caricamento...</p>
-        </div>
-        
-        <div class="card">
-            <h2>💌 Una lettera per te</h2>
-            <p>
-                Sei il mio posto felice, la persona con cui voglio
-                condividere risate, sogni e momenti semplici.
-                Grazie per essere nella mia vita. 🩷
-            </p>
-        </div>
+    <!-- Contenitore principale -->
+    <div class="container">
+        <h1>Per l'amore mio 🩷</h1>
+        
+        <div class="card">
+            <h2>⏳ Insieme da</h2>
+            <p id="counter">Caricamento...</p>
+        </div>
+        
+        <div class="card">
+            <h2>💌 Una lettera per te</h2>
+            <p>
+                Sei il mio posto felice, la persona con cui voglio
+                condividere risate, sogni e momenti semplici.
+                Grazie per essere nella mia vita. 🩷
+            </p>
+        </div>
 
-        <div class="card">
-            <h2>📸 I nostri ricordi</h2>
-            <p>Aggiungi qui tutte le nostre foto.</p>
-            
-            <div class="bottoni-ricordi">
-                <button class="btn-piccolo" onclick="scegliFoto()">➕ Aggiungi foto</button>
-                <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
-            </div>
-            
-            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
-        </div>
+        <div class="card">
+            <h2>📸 I nostri ricordi</h2>
+            <p>Aggiungi qui tutte le nostre foto.</p>
+            
+            <div class="bottoni-ricordi">
+                <button class="btn-piccolo" onclick="scegliFoto()">➕ Aggiungi foto</button>
+                <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
+            </div>
+            
+            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
+        </div>
 
-        <button onclick="apriBucketList()" style="margin-bottom: 15px;">
-            ✨ Cose da fare insieme
-        </button>
+        <button onclick="apriBucketList()" style="margin-bottom: 15px;">
+            ✨ Cose da fare insieme
+        </button>
 
-        <button onclick="sorpresa()">
-            🎁 Apri la sorpresa
-        </button>
+        <button onclick="sorpresa()">
+            🎁 Apri la sorpresa
+        </button>
 
-        <p id="secret"></p>
-    </div>
+        <p id="secret"></p>
+    </div>
 
-    <!-- SCHERMATA GALLERIA INTERA -->
-    <div id="galleria-schermo" class="schermo-intero">
-        <div class="galleria-header">
-            <h2>I nostri ricordi 🩷</h2>
-            <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
-        </div>
-        
-        <div id="griglia-foto" class="griglia-quadrata"></div>
+    <!-- SCHERMATA GALLERIA INTERA -->
+    <div id="galleria-schermo" class="schermo-intero">
+        <div class="galleria-header">
+            <h2>I nostri ricordi 🩷</h2>
+            <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
+        </div>
+        
+        <div id="griglia-foto" class="griglia-quadrata"></div>
 
-        <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
-            <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
-            <button class="btn-freccia btn-sinistra" onclick="cambiaFoto(-1)">❮</button>
-            <img id="immagine-grande" src="" alt="Foto ingrandita">
-            <button class="btn-freccia btn-destra" onclick="cambiaFoto(1)">❯</button>
-            <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
-        </div>
-    </div>
+        <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
+            <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
+            <button class="btn-freccia btn-sinistra" onclick="cambiaFoto(-1)">❮</button>
+            <img id="immagine-grande" src="" alt="Foto ingrandita">
+            <button class="btn-freccia btn-destra" onclick="cambiaFoto(1)">❯</button>
+            <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
+        </div>
+    </div>
 
-    <!-- SCHERMATA CHAT iMESSAGE STYLE -->
-    <div id="chat-schermo" class="schermo-intero">
-        <div class="chat-header">
-            <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
-            <div class="chat-utente">
-                <span class="avatar">🩷</span>
-                <h2>Amore Mio</h2>
-            </div>
-            <div style="width: 50px;"></div>
-        </div>
+    <!-- SCHERMATA CHAT iMESSAGE STYLE -->
+    <div id="chat-schermo" class="schermo-intero">
+        <div class="chat-header">
+            <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
+            <div class="chat-utente">
+                <span class="avatar">🩷</span>
+                <h2>Amore Mio</h2>
+            </div>
+            <div style="width: 50px;"></div>
+        </div>
 
-        <div id="lista-messaggi" class="area-messaggi"></div>
+        <div id="lista-messaggi" class="area-messaggi"></div>
 
-        <div class="chat-input-bar">
-            <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
-            <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
-        </div>
-    </div>
+        <div class="chat-input-bar">
+            <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
+            <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
+        </div>
+    </div>
 
-    <!-- SCHERMATA BUCKET LIST CONDIVISA -->
-    <div id="bucket-schermo" class="schermo-intero" style="display: none;">
-        <div class="galleria-header">
-            <h2>✨ Cose da fare insieme</h2>
-            <button class="btn-chiudi" onclick="chiudiBucketList()">❌ Chiudi</button>
-        </div>
-        
-        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; box-sizing: border-box;">
-            <div class="chat-input-bar" style="background: transparent; border: none; padding: 0 0 15px 0;">
-                <input type="text" id="input-bucket" placeholder="Nuovo sogno o viaggio da fare..." onkeypress="gestisciInvioBucket(event)">
-                <button id="btn-invia" onclick="aggiungiBucketItem()">+</button>
-            </div>
-            <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
-        </div>
-    </div> <!-- <-- QUESTO TAG MANCAVA E CHIUDEVA MALE IL BLOCCO -->
+    <!-- SCHERMATA BUCKET LIST CONDIVISA -->
+    <div id="bucket-schermo" class="schermo-intero" style="display: none;">
+        <div class="galleria-header">
+            <h2>✨ Cose da fare insieme</h2>
+            <button class="btn-chiudi" onclick="chiudiBucketList()">❌ Chiudi</button>
+        </div>
+        
+        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1; overflow: hidden; box-sizing: border-box;">
+            <div class="chat-input-bar" style="background: transparent; border: none; padding: 0 0 15px 0;">
+                <input type="text" id="input-bucket" placeholder="Nuovo sogno o viaggio da fare..." onkeypress="gestisciInvioBucket(event)">
+                <button id="btn-invia" onclick="aggiungiBucketItem()">+</button>
+            </div>
+            <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
+        </div>
+    </div>
 
-    <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
-    <div id="magic-schermo" class="schermo-intero" style="display: none;">
-        <div class="galleria-header">
-            <h2>🔮 Sfera dell'Amore</h2>
-            <button class="btn-chiudi" onclick="chiudiMagicBall()">❌ Chiudi</button>
-        </div>
-        
-        <div style="padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; box-sizing: border-box;">
-            <p style="margin-bottom: 30px; font-size: 16px; color: #555;">Fai una domanda ad alta voce, poi tocca la sfera per scoprire cosa dice il destino! ✨</p>
-            
-            <div id="magic-ball" class="magic-ball" onclick="chiediAllaSfera()">
-                <div class="magic-inner-window">
-                    <span id="magic-text">Tocca per la risposta 🩷</span>
-                </div>
-            </div>
-            
-            <button class="btn-piccolo" onclick="chiediAllaSfera()" style="margin-top: 40px; font-size: 16px; padding: 12px 30px; background: #d63384; color: white;">Chiedi alla sfera 🔮</button>
-        </div>
-    </div>
+    <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
+    <div id="magic-schermo" class="schermo-intero" style="display: none;">
+        <div class="galleria-header">
+            <h2>🔮 Sfera dell'Amore</h2>
+            <button class="btn-chiudi" onclick="chiudiMagicBall()">❌ Chiudi</button>
+        </div>
+        
+        <div style="padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; box-sizing: border-box;">
+            <p style="margin-bottom: 30px; font-size: 16px; color: #555;">Fai una domanda ad alta voce, poi tocca la sfera per scoprire cosa dice il destino! ✨</p>
+            
+            <div id="magic-ball" class="magic-ball" onclick="chiediAllaSfera()">
+                <div class="magic-inner-window">
+                    <span id="magic-text">Tocca per la risposta 🩷</span>
+                </div>
+            </div>
+            
+            <button class="btn-piccolo" onclick="chiediAllaSfera()" style="margin-top: 40px; font-size: 16px; padding: 12px 30px; background: #d63384; color: white;">Chiedi alla sfera 🔮</button>
+        </div>
+    </div>
 
-    <!-- SDK Firebase Compat -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <!-- SDK Firebase Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <!-- Il tuo script principale -->
-    <script src="script.js"></script>
+    <!-- Il tuo script principale -->
+    <script src="script.js"></script>
 
-    <!-- Registrazione Service Worker -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js");
-      }
-    </script>
+    <!-- Registrazione Service Worker -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
 </body>
 </html>
