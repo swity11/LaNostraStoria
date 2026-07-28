@@ -11,6 +11,18 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffd1e3, #ff9ebb, #d63384);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #4a4a4a;
+    position: relative; /* <-- Fondamentale per posizionare gli elementi negli angoli */
 }
 
 .container {
