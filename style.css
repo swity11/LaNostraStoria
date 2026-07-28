@@ -187,3 +187,70 @@ button:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     z-index: 10;
 }
+
+/* --- Stile Griglia Quadrata (tipo iPhone) --- */
+.griglia-quadrata {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonne fisse */
+    gap: 4px; /* Spazio piccolissimo tra le foto */
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.griglia-quadrata img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fondamentale: taglia l'immagine per mantenerla quadrata senza deformarla */
+    aspect-ratio: 1 / 1; /* Forza il quadrato perfetto */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.griglia-quadrata img:hover {
+    transform: scale(0.95); /* Piccolo effetto al passaggio mouse/dito */
+}
+
+/* --- Stile Visualizzatore Immagine Singola (con dissolvenza) --- */
+
+/* Contenitore scuro di fondo (inizialmente nascosto) */
+.visualizzatore-nascosto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Sfondo quasi nero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Sopra ogni cosa */
+    
+    /* ♥♥♥ Magia dell'animazione ♥♥♥ */
+    opacity: 0;             /* Invisibile di base */
+    visibility: hidden;     /* Non cliccabile né presente */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transizione fluida */
+}
+
+/* Classe che aggiungiamo col JS per mostrare l'immagine */
+.visualizzatore-nascosto.mostra {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* L'immagine ingrandita */
+#immagine-grande {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Mantiene le proporzioni originali della foto */
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    
+    /* Effetto "zoom in" leggero mentre appare */
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.visualizzatore-nascosto.mostra #immagine-grande {
+    transform: scale(1); /* Arriva alla dimensione normale */
+}
