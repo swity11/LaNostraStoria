@@ -448,7 +448,8 @@ button:hover {
 }
 
 /* --- PULSANTE MESSAGGI TOP RIGHT --- */
-.btn-messaggi-top {
+/* --- PULSANTE MENU HAMBURGER (Sostituisce btn-messaggi-top) --- */
+.btn-menu-top {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -458,12 +459,96 @@ button:hover {
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 6px 12px;
     border-radius: 20px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    color: #d63384;
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- MENU LATERALE A SCOMPARSA (SIDEBAR) --- */
+#sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -260px; /* Nascosto fuori dallo schermo a destra */
+    width: 250px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 10000; /* Sopra a tutto */
+    transition: right 0.3s ease; /* Animazione di scorrimento */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#sidebar-menu.aperto {
+    right: 0; /* Entra nello schermo */
+}
+
+/* Tasto per chiudere il menu (la X) */
+.btn-chiudi-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #d63384;
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0;
+}
+
+.btn-chiudi-menu:hover {
+    transform: scale(1.1);
+}
+
+/* Stile per i pulsanti dentro il menu */
+.menu-item {
+    background: transparent;
+    color: #444;
+    border: none;
+    text-align: left;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(214, 51, 132, 0.1);
+    border-radius: 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s, padding-left 0.2s;
+    box-shadow: none; /* Rimuove l'ombra dei pulsanti normali */
+}
+
+.menu-item:hover {
+    background: rgba(214, 51, 132, 0.05);
+    padding-left: 15px;
+    transform: none; /* Disattiva lo zoom al passaggio del mouse per le voci di menu */
+}
+
+/* Sfondo scuro semitrasparente dietro il menu */
+#overlay-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#overlay-menu.aperto {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* --- CHAT iMESSAGE STYLE --- */
