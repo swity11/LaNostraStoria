@@ -172,16 +172,18 @@ button:hover {
 }
 
 .mini-countdown {
+    position: absolute;
+    top: 15px;
+    left: 15px;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
     color: #8b0032;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    display: inline-block; /* Si adatta alla scritta */
-    margin-bottom: 15px;    /* Crea spazio perfetto prima del titolo */
+    z-index: 10;
 }
