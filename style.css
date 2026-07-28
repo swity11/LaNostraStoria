@@ -578,3 +578,49 @@ button:hover {
     align-items: center;
     cursor: pointer;
 }
+
+/* --- STILE BUCKET LIST --- */
+.bucket-item {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(214, 51, 132, 0.08);
+    transition: all 0.2s ease;
+}
+
+.bucket-item.completato span {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.bucket-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.bucket-info input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #d63384;
+    cursor: pointer;
+}
+
+.bucket-elimina {
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.bucket-elimina:hover {
+    transform: scale(1.2);
+}
