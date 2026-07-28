@@ -1,786 +1,766 @@
 * {
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #ffd1e3, #ff9ebb, #d63384);
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Mantiene il countdown fisso e centrato nei suoi riferimenti */
-    min-height: 100vh;
-    color: #4a4a4a;
-    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffd1e3, #ff9ebb, #d63384);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Mantiene il countdown fisso e centrato nei suoi riferimenti */
+    min-height: 100vh;
+    color: #4a4a4a;
+    position: relative;
 }
 
 .container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    box-sizing: border-box;
-    text-align: center;
-    margin-top: -40px; /* <-- Valore negativo o basso: più lo abbassi (es. -50px, -60px) più tutto il blocco centrale sale verso l'alto! */
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: -40px; /* <-- Valore negativo o basso: più lo abbassi (es. -50px, -60px) più tutto il blocco centrale sale verso l'alto! */
 }
 
 h1 {
-    color: #fff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 80px; /* <-- Questo spinge in giù solo il titolo, lasciando libero lo spazio in alto per il countdown */
-    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 80px; /* <-- Questo spinge in giù solo il titolo, lasciando libero lo spazio in alto per il countdown */
+    margin-bottom: 5px;
 }
 
 .subtitle {
-    color: #777;
-    font-size: 18px;
+    color: #777;
+    font-size: 18px;
 }
 
 .card {
-    background: rgba(255,255,255,0.85);
-    padding: 22px;
-    margin: 20px 0;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(214,51,132,0.15);
+    background: rgba(255,255,255,0.85);
+    padding: 22px;
+    margin: 20px 0;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(214,51,132,0.15);
 }
 
 h2 {
-    color: #d63384;
+    color: #d63384;
 }
 
 p {
-    color: #444;
-    line-height: 1.5;
+    color: #444;
+    line-height: 1.5;
 }
 
 #counter {
-    font-size: 22px;
-    font-weight: bold;
-    color: #d63384;
+    font-size: 22px;
+    font-weight: bold;
+    color: #d63384;
 }
 
 button {
-    border: none;
-    background: #d63384;
-    color: white;
-    padding: 16px 35px;
-    border-radius: 50px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.2s; 
+    border: none;
+    background: #d63384;
+    color: white;
+    padding: 16px 35px;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s; 
 }
 
 button:hover {
-    transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 #secret {
-    margin-top: 25px;
-    font-size: 22px;
-    color: #000000;
-    min-height: 60px;
+    margin-top: 25px;
+    font-size: 22px;
+    color: #000000;
+    min-height: 60px;
 }
 
 /* Animazione per le frasi a sorpresa */
 .fade-in {
-    animation: comparsa 0.5s ease-in-out;
+    animation: comparsa 0.5s ease-in-out;
 }
 
 @keyframes comparsa {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* -- STILE PER LA SEZIONE RICORDI E GALLERIA -- */
 .bottoni-ricordi {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
 }
 
 .btn-piccolo {
-    padding: 10px 15px;
-    font-size: 14px;
-    background: #ffb6c1;
-    color: #444;
-    font-weight: bold;
+    padding: 10px 15px;
+    font-size: 14px;
+    background: #ffb6c1;
+    color: #444;
+    font-weight: bold;
 }
 
 /* --- SCHERMATA INTERA GALLERIA --- */
 .schermo-intero {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ffd1e3, #fff0f7);
-    z-index: 1000;
-    flex-direction: column; /* Fondamentale: mette gli elementi uno sotto l'altro (Header sopra, griglia sotto) */
-    overflow: hidden; /* Blocca lo scroll generale, lo facciamo fare solo alla griglia */
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd1e3, #fff0f7);
+    z-index: 1000;
+    flex-direction: column; /* Fondamentale: mette gli elementi uno sotto l'altro (Header sopra, griglia sotto) */
+    overflow: hidden; /* Blocca lo scroll generale, lo facciamo fare solo alla griglia */
 }
 
 /* --- HEADER ORIZZONTALE IN ALTO --- */
 .galleria-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Occupa tutta la larghezza in orizzontale */
-    background: rgba(255, 255, 255, 0.85);
-    padding: 15px 20px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
-    flex-shrink: 0; /* Impedisce all'header di rimpicciolirsi */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Occupa tutta la larghezza in orizzontale */
+    background: rgba(255, 255, 255, 0.85);
+    padding: 15px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
+    flex-shrink: 0; /* Impedisce all'header di rimpicciolirsi */
 }
 
 .galleria-header h2 {
-    margin: 0;
-    font-size: 20px;
-    color: #d63384;
+    margin: 0;
+    font-size: 20px;
+    color: #d63384;
 }
 
 /* --- GRIGLIA A 5 COLONNE CON MINIATURE QUADRATE PERFETTE --- */
 .griglia-quadrata {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 foto per riga */
-    gap: 4px; 
-    padding: 10px;
-    box-sizing: border-box;
-    width: 100%;
-    flex-grow: 1; 
-    overflow-y: auto; 
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 foto per riga */
+    gap: 4px; 
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    flex-grow: 1; 
+    overflow-y: auto; 
 }
 
 /* Forziamo ogni singolo quadratino a mantenere proporzioni fisse e un'altezza/larghezza identica */
 .griglia-quadrata img {
-    width: 100% !important;
-    height: auto !important;           /* Lascia che l'altezza segua le proporzioni */
-    aspect-ratio: 1 / 1 !important;    /* Forza geometricamente il quadrato perfetto */
-    object-fit: cover !important;     /* Taglia l'immagine al centro senza deformarla */
-    cursor: pointer;
-    display: block;
-    transition: transform 0.2s ease;
-    border-radius: 2px;
+    width: 100% !important;
+    height: auto !important;           /* Lascia che l'altezza segua le proporzioni */
+    aspect-ratio: 1 / 1 !important;    /* Forza geometricamente il quadrato perfetto */
+    object-fit: cover !important;     /* Taglia l'immagine al centro senza deformarla */
+    cursor: pointer;
+    display: block;
+    transition: transform 0.2s ease;
+    border-radius: 2px;
 }
 
 .griglia-quadrata img:hover {
-    transform: scale(0.95);
+    transform: scale(0.95);
 }
 /* --- Stile Visualizzatore Immagine Singola (con dissolvenza) --- */
 
 /* Contenitore scuro di fondo (inizialmente nascosto) */
 .visualizzatore-nascosto {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95); /* Sfondo quasi nero */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Sopra ogni cosa */
-    
-    /* ♥♥♥ Magia dell'animazione ♥♥♥ */
-    opacity: 0;             /* Invisibile di base */
-    visibility: hidden;     /* Non cliccabile né presente */
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transizione fluida */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Sfondo quasi nero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Sopra ogni cosa */
+    
+    /* ♥♥♥ Magia dell'animazione ♥♥♥ */
+    opacity: 0;             /* Invisibile di base */
+    visibility: hidden;     /* Non cliccabile né presente */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transizione fluida */
 }
 
 /* Classe che aggiungiamo col JS per mostrare l'immagine */
 .visualizzatore-nascosto.mostra {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* L'immagine ingrandita */
 #immagine-grande {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain; /* Mantiene le proporzioni originali della foto */
-    border: 3px solid white;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    
-    /* Effetto "zoom in" leggero mentre appare */
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Mantiene le proporzioni originali della foto */
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    
+    /* Effetto "zoom in" leggero mentre appare */
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
 }
 
 .visualizzatore-nascosto.mostra #immagine-grande {
-    transform: scale(1); /* Arriva alla dimensione normale */
+    transform: scale(1); /* Arriva alla dimensione normale */
 }
 
 .mini-countdown {
-    position: absolute;
-    top: 15px;  /* Distanza dal bordo superiore dello schermo */
-    left: 15px; /* Distanza dal bordo sinistro dello schermo */
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #8b0032;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    z-index: 10;
+    position: absolute;
+    top: 15px;  /* Distanza dal bordo superiore dello schermo */
+    left: 15px; /* Distanza dal bordo sinistro dello schermo */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #8b0032;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    z-index: 10;
 }
 
 /* Stile per il pulsante cestino nel visualizzatore foto grande */
 .btn-elimina-foto {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 0, 0, 0.7);
-    color: white;
-    border: none;
-    font-size: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1010;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.2s ease, background 0.2s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 0, 0, 0.7);
+    color: white;
+    border: none;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .btn-elimina-foto:hover {
-    transform: scale(1.1);
-    background: rgba(255, 0, 0, 1);
+    transform: scale(1.1);
+    background: rgba(255, 0, 0, 1);
 }
 
 /* Pulsante per chiudere la foto grande in basso o a lato */
 .btn-chiudi-foto {
-    position: absolute;
-    bottom: 25px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1010;
-    transition: background 0.2s ease;
+    position: absolute;
+    bottom: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1010;
+    transition: background 0.2s ease;
 }
 
 .btn-chiudi-foto:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.4);
 }
 
 /* --- STILE PER LE FRECCE DI SCORRIMENTO LERALI --- */
 .btn-freccia {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    color: white;
-    border: none;
-    font-size: 24px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1010;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.2s ease, transform 0.2s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: white;
+    border: none;
+    font-size: 24px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .btn-freccia:hover {
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .btn-sinistra {
-    left: 15px;
+    left: 15px;
 }
 
 .btn-destra {
-    right: 15px;
+    right: 15px;
 }
 
 /* --- ANIMAZIONE CUORICINI VOLANTI --- */
 .cuoricino-volante {
-    position: fixed;
-    bottom: -50px;
-    z-index: 9999;
-    pointer-events: none; /* Per evitare di cliccarli per sbaglio */
-    animation: vola-su 3s linear forwards;
+    position: fixed;
+    bottom: -50px;
+    z-index: 9999;
+    pointer-events: none; /* Per evitare di cliccarli per sbaglio */
+    animation: vola-su 3s linear forwards;
 }
 
 @keyframes vola-su {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-120vh) rotate(360deg);
-        opacity: 0;
-    }
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 /* --- SCHERMATA DI BLOCCO STILE iPHONE --- */
 #lock-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ffd1e3, #d63384);
-    z-index: 99999; /* Copre assolutamente tutto */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd1e3, #d63384);
+    z-index: 99999; /* Copre assolutamente tutto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .lock-content {
-    text-align: center;
-    width: 100%;
-    max-width: 350px;
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
 }
 
 #lock-screen h2 {
-    color: white;
-    font-size: 22px;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: white;
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 #lock-screen p {
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 30px;
-    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+    font-size: 15px;
 }
 
 /* I 6 Pallini */
 .dots-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
 }
 
 .dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid white;
-    background-color: transparent;
-    transition: background-color 0.1s ease;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    transition: background-color 0.1s ease;
 }
 
 .dot.pieno {
-    background-color: white;
+    background-color: white;
 }
 
 /* Tastierino */
 .keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px 20px;
-    padding: 0 30px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px 20px;
+    padding: 0 30px;
 }
 
 .key-btn {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: white;
-    font-size: 32px;
-    font-weight: 300;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0;
-    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    font-size: 32px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    cursor: pointer;
 }
 
 .key-btn:active {
-    background: rgba(255, 255, 255, 0.5);
-    transform: scale(0.9);
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0.9);
 }
 
 .key-btn.btn-cancella {
-    font-size: 24px;
-    font-weight: bold;
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    font-size: 24px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .key-btn.invisibile {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Animazione di errore (Tremolio) */
 .errore-shake {
-    animation: tremolio 0.4s ease-in-out;
+    animation: tremolio 0.4s ease-in-out;
 }
 
 @keyframes tremolio {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-15px); }
-    40%, 80% { transform: translateX(15px); }
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-15px); }
+    40%, 80% { transform: translateX(15px); }
 }
 
 /* --- PULSANTE MESSAGGI TOP RIGHT --- */
 /* --- PULSANTE MENU HAMBURGER (Sostituisce btn-messaggi-top) --- */
 .btn-menu-top {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 1.2rem;
-    color: #d63384;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    color: #d63384;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* --- MENU LATERALE A SCOMPARSA (SIDEBAR) --- */
 #sidebar-menu {
-    position: fixed;
-    top: 0;
-    right: -260px; /* Nascosto fuori dallo schermo a destra */
-    width: 250px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    z-index: 10000; /* Sopra a tutto */
-    transition: right 0.3s ease; /* Animazione di scorrimento */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    right: -260px; /* Nascosto fuori dallo schermo a destra */
+    width: 250px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 10000; /* Sopra a tutto */
+    transition: right 0.3s ease; /* Animazione di scorrimento */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #sidebar-menu.aperto {
-    right: 0; /* Entra nello schermo */
+    right: 0; /* Entra nello schermo */
 }
 
 /* Tasto per chiudere il menu (la X) */
 .btn-chiudi-menu {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #d63384;
-    cursor: pointer;
-    box-shadow: none;
-    padding: 0;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #d63384;
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0;
 }
 
 .btn-chiudi-menu:hover {
-    transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 /* Stile per i pulsanti dentro il menu */
 .menu-item {
-    background: transparent;
-    color: #444;
-    border: none;
-    text-align: left;
-    padding: 15px 10px;
-    font-size: 16px;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(214, 51, 132, 0.1);
-    border-radius: 0;
-    width: 100%;
-    cursor: pointer;
-    transition: background 0.2s, padding-left 0.2s;
-    box-shadow: none; /* Rimuove l'ombra dei pulsanti normali */
+    background: transparent;
+    color: #444;
+    border: none;
+    text-align: left;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(214, 51, 132, 0.1);
+    border-radius: 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s, padding-left 0.2s;
+    box-shadow: none; /* Rimuove l'ombra dei pulsanti normali */
 }
 
 .menu-item:hover {
-    background: rgba(214, 51, 132, 0.05);
-    padding-left: 15px;
-    transform: none; /* Disattiva lo zoom al passaggio del mouse per le voci di menu */
+    background: rgba(214, 51, 132, 0.05);
+    padding-left: 15px;
+    transform: none; /* Disattiva lo zoom al passaggio del mouse per le voci di menu */
 }
 
 /* Sfondo scuro semitrasparente dietro il menu */
 #overlay-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 #overlay-menu.aperto {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 /* --- CHAT iMESSAGE STYLE --- */
 .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 10px 15px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .btn-indietro {
-    background: none;
-    border: none;
-    color: #007aff; /* Blu iMessage */
-    font-size: 16px;
-    padding: 0;
-    cursor: pointer;
+    background: none;
+    border: none;
+    color: #007aff; /* Blu iMessage */
+    font-size: 16px;
+    padding: 0;
+    cursor: pointer;
 }
 
 .chat-utente {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .chat-utente .avatar {
-    font-size: 20px;
+    font-size: 20px;
 }
 
 .chat-utente h2 {
-    font-size: 14px;
-    margin: 2px 0 0 0;
-    color: #333;
+    font-size: 14px;
+    margin: 2px 0 0 0;
+    color: #333;
 }
 
 .area-messaggi {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: #fff;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #fff;
 }
 
 /* Bolle del messaggio */
 .messaggio {
-    max-width: 75%;
-    padding: 10px 15px;
-    border-radius: 18px;
-    font-size: 15px;
-    line-height: 1.4;
-    word-wrap: break-word;
-    position: relative;
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
 }
 
 .messaggio.inviato {
-    align-self: flex-end;
-    background: #007aff; /* Blu Apple */
-    color: white;
-    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+    background: #007aff; /* Blu Apple */
+    color: white;
+    border-bottom-right-radius: 4px;
 }
 
 .messaggio.ricevuto {
-    align-self: flex-start;
-    background: #e9e9eb; /* Grigio Apple */
-    color: black;
-    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+    background: #e9e9eb; /* Grigio Apple */
+    color: black;
+    border-bottom-left-radius: 4px;
 }
 
 .ora-messaggio {
-    font-size: 10px;
-    opacity: 0.7;
-    margin-top: 4px;
-    text-align: right;
+    font-size: 10px;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
 }
 
 /* Input Bar */
 .chat-input-bar {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    background: #f6f6f6;
-    gap: 10px;
-    border-top: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f6f6f6;
+    gap: 10px;
+    border-top: 1px solid #e5e5e5;
 }
 
 .chat-input-bar input {
-    flex-grow: 1;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-    border-radius: 20px;
-    outline: none;
-    font-size: 15px;
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
 }
 
 #btn-invia {
-    background: #007aff;
-    color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: none;
-    padding: 0;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    background: #007aff;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* --- STILE BUCKET LIST --- */
 .bucket-item {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 12px 15px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 4px 10px rgba(214, 51, 132, 0.08);
-    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(214, 51, 132, 0.08);
+    transition: all 0.2s ease;
 }
 
 .bucket-item.completato span {
-    text-decoration: line-through;
-    opacity: 0.5;
+    text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .bucket-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex-grow: 1;
 }
 
 .bucket-info input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: #d63384;
-    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    accent-color: #d63384;
+    cursor: pointer;
 }
 
 .bucket-elimina {
-    background: none;
-    border: none;
-    color: #ff4d4d;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 5px;
-    transition: transform 0.2s;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: transform 0.2s;
 }
 
 .bucket-elimina:hover {
-    transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 /* --- STILE PALLA DELLA FORTUNA (MAGIC 8-BALL) --- */
 .magic-ball {
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle at 30% 30%, #ff9ebb, #d63384 70%, #8b0032);
-    border-radius: 50%;
-    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.4), inset -10px -10px 20px rgba(0,0,0,0.3), inset 10px 10px 20px rgba(255,255,255,0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    position: relative;
-    margin: 0 auto;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at 30% 30%, #ff9ebb, #d63384 70%, #8b0032);
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.4), inset -10px -10px 20px rgba(0,0,0,0.3), inset 10px 10px 20px rgba(255,255,255,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    margin: 0 auto;
 }
 
 .magic-ball:active {
-    transform: scale(0.95);
+    transform: scale(0.95);
 }
 
 .magic-inner-window {
-    width: 110px;
-    height: 110px;
-    background: #111;
-    border-radius: 50%;
-    border: 4px solid #333;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    text-align: center;
+    width: 110px;
+    height: 110px;
+    background: #111;
+    border-radius: 50%;
+    border: 4px solid #333;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
 }
 
 #magic-text {
-    color: #fff;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 1.2;
-    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.2;
+    transition: opacity 0.3s ease;
 }
 
 /* Animazione di scuotimento della sfera */
 .shake-ball {
-    animation: scuotiSfera 0.5s ease-in-out;
+    animation: scuotiSfera 0.5s ease-in-out;
 }
 
 @keyframes scuotiSfera {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    20% { transform: rotate(-10deg) scale(1.05); }
-    40% { transform: rotate(10deg) scale(0.95); }
-    60% { transform: rotate(-10deg) scale(1.05); }
-    80% { transform: rotate(10deg) scale(1); }
-}
-
-.app-credits {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    color: rgba(150, 150, 150, 0.6); /* Grigio semi-trasparente */
-    font-size: 11px;
-    pointer-events: none; /* Evita che interferisca con i tocchi */
-    z-index: 5;
-}
-
-.lock-content {
-    text-align: center;
-    width: 100%;
-    max-width: 350px;
-    display: flex;               /* Attende il flexbox */
-    flex-direction: column;      /* <-- METTE GLI ELEMENTI UNO SOTTO L'ALTRO */
-    align-items: center;         /* <-- LI CENTRA PERFETTAMENTE */
-    gap: 20px;                   /* Spazio verticale tra la scritta e il tastierino */
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(-10deg) scale(1.05); }
+    40% { transform: rotate(10deg) scale(0.95); }
+    60% { transform: rotate(-10deg) scale(1.05); }
+    80% { transform: rotate(10deg) scale(1); }
 }
