@@ -82,26 +82,49 @@ function salvaFoto(event) {
 }
 
 function apriGalleria() {
-    document.getElementById("galleria-schermo").style.display = "block";
+    document.getElementById("galleria-schermo").style.display = "flex";
     const griglia = document.getElementById("griglia-foto");
     
     griglia.innerHTML = "";
     let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
     
     if (fotoSalvate.length === 0) {
-        griglia.innerHTML = "<p style='grid-column: 1 / -1; color: #777;'>Ancora nessuna foto salvata. Aggiungine una! ✨</p>";
+        griglia.innerHTML = "<p style='grid-column: 1 / -1; color: white; text-align: center;'>Ancora nessuna foto salvata. Aggiungine una! ✨</p>";
         return;
     }
     
     fotoSalvate.forEach(fotoBase64 => {
         const img = document.createElement("img");
         img.src = fotoBase64;
+        
+        // Collega l'apertura della foto grande con la dissolvenza
+        img.onclick = function() {
+            apriFotoGrande(fotoBase64);
+        };
+        
         griglia.appendChild(img);
     });
 }
 
 function chiudiGalleria() {
     document.getElementById("galleria-schermo").style.display = "none";
+    chiudiFotoGrande(); // Chiude anche l'eventuale foto ingrandita
+}
+
+// Funzioni per la gestione della foto singola ingrandita con dissolvenza
+function apriFotoGrande(url) {
+    const visualizzatore = document.getElementById("visualizzatore-singolo");
+    const imgGrande = document.getElementById("immagine-grande");
+    
+    imgGrande.src = url;
+    visualizzatore.classList.add("mostra");
+}
+
+function chiudiFotoGrande() {
+    const visualizzatore = document.getElementById("visualizzatore-singolo");
+    if (visualizzatore) {
+        visualizzatore.classList.remove("mostra");
+    }
 }
 
 function aggiornaMiniCountdown() {
