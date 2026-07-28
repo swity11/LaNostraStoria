@@ -105,17 +105,14 @@ function chiudiGalleria() {
 }
 
 function aggiornaCountdownAnniversario() {
-    // 1. INSERISCI QUI IL VOSTRO GIORNO E MESE DI ANNIVERSARIO
-    const giornoAnniversario = 8; // Esempio: 15
-    const meseAnniversario = 4;    // Esempio: Maggio (NOTA: i mesi vanno da 0 a 11, quindi Gennaio = 0, Febbraio = 1, ..., Maggio = 4, Giugno = 5, ecc.)
+    const giornoAnniversario = 8;
+    const meseAnniversario = 4; // Maggio
 
     const oraCorrente = new Date();
     let annoCorrente = oraCorrente.getFullYear();
 
-    // Crea la data dell'anniversario per quest'anno
     let prossimoAnniversario = new Date(annoCorrente, meseAnniversario, giornoAnniversario);
 
-    // Se la data di quest'anniversario è già passata, punta all'anno prossimo
     if (oraCorrente > prossimoAnniversario) {
         prossimoAnniversario.setFullYear(annoCorrente + 1);
     }
@@ -127,17 +124,14 @@ function aggiornaCountdownAnniversario() {
         return;
     }
 
-    // Calcoli matematici per giorni, ore, minuti e secondi
     const giorni = Math.floor(differenza / (1000 * 60 * 60 * 24));
     const ore = Math.floor((differenza % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minuti = Math.floor((differenza % (1000 * 60 * 60)) / (1000 * 60));
     const secondi = Math.floor((differenza % (1000 * 60)) / 1000);
 
-    // Mostra il risultato nella pagina
     document.getElementById("timer").innerHTML = 
         `${giorni} giorni, ${ore} ore, ${minuti} minuti e ${secondi} secondi`;
 }
 
-// Aggiorna il timer ogni secondo
 setInterval(aggiornaCountdownAnniversario, 1000);
 aggiornaCountdownAnniversario();
