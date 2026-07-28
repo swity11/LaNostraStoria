@@ -382,3 +382,67 @@ if (visualizzatore) {
         if (touchEndX > touchStartX + 50) cambiaFoto(-1);
     });
 }
+
+// === 7. BUCKET LIST CONDIVISA ===
+function apriBucketList() {
+    document.getElementById("bucket-schermo").style.display = "flex";
+    caricaBucketList();
+}
+
+function chiudiBucketList() {
+    document.getElementById("bucket-schermo").style.display = "none";
+}
+
+function aggiungiBucketItem() {
+    const input = document.getElementById("input-bucket");
+    const testo = input.value.trim();
+    if (testo === "") return;
+
+    const nuovoSogno = {
+        testo: testo,
+        completato: false
+    };
+
+    database.ref("bucket_list").push(nuovoSogno);
+    input.value = "";
+}
+
+function gestisciInvioBucket(e) {
+    if (e.key === "Enter") aggiungiBucketItem();
+}
+
+function caricaBucketList() {
+    const lista = document.getElementById("lista-bucket");
+    database.ref("bucket_list").on("value", (snapshot) => {
+        lista.innerHTML = "";
+        const dati = snapshot.val();
+        
+        if (dati) {
+            Object.entries(dati).forEach(([id, item]) => {
+                const div = document.createElement("div");
+                div.className = `bucket-item ${item.completato ? 'completato' : ''}`;
+                
+                div.innerHTML = `
+                    <div class="bucket-info" onclick="toggleBucketItem('${id}', ${item.completato})">
+                        <input type="checkbox" ${item.completato ? 'checked' : ''} style="pointer-events: none;">
+                        <span>${item.testo}</span>
+                    </div>
+                    <button class="bucket-elimina" onclick="eliminaBucketItem('${id}')">🗑️</button>
+                `;
+                lista.appendChild(div);
+            });
+        } else {
+            lista.innerHTML = "<p style='text-align:center; color:#777; margin-top:20px;'>Nessun sogno aggiunto ancora. Scrivi il primo! 🩷</p>";
+        }
+    });
+}
+
+function toggleBucketItem(id, statoAttuale) {
+    database.ref("bucket_list/" + id).update({
+        completato: !statoAttuale
+    });
+}
+
+function eliminaBucketItem(id) {
+    database.ref("bucket_list/" + id).remove();
+}
