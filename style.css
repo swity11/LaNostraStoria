@@ -23,7 +23,7 @@ body {
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    margin-top: -65px; /* <-- Valore negativo o basso: più lo abbassi (es. -50px, -60px) più tutto il blocco centrale sale verso l'alto! */
+    margin-top: -45px; /* <-- Valore negativo o basso: più lo abbassi (es. -50px, -60px) più tutto il blocco centrale sale verso l'alto! */
 }
 
 h1 {
