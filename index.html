@@ -44,7 +44,7 @@
                 <button class="key-btn" onclick="premiTasto('7')">7</button>
                 <button class="key-btn" onclick="premiTasto('8')">8</button>
                 <button class="key-btn" onclick="premiTasto('9')">9</button>
-                <button class="key-btn invisibile"></button> <!-- Spazio per allineare lo zero -->
+                <button class="key-btn invisibile"></button>
                 <button class="key-btn" onclick="premiTasto('0')">0</button>
                 <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
             </div>
@@ -57,13 +57,12 @@
         Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
     </div>
 
-    <!-- Pulsante Messaggi in alto a destra -->
-<!-- Pulsante Menu Hamburger in alto a destra -->
+    <!-- Pulsante Menu Hamburger in alto a destra -->
     <button class="btn-menu-top" onclick="apriMenu()">
         ☰ <span id="badge-non-letti" class="badge-nascosto"></span>
     </button>
 
-    <!-- Overlay scuro di sfondo (cliccandolo si chiude il menu) -->
+    <!-- Overlay scuro di sfondo -->
     <div id="overlay-menu" onclick="chiudiMenu()"></div>
 
     <!-- Sidebar / Menu a scomparsa -->
@@ -74,7 +73,6 @@
         <!-- Voci del Menu -->
         <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
         <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
-        <!-- Qui in futuro potrai aggiungere altre voci! -->
     </div>
 
     <!-- Contenitore principale -->
@@ -104,11 +102,9 @@
                 <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
             </div>
             
-            <!-- Input invisibile per scegliere le foto -->
             <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
         </div>
 
-        <!-- Nuovo pulsante Bucket List -->
         <button onclick="apriBucketList()" style="margin-bottom: 15px;">
             ✨ Cose da fare insieme
         </button>
@@ -122,29 +118,23 @@
 
     <!-- SCHERMATA GALLERIA INTERA -->
     <div id="galleria-schermo" class="schermo-intero">
-        
         <div class="galleria-header">
             <h2>I nostri ricordi 🩷</h2>
             <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
         </div>
         
-        <!-- Griglia foto quadrate -->
         <div id="griglia-foto" class="griglia-quadrata"></div>
 
-        <!-- Visualizzatore foto ingrandita con frecce -->
         <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
             <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
-            
             <button class="btn-freccia btn-sinistra" onclick="cambiaFoto(-1)">❮</button>
             <img id="immagine-grande" src="" alt="Foto ingrandita">
             <button class="btn-freccia btn-destra" onclick="cambiaFoto(1)">❯</button>
-            
             <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
         </div>
     </div>
 
-    <!-- === SCHERMATA CHAT iMESSAGE STYLE === -->
-<!-- === SCHERMATA CHAT iMESSAGE STYLE === -->
+    <!-- SCHERMATA CHAT iMESSAGE STYLE -->
     <div id="chat-schermo" class="schermo-intero">
         <div class="chat-header">
             <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
@@ -152,20 +142,18 @@
                 <span class="avatar">🩷</span>
                 <h2>Amore Mio</h2>
             </div>
-            <div style="width: 50px;"></div> <!-- Spaziatore per centrare il titolo -->
+            <div style="width: 50px;"></div>
         </div>
 
-        <!-- Lista dei messaggi -->
         <div id="lista-messaggi" class="area-messaggi"></div>
 
-        <!-- Barra di invio messaggio -->
         <div class="chat-input-bar">
             <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
             <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
         </div>
     </div>
 
-    <!-- SCHERMATA BUCKET LIST CONDIVISA (Ora è fuori dalla chat, corretta!) -->
+    <!-- SCHERMATA BUCKET LIST CONDIVISA -->
     <div id="bucket-schermo" class="schermo-intero" style="display: none;">
         <div class="galleria-header">
             <h2>✨ Cose da fare insieme</h2>
@@ -179,8 +167,9 @@
             </div>
             <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
         </div>
+    </div> <!-- <-- QUESTO TAG MANCAVA E CHIUDEVA MALE IL BLOCCO -->
 
-        <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
+    <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
     <div id="magic-schermo" class="schermo-intero" style="display: none;">
         <div class="galleria-header">
             <h2>🔮 Palla dell'Amore</h2>
@@ -190,7 +179,6 @@
         <div style="padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; box-sizing: border-box;">
             <p style="margin-bottom: 30px; font-size: 16px; color: #555;">Fai una domanda ad alta voce, poi tocca la sfera per scoprire cosa dice il destino! ✨</p>
             
-            <!-- La Sfera Magica -->
             <div id="magic-ball" class="magic-ball" onclick="chiediAllaSfera()">
                 <div class="magic-inner-window">
                     <span id="magic-text">Tocca per la risposta 🩷</span>
