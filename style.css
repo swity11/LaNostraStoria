@@ -12,17 +12,18 @@ body {
     align-items: center;
     overflow-x: hidden;
 
+   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #ffd1e3, #ff9ebb, #d63384);
     background-attachment: fixed;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    box-sizing: border-box;
     color: #4a4a4a;
-    position: relative; /* <-- Fondamentale per posizionare gli elementi negli angoli */
 }
 
 .container {
@@ -178,18 +179,16 @@ button:hover {
 }
 
 .mini-countdown {
-   position: absolute;
-    top: 15px;
-    left: 15px;
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
     color: #8b0032;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    z-index: 10;
+    display: inline-block; /* Si adatta alla scritta */
+    margin-bottom: 15px;    /* Crea spazio perfetto prima del titolo */
 }
