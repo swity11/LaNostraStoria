@@ -187,15 +187,3 @@ button:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     z-index: 10;
 }
-
-.footer-crediti {
-    position: absolute;
-    bottom: 15px;  /* Distanza dal bordo inferiore dello schermo */
-    right: 15px;   /* Distanza dal bordo destro dello schermo */
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.7); /* Un bianco semi-trasparente elegante */
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    z-index: 10;
-    pointer-events: none; /* Evita che interferisca con eventuali tocchi sullo schermo */
-}
