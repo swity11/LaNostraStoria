@@ -81,27 +81,27 @@ function salvaFoto(event) {
     reader.readAsDataURL(file);
 }
 
-// --- MODIFICA QUESTA FUNZIONE ESISTENTE ---
+// Variabile globale per ricordarci quale foto stiamo visualizzando in grande
+let fotoCorrenteUrl = null;
+
+// --- MODIFICA APRI GALLERIA ---
 function apriGalleria() {
     document.getElementById("galleria-schermo").style.display = "flex";
     const griglia = document.getElementById("griglia-foto");
     griglia.innerHTML = ""; // Pulisci la griglia prima di caricarla
 
-    // Recupera le foto salvate usando la chiave corretta "fotoAmore"
     let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
 
     if (fotoSalvate.length === 0) {
-        griglia.innerHTML = "<p style='color:white; grid-column: 1/-1; text-align:center;'>Non hai ancora aggiunto foto.</p>";
+        griglia.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Non hai ancora aggiunto foto.</p>";
         return;
     }
 
-    // Crea i quadratini
     fotoSalvate.forEach((dataUrl, index) => {
         const img = document.createElement("img");
         img.src = dataUrl;
         img.alt = "Ricordo di coppia " + (index + 1);
         
-        // Evento click per ingrandire la foto con dissolvenza
         img.onclick = function() {
             apriFotoGrande(dataUrl);
         };
@@ -109,27 +109,51 @@ function apriGalleria() {
         griglia.appendChild(img);
     });
 }
-// --- FUNZIONI AGGIUNTIVE PER GESTIRE L'IMMAGINE SINGOLA ---
 
-// 1. Mostra l'immagine grande con dissolvenza
+// --- VISUALIZZATORE FOTO GRANDE ---
 function apriFotoGrande(url) {
+    fotoCorrenteUrl = url; // Memorizza l'URL della foto aperta
     const visualizzatore = document.getElementById("visualizzatore-singolo");
     const imgGrande = document.getElementById("immagine-grande");
     
-    imgGrande.src = url; // Imposta l'immagine
-    visualizzatore.classList.add("mostra"); // ♥♥♥ Attiva la classe CSS per la dissolvenza ♥♥♥
+    imgGrande.src = url;
+    visualizzatore.classList.add("mostra");
 }
 
-// 2. Chiudi l'immagine grande con dissolvenza
 function chiudiFotoGrande() {
     const visualizzatore = document.getElementById("visualizzatore-singolo");
-    visualizzatore.classList.remove("mostra"); // ♥♥♥ Rimuove la classe per nasconderla ♥♥♥
+    visualizzatore.classList.remove("mostra");
+    fotoCorrenteUrl = null;
 }
 
-// Modifica la funzione chiudiGalleria per assicurarsi che il visualizzatore sia chiuso
 function chiudiGalleria() {
     document.getElementById("galleria-schermo").style.display = "none";
-    chiudiFotoGrande(); // Chiudi anche l'eventuale foto ingrandita
+    chiudiFotoGrande();
+}
+
+// --- NUOVA FUNZIONE: CHIEDI CONFERMA ED ELIMINA ---
+function chiediConfermaEliminazione() {
+    if (!fotoCorrenteUrl) return;
+
+    // Mostra il popup di conferma del browser
+    let conferma = confirm("Vuoi davvero eliminare questa foto dai ricordi? 🥺");
+    
+    if (conferma) {
+        // Recupera le foto salvate
+        let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
+        
+        // Filtra via la foto corrente
+        let fotoAggiornate = fotoSalvate.filter(url => url !== fotoCorrenteUrl);
+        
+        // Salva di nuovo nel localStorage
+        localStorage.setItem("fotoAmore", JSON.stringify(fotoAggiornate));
+        
+        // Chiudi il visualizzatore e ricarica la galleria per aggiornare la griglia
+        chiudiFotoGrande();
+        apriGalleria();
+        
+        alert("Foto eliminata con successo. 🗑️");
+    }
 }
 
 function aggiornaMiniCountdown() {
