@@ -73,6 +73,7 @@
         
         <!-- Voci del Menu -->
         <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
+        <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
         <!-- Qui in futuro potrai aggiungere altre voci! -->
     </div>
 
@@ -177,6 +178,26 @@
                 <button id="btn-invia" onclick="aggiungiBucketItem()">+</button>
             </div>
             <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
+        </div>
+
+        <!-- SCHERMATA PALLA DELL'AMORE (MAGIC 8-BALL) -->
+    <div id="magic-schermo" class="schermo-intero" style="display: none;">
+        <div class="galleria-header">
+            <h2>🔮 Palla dell'Amore</h2>
+            <button class="btn-chiudi" onclick="chiudiMagicBall()">❌ Chiudi</button>
+        </div>
+        
+        <div style="padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; text-align: center; box-sizing: border-box;">
+            <p style="margin-bottom: 30px; font-size: 16px; color: #555;">Fai una domanda ad alta voce, poi tocca la sfera per scoprire cosa dice il destino! ✨</p>
+            
+            <!-- La Sfera Magica -->
+            <div id="magic-ball" class="magic-ball" onclick="chiediAllaSfera()">
+                <div class="magic-inner-window">
+                    <span id="magic-text">Tocca per la risposta 🩷</span>
+                </div>
+            </div>
+            
+            <button class="btn-piccolo" onclick="chiediAllaSfera()" style="margin-top: 40px; font-size: 16px; padding: 12px 30px; background: #d63384; color: white;">Chiedi alla sfera 🔮</button>
         </div>
     </div>
 
