@@ -18,7 +18,7 @@ setInterval(aggiornaContatore, 1000);
 aggiornaContatore();
 
 
-// --- SEZIONE SORPRESA (Frasi casuali) ---
+// --- SEZIONE SORPRESA (Frasi e Cuoricini) ---
 const frasiAmore = [
     "Sei il mio primo pensiero al mattino e l'ultimo prima di dormire. 🩷",
     "Amore mio, ogni istante con te è pura magia. 🩷",
@@ -51,11 +51,31 @@ function sorpresa() {
     secretElement.classList.remove("fade-in");
     void secretElement.offsetWidth; 
     secretElement.classList.add("fade-in");
+
+    // Lancia l'animazione dei cuoricini!
+    creaPioggiaDiCuoricini();
+}
+
+function creaPioggiaDiCuoricini() {
+    for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+            const cuore = document.createElement("div");
+            cuore.innerHTML = "🩷";
+            cuore.className = "cuoricino-volante";
+            cuore.style.left = Math.random() * 100 + "vw"; // Posizione orizzontale casuale
+            cuore.style.fontSize = (Math.random() * 20 + 15) + "px"; // Grandezza casuale
+            document.body.appendChild(cuore);
+
+            // Rimuove il cuoricino dopo che l'animazione è finita per non appesantire l'app
+            setTimeout(() => {
+                cuore.remove();
+            }, 3000);
+        }, i * 100); // Li fa apparire uno alla volta sfalsati
+    }
 }
 
 
-// --- SEZIONE GALLERIA FOTO ---
-
+// --- SEZIONE COMPRESSIONE E SALVATAGGIO FOTO ---
 function scegliFoto() {
     document.getElementById("fileInput").click();
 }
@@ -66,26 +86,48 @@ function salvaFoto(event) {
 
     const reader = new FileReader();
     reader.onload = function(e) {
-        const fotoDataUrl = e.target.result; 
-        
-        let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-        fotoSalvate.push(fotoDataUrl);
-        
-        try {
-            localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
-            alert("Foto aggiunta ai nostri ricordi! 🩷");
-        } catch (errore) {
-            alert("Oops! Memoria del browser piena. Prova a usare foto più leggere.");
-        }
+        // Creiamo un'immagine temporanea in memoria
+        const img = new Image();
+        img.onload = function() {
+            // Creiamo un "foglio da disegno" virtuale (canvas) per rimpicciolire la foto
+            const canvas = document.createElement("canvas");
+            const MAX_WIDTH = 800; // Larghezza massima ottimizzata per smartphone
+            let width = img.width;
+            let height = img.height;
+
+            // Calcoliamo le nuove proporzioni
+            if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Trasformiamo l'immagine compressa in testo (qualità JPEG all'80%)
+            const fotoCompressaDataUrl = canvas.toDataURL("image/jpeg", 0.8);
+
+            // Salviamo la foto super-leggera
+            let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
+            fotoSalvate.push(fotoCompressaDataUrl);
+            
+            try {
+                localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
+                alert("Foto aggiunta ai nostri ricordi! 🩷");
+            } catch (errore) {
+                alert("Oops! La memoria del browser è ancora piena.");
+            }
+        };
+        img.src = e.target.result;
     };
     reader.readAsDataURL(file);
 }
 
-// Variabile globale per ricordarci quale foto stiamo visualizzando in grande
-// Variabile globale per ricordarci l'INDICE (il numero) della foto che stiamo guardando
+// --- SEZIONE GALLERIA FOTO E SCORRIMENTO ---
 let indiceFotoCorrente = null;
 
-// --- APRI GALLERIA (con salvataggio dell'indice) ---
 function apriGalleria() {
     document.getElementById("galleria-schermo").style.display = "flex";
     const griglia = document.getElementById("griglia-foto");
@@ -106,9 +148,8 @@ function apriGalleria() {
         img.src = dataUrl;
         img.alt = "Ricordo di coppia " + (index + 1);
         
-        // Passiamo l'indice esatto (index) della foto quando viene cliccata
         img.onclick = function() {
-            apriFotoGrande(dataUrl, index);
+            apriFotoGrande(index);
         };
         
         wrapper.appendChild(img);
@@ -116,19 +157,35 @@ function apriGalleria() {
     });
 }
 
-// --- VISUALIZZATORE FOTO GRANDE ---
-function apriFotoGrande(url, index) {
-    indiceFotoCorrente = index; // Memorizza l'esatta posizione della foto nella memoria
-    const visualizzatore = document.getElementById("visualizzatore-singolo");
+// --- VISUALIZZATORE CON SCORRIMENTO FRECCE ---
+function apriFotoGrande(index) {
+    indiceFotoCorrente = index; 
+    aggiornaImmagineGrande();
+    document.getElementById("visualizzatore-singolo").classList.add("mostra");
+}
+
+function aggiornaImmagineGrande() {
+    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
+    if (fotoSalvate.length === 0) return;
+
+    // Se andiamo oltre l'ultima foto, torniamo alla prima (e viceversa)
+    if (indiceFotoCorrente < 0) {
+        indiceFotoCorrente = fotoSalvate.length - 1;
+    } else if (indiceFotoCorrente >= fotoSalvate.length) {
+        indiceFotoCorrente = 0;
+    }
+
     const imgGrande = document.getElementById("immagine-grande");
-    
-    imgGrande.src = url;
-    visualizzatore.classList.add("mostra");
+    imgGrande.src = fotoSalvate[indiceFotoCorrente];
+}
+
+function cambiaFoto(direzione) {
+    indiceFotoCorrente += direzione;
+    aggiornaImmagineGrande();
 }
 
 function chiudiFotoGrande() {
-    const visualizzatore = document.getElementById("visualizzatore-singolo");
-    visualizzatore.classList.remove("mostra");
+    document.getElementById("visualizzatore-singolo").classList.remove("mostra");
     indiceFotoCorrente = null;
 }
 
@@ -137,29 +194,47 @@ function chiudiGalleria() {
     chiudiFotoGrande();
 }
 
-// --- ELIMINAZIONE BASATA SULL'INDICE (Impossibile che le elimini tutte) ---
-function chiediConfermaEliminazione() {
-    if (indiceFotoCorrente === null || indiceFotoCorrente === undefined) return;
+// --- GESTIONE DELLO SWIPE (Scorrimento col dito) ---
+let touchStartX = 0;
+let touchEndX = 0;
 
+const visualizzatore = document.getElementById("visualizzatore-singolo");
+
+visualizzatore.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+visualizzatore.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    gestisciSwipe();
+});
+
+function gestisciSwipe() {
+    const sogliaDiScorrimento = 50; // Quanti pixel devi trascinare il dito
+    if (touchEndX < touchStartX - sogliaDiScorrimento) {
+        cambiaFoto(1); // Swipe verso sinistra -> foto successiva
+    }
+    if (touchEndX > touchStartX + sogliaDiScorrimento) {
+        cambiaFoto(-1); // Swipe verso destra -> foto precedente
+    }
+}
+
+// --- ELIMINAZIONE ---
+function chiediConfermaEliminazione() {
+    if (indiceFotoCorrente === null) return;
     let conferma = confirm("Vuoi davvero eliminare questa foto dai ricordi? 🥺");
     
     if (conferma) {
         let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-        
-        // Rimuove esattamente ed unicamente l'elemento che si trova in quella posizione
         fotoSalvate.splice(indiceFotoCorrente, 1);
-        
-        // Salva la lista aggiornata
         localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
         
-        // Chiudi il visualizzatore e ricarica la galleria
         chiudiFotoGrande();
         apriGalleria();
-        
-        alert("Foto eliminata con successo. 🗑️");
     }
 }
 
+// --- MINI COUNTDOWN ---
 function aggiornaMiniCountdown() {
     const giornoAnniversario = 8;
     const meseAnniversario = 4; // Maggio (0=Gennaio, 4=Maggio)
@@ -180,11 +255,8 @@ function aggiornaMiniCountdown() {
         return;
     }
 
-    // Calcola solo i giorni totali rimasti
     const giorni = Math.ceil(differenza / (1000 * 60 * 60 * 24));
-
     document.getElementById("giorni-mancanti").innerHTML = giorni;
 }
 
-// Aggiorna all'avvio
 aggiornaMiniCountdown();
