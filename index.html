@@ -67,10 +67,16 @@
     </div>
 
     <!-- *NUOVO* Visualizzatore immagine singola (per lo zoom e dissolvenza) -->
-    <div id="visualizzatore-singolo" class="visualizzatore-nascosto" onclick="chiudiFotoGrande()">
+<!-- *NUOVO* Visualizzatore immagine singola (per lo zoom, dissolvenza ed eliminazione) -->
+    <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
+        <!-- Pulsante Cestino in alto a destra -->
+        <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
+        
         <img id="immagine-grande" src="" alt="Foto ingrandita">
+        
+        <!-- Pulsante per chiudere l'immagine grande (cliccando fuori o qui) -->
+        <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
     </div>
-</div>
 
     <script src="script.js"></script>
     <script>
