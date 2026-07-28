@@ -36,8 +36,10 @@ body {
 }
 
 h1 {
-    color: #d63384;
-    font-size: 34px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 80px; /* <-- Questo spinge in giù solo il titolo, lasciando libero lo spazio in alto per il countdown */
+    margin-bottom: 5px;
 }
 
 .subtitle {
