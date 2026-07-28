@@ -53,16 +53,24 @@
         <p id="secret"></p>
     </div>
 
-    <!-- SCHERMATA GALLERIA (Invisibile finché non viene cliccata) -->
-    <div id="galleria-schermo" class="schermo-intero">
-        <div class="galleria-header">
-            <h2>I nostri ricordi 🩷</h2>
-            <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
-        </div>
-        <div id="griglia-foto" class="griglia">
-            <!-- Le foto appariranno qui -->
-        </div>
+<div id="galleria-schermo" class="schermo-intero">
+    
+    <!-- Header della galleria -->
+    <div class="galleria-header">
+        <h2>I nostri ricordi 🩷</h2>
+        <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
     </div>
+    
+    <!-- Griglia delle miniature (stile iPhone) -->
+    <div id="griglia-foto" class="griglia-quadrata">
+        <!-- Le foto quadrate appariranno qui dinamicamente via JS -->
+    </div>
+
+    <!-- *NUOVO* Visualizzatore immagine singola (per lo zoom e dissolvenza) -->
+    <div id="visualizzatore-singolo" class="visualizzatore-nascosto" onclick="chiudiFotoGrande()">
+        <img id="immagine-grande" src="" alt="Foto ingrandita">
+    </div>
+</div>
 
     <script src="script.js"></script>
     <script>
