@@ -1,11 +1,27 @@
-// --- SEZIONE SCHERMATA DI BLOCCO ---
-const codiceSegreto = "080526"; // La vostra data 08/05/26
-let codiceInserito = "";
+// === 1. CONFIGURAZIONE E INIZIALIZZAZIONE FIREBASE ===
+const firebaseConfig = {
+    apiKey: "AIzaSyDdhoHC6hhXl8rshWvxbTWT8hMkoa82pl4",
+    authDomain: "amoremio-43a39.firebaseapp.com",
+    databaseURL: "https://amoremio-43a39-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "amoremio-43a39",
+    storageBucket: "amoremio-43a39.firebasestorage.app",
+    messagingSenderId: "948222176917",
+    appId: "1:948222176917:web:881c34a38da68ffc9d759c",
+    measurementId: "G-2186W8C114"
+};
 
-// Se l'app è già stata sbloccata non chiediamo il codice ad ogni refresh della pagina
-if (sessionStorage.getItem("appSbloccata") === "vero") {
-    document.getElementById("lock-screen").style.display = "none";
-}
+// Inizializza Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// Distingue chi invia il messaggio
+// Nota: Sul tuo telefono lascialo così ("io"). Sul telefono della tua ragazza cambialo in "amore"!
+let mioID = "io"; 
+
+
+// === 2. SCHERMATA DI BLOCCO ===
+const codiceSegreto = "080526"; // La vostra data speciale
+let codiceInserito = "";
 
 function premiTasto(numero) {
     if (codiceInserito.length < 6) {
@@ -13,7 +29,6 @@ function premiTasto(numero) {
         aggiornaPallini();
 
         if (codiceInserito.length === 6) {
-            // Aspetta un istante per far vedere l'ultimo pallino colorato, poi controlla
             setTimeout(controllaCodice, 200);
         }
     }
@@ -39,20 +54,19 @@ function aggiornaPallini() {
 
 function controllaCodice() {
     if (codiceInserito === codiceSegreto) {
-        // Codice corretto! Effetto dissolvenza
         const lockScreen = document.getElementById("lock-screen");
         lockScreen.style.opacity = "0";
-        sessionStorage.setItem("appSbloccata", "vero"); // Memorizza lo sblocco per la sessione attuale
         
         setTimeout(() => {
             lockScreen.style.display = "none";
+            codiceInserito = "";
+            aggiornaPallini();
+            lockScreen.style.opacity = "1";
         }, 500);
     } else {
-        // Codice errato: tremano i pallini (stile iPhone)
         const contenitorePallini = document.querySelector(".dots-container");
         contenitorePallini.classList.add("errore-shake");
         
-        // Dopo l'animazione, svuota il codice
         setTimeout(() => {
             contenitorePallini.classList.remove("errore-shake");
             codiceInserito = "";
@@ -62,6 +76,7 @@ function controllaCodice() {
 }
 
 
+// === 3. SEZIONE TIMER & COUNTDOWN ===
 const inizio = new Date("2026-05-08T00:00:00");
 
 function aggiornaContatore() {
@@ -73,15 +88,100 @@ function aggiornaContatore() {
     const minuti = Math.floor((differenza / (1000 * 60)) % 60);
     const secondi = Math.floor((differenza / 1000) % 60);
 
-    document.getElementById("counter").innerHTML =
-    `${giorni} giorni, ${ore} ore, ${minuti} minuti e ${secondi} secondi 🩷`;
+    const el = document.getElementById("counter");
+    if(el) {
+        el.innerHTML = `${giorni} giorni, ${ore} ore, ${minuti} minuti e ${secondi} secondi 🩷`;
+    }
 }
-
 setInterval(aggiornaContatore, 1000);
 aggiornaContatore();
 
+function aggiornaMiniCountdown() {
+    const giornoAnniversario = 8;
+    const meseAnniversario = 4; // Maggio (0=Gennaio)
 
-// --- SEZIONE SORPRESA (Frasi e Cuoricini) ---
+    const oraCorrente = new Date();
+    let annoCorrente = oraCorrente.getFullYear();
+
+    let prossimoAnniversario = new Date(annoCorrente, meseAnniversario, giornoAnniversario);
+
+    if (oraCorrente > prossimoAnniversario) {
+        prossimoAnniversario.setFullYear(annoCorrente + 1);
+    }
+
+    const differenza = prossimoAnniversario - oraCorrente;
+    const el = document.getElementById("giorni-mancanti");
+
+    if (el) {
+        if (differenza <= 0) {
+            el.innerHTML = "Oggi! 🎉";
+        } else {
+            const giorni = Math.ceil(differenza / (1000 * 60 * 60 * 24));
+            el.innerHTML = giorni;
+        }
+    }
+}
+aggiornaMiniCountdown();
+
+
+// === 4. CHAT DI COPPIA IN TEMPO REALE ===
+function apriChat() {
+    document.getElementById("chat-schermo").style.display = "flex";
+    caricaMessaggi();
+}
+
+function chiudiChat() {
+    document.getElementById("chat-schermo").style.display = "none";
+}
+
+function inviaMessaggio() {
+    const input = document.getElementById("input-messaggio");
+    const testo = input.value.trim();
+
+    if (testo === "") return;
+
+    const nuovoMessaggio = {
+        mittente: mioID,
+        testo: testo,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+
+    database.ref("chat_coppia").push(nuovoMessaggio);
+    input.value = "";
+}
+
+function gestisciInvioInvio(e) {
+    if (e.key === "Enter") inviaMessaggio();
+}
+
+function caricaMessaggi() {
+    const lista = document.getElementById("lista-messaggi");
+
+    database.ref("chat_coppia").on("value", (snapshot) => {
+        lista.innerHTML = "";
+        const dati = snapshot.val();
+
+        if (dati) {
+            Object.values(dati).forEach(msg => {
+                const div = document.createElement("div");
+                const classeMittente = (msg.mittente === mioID) ? "inviato" : "ricevuto";
+                div.className = `messaggio ${classeMittente}`;
+                
+                div.innerHTML = `
+                    <div>${msg.testo}</div>
+                    <div class="ora-messaggio">${msg.timestamp}</div>
+                `;
+                
+                lista.appendChild(div);
+            });
+
+            lista.scrollTop = lista.scrollHeight;
+        }
+    });
+}
+
+
+// === 5. SEZIONE SORPRESA (Frasi e Cuoricini) ===
 const frasiAmore = [
     "Sei il mio primo pensiero al mattino e l'ultimo prima di dormire. 🩷",
     "Amore mio, ogni istante con te è pura magia. 🩷",
@@ -115,7 +215,6 @@ function sorpresa() {
     void secretElement.offsetWidth; 
     secretElement.classList.add("fade-in");
 
-    // Lancia l'animazione dei cuoricini!
     creaPioggiaDiCuoricini();
 }
 
@@ -125,20 +224,21 @@ function creaPioggiaDiCuoricini() {
             const cuore = document.createElement("div");
             cuore.innerHTML = "🩷";
             cuore.className = "cuoricino-volante";
-            cuore.style.left = Math.random() * 100 + "vw"; // Posizione orizzontale casuale
-            cuore.style.fontSize = (Math.random() * 20 + 15) + "px"; // Grandezza casuale
+            cuore.style.left = Math.random() * 100 + "vw";
+            cuore.style.fontSize = (Math.random() * 20 + 15) + "px";
             document.body.appendChild(cuore);
 
-            // Rimuove il cuoricino dopo che l'animazione è finita per non appesantire l'app
             setTimeout(() => {
                 cuore.remove();
             }, 3000);
-        }, i * 100); // Li fa apparire uno alla volta sfalsati
+        }, i * 100);
     }
 }
 
 
-// --- SEZIONE COMPRESSIONE E SALVATAGGIO FOTO ---
+// === 6. GALLERIA RICORDI ===
+let indiceFotoCorrente = null;
+
 function scegliFoto() {
     document.getElementById("fileInput").click();
 }
@@ -149,16 +249,13 @@ function salvaFoto(event) {
 
     const reader = new FileReader();
     reader.onload = function(e) {
-        // Creiamo un'immagine temporanea in memoria
         const img = new Image();
         img.onload = function() {
-            // Creiamo un "foglio da disegno" virtuale (canvas) per rimpicciolire la foto
             const canvas = document.createElement("canvas");
-            const MAX_WIDTH = 800; // Larghezza massima ottimizzata per smartphone
+            const MAX_WIDTH = 800;
             let width = img.width;
             let height = img.height;
 
-            // Calcoliamo le nuove proporzioni
             if (width > MAX_WIDTH) {
                 height *= MAX_WIDTH / width;
                 width = MAX_WIDTH;
@@ -169,10 +266,8 @@ function salvaFoto(event) {
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
 
-            // Trasformiamo l'immagine compressa in testo (qualità JPEG all'80%)
             const fotoCompressaDataUrl = canvas.toDataURL("image/jpeg", 0.8);
 
-            // Salviamo la foto super-leggera
             let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
             fotoSalvate.push(fotoCompressaDataUrl);
             
@@ -180,16 +275,13 @@ function salvaFoto(event) {
                 localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
                 alert("Foto aggiunta ai nostri ricordi! 🩷");
             } catch (errore) {
-                alert("Oops! La memoria del browser è ancora piena.");
+                alert("Oops! Memoria piena.");
             }
         };
         img.src = e.target.result;
     };
     reader.readAsDataURL(file);
 }
-
-// --- SEZIONE GALLERIA FOTO E SCORRIMENTO ---
-let indiceFotoCorrente = null;
 
 function apriGalleria() {
     document.getElementById("galleria-schermo").style.display = "flex";
@@ -220,7 +312,6 @@ function apriGalleria() {
     });
 }
 
-// --- VISUALIZZATORE CON SCORRIMENTO FRECCE ---
 function apriFotoGrande(index) {
     indiceFotoCorrente = index; 
     aggiornaImmagineGrande();
@@ -231,7 +322,6 @@ function aggiornaImmagineGrande() {
     let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
     if (fotoSalvate.length === 0) return;
 
-    // Se andiamo oltre l'ultima foto, torniamo alla prima (e viceversa)
     if (indiceFotoCorrente < 0) {
         indiceFotoCorrente = fotoSalvate.length - 1;
     } else if (indiceFotoCorrente >= fotoSalvate.length) {
@@ -242,7 +332,12 @@ function aggiornaImmagineGrande() {
     imgGrande.src = fotoSalvate[indiceFotoCorrente];
 }
 
-function cambiaFoto(direzione) {
+function cambiaFoto(direzione, evento) {
+    if (evento) evento.stopPropagation();
+    
+    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
+    if (fotoSalvate.length <= 1) return;
+
     indiceFotoCorrente += direzione;
     aggiornaImmagineGrande();
 }
@@ -257,32 +352,6 @@ function chiudiGalleria() {
     chiudiFotoGrande();
 }
 
-// --- GESTIONE DELLO SWIPE (Scorrimento col dito) ---
-let touchStartX = 0;
-let touchEndX = 0;
-
-const visualizzatore = document.getElementById("visualizzatore-singolo");
-
-visualizzatore.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-});
-
-visualizzatore.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    gestisciSwipe();
-});
-
-function gestisciSwipe() {
-    const sogliaDiScorrimento = 50; // Quanti pixel devi trascinare il dito
-    if (touchEndX < touchStartX - sogliaDiScorrimento) {
-        cambiaFoto(1); // Swipe verso sinistra -> foto successiva
-    }
-    if (touchEndX > touchStartX + sogliaDiScorrimento) {
-        cambiaFoto(-1); // Swipe verso destra -> foto precedente
-    }
-}
-
-// --- ELIMINAZIONE ---
 function chiediConfermaEliminazione() {
     if (indiceFotoCorrente === null) return;
     let conferma = confirm("Vuoi davvero eliminare questa foto dai ricordi? 🥺");
@@ -297,29 +366,19 @@ function chiediConfermaEliminazione() {
     }
 }
 
-// --- MINI COUNTDOWN ---
-function aggiornaMiniCountdown() {
-    const giornoAnniversario = 8;
-    const meseAnniversario = 4; // Maggio (0=Gennaio, 4=Maggio)
+// Scorrimento touch (Swipe)
+let touchStartX = 0;
+let touchEndX = 0;
 
-    const oraCorrente = new Date();
-    let annoCorrente = oraCorrente.getFullYear();
+const visualizzatore = document.getElementById("visualizzatore-singolo");
+if (visualizzatore) {
+    visualizzatore.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
 
-    let prossimoAnniversario = new Date(annoCorrente, meseAnniversario, giornoAnniversario);
-
-    if (oraCorrente > prossimoAnniversario) {
-        prossimoAnniversario.setFullYear(annoCorrente + 1);
-    }
-
-    const differenza = prossimoAnniversario - oraCorrente;
-
-    if (differenza <= 0) {
-        document.getElementById("giorni-mancanti").innerHTML = "Oggi! 🎉";
-        return;
-    }
-
-    const giorni = Math.ceil(differenza / (1000 * 60 * 60 * 24));
-    document.getElementById("giorni-mancanti").innerHTML = giorni;
+    visualizzatore.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchEndX < touchStartX - 50) cambiaFoto(1);
+        if (touchEndX > touchStartX + 50) cambiaFoto(-1);
+    });
 }
-
-aggiornaMiniCountdown();
