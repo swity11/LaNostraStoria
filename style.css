@@ -709,3 +709,58 @@ button:hover {
 .bucket-elimina:hover {
     transform: scale(1.2);
 }
+
+/* --- STILE PALLA DELLA FORTUNA (MAGIC 8-BALL) --- */
+.magic-ball {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at 30% 30%, #ff9ebb, #d63384 70%, #8b0032);
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.4), inset -10px -10px 20px rgba(0,0,0,0.3), inset 10px 10px 20px rgba(255,255,255,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    margin: 0 auto;
+}
+
+.magic-ball:active {
+    transform: scale(0.95);
+}
+
+.magic-inner-window {
+    width: 110px;
+    height: 110px;
+    background: #111;
+    border-radius: 50%;
+    border: 4px solid #333;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
+}
+
+#magic-text {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.2;
+    transition: opacity 0.3s ease;
+}
+
+/* Animazione di scuotimento della sfera */
+.shake-ball {
+    animation: scuotiSfera 0.5s ease-in-out;
+}
+
+@keyframes scuotiSfera {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(-10deg) scale(1.05); }
+    40% { transform: rotate(10deg) scale(0.95); }
+    60% { transform: rotate(-10deg) scale(1.05); }
+    80% { transform: rotate(10deg) scale(1); }
+}
