@@ -162,3 +162,23 @@ button:hover {
 .griglia img:hover {
     transform: scale(1.05);
 }
+
+.countdown-box {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    color: #d63384;
+}
+
+#timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
