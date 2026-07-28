@@ -1,614 +1,766 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body {
-    background-color: #fff0f5;
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffd1e3, #ff9ebb, #d63384);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Mantiene il countdown fisso e centrato nei suoi riferimenti */
+    min-height: 100vh;
+    color: #4a4a4a;
+    position: relative;
 }
 
-/* Schermata di blocco */
-#lock-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: opacity 0.5s ease;
-}
-
-.lock-content {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    width: 90%;
-    max-width: 350px;
-}
-
-.lock-content h2 {
-    color: #d63384;
-    margin-bottom: 10px;
-}
-
-.lock-content p {
-    color: #666;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.dots-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.dot {
-    width: 15px;
-    height: 15px;
-    border: 2px solid #d63384;
-    border-radius: 50%;
-    transition: background 0.2s;
-}
-
-.dot.pieno {
-    background-color: #d63384;
-}
-
-.keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-
-.key-btn {
-    background: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 65px;
-    height: 65px;
-    font-size: 24px;
-    color: #d63384;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    transition: background 0.2s, transform 0.1s;
-}
-
-.key-btn:active {
-    background: #ffd1e3;
-    transform: scale(0.95);
-}
-
-.key-btn.invisibile {
-    background: transparent;
-    box-shadow: none;
-    cursor: default;
-}
-
-.btn-cancella {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Shake animation per errore codice */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-10px); }
-    40%, 80% { transform: translateX(10px); }
-}
-
-.errore-shake {
-    animation: shake 0.4s ease;
-}
-
-/* Mini countdown e menu in alto */
-.mini-countdown {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: #fff;
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 13px;
-    color: #d63384;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    font-weight: 600;
-}
-
-.btn-menu-top {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #fff;
-    border: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    font-size: 18px;
-    color: #d63384;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.badge-nascosto {
-    display: none;
-}
-
-/* Sidebar Menu */
-#overlay-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    z-index: 999;
-}
-
-#overlay-menu.aperto {
-    display: block;
-}
-
-#sidebar-menu {
-    position: fixed;
-    top: 0;
-    right: -280px;
-    width: 280px;
-    height: 100%;
-    background: #fff;
-    z-index: 1000;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    transition: right 0.3s ease;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-#sidebar-menu.aperto {
-    right: 0;
-}
-
-.btn-chiudi-menu {
-    align-self: flex-end;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.menu-item {
-    background: #fff0f5;
-    border: none;
-    padding: 12px 15px;
-    border-radius: 10px;
-    text-align: left;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.menu-item:hover {
-    background: #ffd1e3;
-}
-
-/* Contenitore principale */
 .container {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding-bottom: 30px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: -40px; /* <-- Valore negativo o basso: più lo abbassi (es. -50px, -60px) più tutto il blocco centrale sale verso l'alto! */
 }
 
 h1 {
-    text-align: center;
-    color: #d63384;
-    margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-top: 80px; /* <-- Questo spinge in giù solo il titolo, lasciando libero lo spazio in alto per il countdown */
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    color: #777;
+    font-size: 18px;
 }
 
 .card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.85);
+    padding: 22px;
+    margin: 20px 0;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(214,51,132,0.15);
 }
 
-.card h2 {
-    color: #d63384;
-    font-size: 18px;
-    margin-bottom: 10px;
+h2 {
+    color: #d63384;
 }
 
-.card p {
-    color: #555;
-    line-height: 1.5;
+p {
+    color: #444;
+    line-height: 1.5;
 }
 
-.bottoni-ricordi {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+#counter {
+    font-size: 22px;
+    font-weight: bold;
+    color: #d63384;
 }
 
-.btn-piccolo {
-    background: #ffd1e3;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    color: #d63384;
-    font-weight: 600;
-    cursor: pointer;
-    flex: 1;
-    transition: background 0.2s;
+button {
+    border: none;
+    background: #d63384;
+    color: white;
+    padding: 16px 35px;
+    border-radius: 50px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s; 
 }
 
-.btn-piccolo:hover {
-    background: #ffb6c1;
-}
-
-button[onclick="apriBucketList()"], button[onclick="sorpresa()"] {
-    background: #d63384;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 15px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.3);
-    transition: transform 0.1s, background 0.2s;
-}
-
-button[onclick="apriBucketList()"]:active, button[onclick="sorpresa()"]:active {
-    transform: scale(0.98);
+button:hover {
+    transform: scale(1.05);
 }
 
 #secret {
-    text-align: center;
-    color: #d63384;
-    font-weight: 600;
-    font-size: 16px;
-    min-height: 24px;
+    margin-top: 25px;
+    font-size: 22px;
+    color: #000000;
+    min-height: 60px;
 }
 
-/* Schermi interi (Galleria, Chat, Bucket, Magic Ball) */
+/* Animazione per le frasi a sorpresa */
+.fade-in {
+    animation: comparsa 0.5s ease-in-out;
+}
+
+@keyframes comparsa {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -- STILE PER LA SEZIONE RICORDI E GALLERIA -- */
+.bottoni-ricordi {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-piccolo {
+    padding: 10px 15px;
+    font-size: 14px;
+    background: #ffb6c1;
+    color: #444;
+    font-weight: bold;
+}
+
+/* --- SCHERMATA INTERA GALLERIA --- */
 .schermo-intero {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 2000;
-    display: none;
-    flex-direction: column;
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd1e3, #fff0f7);
+    z-index: 1000;
+    flex-direction: column; /* Fondamentale: mette gli elementi uno sotto l'altro (Header sopra, griglia sotto) */
+    overflow: hidden; /* Blocca lo scroll generale, lo facciamo fare solo alla griglia */
 }
 
-.galleria-header, .chat-header {
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    background: #fff;
+/* --- HEADER ORIZZONTALE IN ALTO --- */
+.galleria-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Occupa tutta la larghezza in orizzontale */
+    background: rgba(255, 255, 255, 0.85);
+    padding: 15px 20px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.1);
+    flex-shrink: 0; /* Impedisce all'header di rimpicciolirsi */
 }
 
-.galleria-header h2, .chat-header h2 {
-    color: #d63384;
-    font-size: 18px;
+.galleria-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #d63384;
 }
 
-.btn-chiudi, .btn-indietro {
-    background: none;
-    border: none;
-    color: #d63384;
-    font-weight: 600;
-    font-size: 15px;
-    cursor: pointer;
-}
-
-/* Galleria */
+/* --- GRIGLIA A 5 COLONNE CON MINIATURE QUADRATE PERFETTE --- */
 .griglia-quadrata {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    padding: 5px;
-    overflow-y: auto;
-    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 foto per riga */
+    gap: 4px; 
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    flex-grow: 1; 
+    overflow-y: auto; 
 }
 
-.img-wrapper {
-    aspect-ratio: 1;
-    overflow: hidden;
-    background: #eee;
-    border-radius: 5px;
-    cursor: pointer;
+/* Forziamo ogni singolo quadratino a mantenere proporzioni fisse e un'altezza/larghezza identica */
+.griglia-quadrata img {
+    width: 100% !important;
+    height: auto !important;           /* Lascia che l'altezza segua le proporzioni */
+    aspect-ratio: 1 / 1 !important;    /* Forza geometricamente il quadrato perfetto */
+    object-fit: cover !important;     /* Taglia l'immagine al centro senza deformarla */
+    cursor: pointer;
+    display: block;
+    transition: transform 0.2s ease;
+    border-radius: 2px;
 }
 
-.img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.2s;
+.griglia-quadrata img:hover {
+    transform: scale(0.95);
+}
+/* --- Stile Visualizzatore Immagine Singola (con dissolvenza) --- */
+
+/* Contenitore scuro di fondo (inizialmente nascosto) */
+.visualizzatore-nascosto {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95); /* Sfondo quasi nero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Sopra ogni cosa */
+    
+    /* ♥♥♥ Magia dell'animazione ♥♥♥ */
+    opacity: 0;             /* Invisibile di base */
+    visibility: hidden;     /* Non cliccabile né presente */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transizione fluida */
 }
 
-.img-wrapper img:hover {
-    transform: scale(1.05);
+/* Classe che aggiungiamo col JS per mostrare l'immagine */
+.visualizzatore-nascosto.mostra {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Visualizzatore singola foto */
-#visualizzatore-singolo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.9);
-    z-index: 3000;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-#visualizzatore-singolo.mostra {
-    display: flex;
-}
-
+/* L'immagine ingrandita */
 #immagine-grande {
-    max-width: 90%;
-    max-height: 80%;
-    object-fit: contain;
-    border-radius: 10px;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain; /* Mantiene le proporzioni originali della foto */
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    
+    /* Effetto "zoom in" leggero mentre appare */
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
 }
 
-.btn-freccia {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.2);
-    border: none;
-    color: white;
-    font-size: 24px;
-    padding: 15px 10px;
-    cursor: pointer;
-    border-radius: 5px;
+.visualizzatore-nascosto.mostra #immagine-grande {
+    transform: scale(1); /* Arriva alla dimensione normale */
 }
 
-.btn-sinistra { left: 10px; }
-.btn-destra { right: 10px; }
+.mini-countdown {
+    position: absolute;
+    top: 15px;  /* Distanza dal bordo superiore dello schermo */
+    left: 15px; /* Distanza dal bordo sinistro dello schermo */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #8b0032;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+}
 
+/* Stile per il pulsante cestino nel visualizzatore foto grande */
 .btn-elimina-foto {
-    position: absolute;
-    top: 20px;
-    right: 70px;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 0, 0, 0.7);
+    color: white;
+    border: none;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
+.btn-elimina-foto:hover {
+    transform: scale(1.1);
+    background: rgba(255, 0, 0, 1);
+}
+
+/* Pulsante per chiudere la foto grande in basso o a lato */
 .btn-chiudi-foto {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
+    position: absolute;
+    bottom: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1010;
+    transition: background 0.2s ease;
 }
 
-/* Chat */
+.btn-chiudi-foto:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* --- STILE PER LE FRECCE DI SCORRIMENTO LERALI --- */
+.btn-freccia {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: white;
+    border: none;
+    font-size: 24px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-freccia:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.btn-sinistra {
+    left: 15px;
+}
+
+.btn-destra {
+    right: 15px;
+}
+
+/* --- ANIMAZIONE CUORICINI VOLANTI --- */
+.cuoricino-volante {
+    position: fixed;
+    bottom: -50px;
+    z-index: 9999;
+    pointer-events: none; /* Per evitare di cliccarli per sbaglio */
+    animation: vola-su 3s linear forwards;
+}
+
+@keyframes vola-su {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* --- SCHERMATA DI BLOCCO STILE iPHONE --- */
+#lock-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd1e3, #d63384);
+    z-index: 99999; /* Copre assolutamente tutto */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.lock-content {
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+}
+
+#lock-screen h2 {
+    color: white;
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#lock-screen p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+/* I 6 Pallini */
+.dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+}
+
+.dot.pieno {
+    background-color: white;
+}
+
+/* Tastierino */
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px 20px;
+    padding: 0 30px;
+}
+
+.key-btn {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    font-size: 32px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
+    cursor: pointer;
+}
+
+.key-btn:active {
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0.9);
+}
+
+.key-btn.btn-cancella {
+    font-size: 24px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.key-btn.invisibile {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animazione di errore (Tremolio) */
+.errore-shake {
+    animation: tremolio 0.4s ease-in-out;
+}
+
+@keyframes tremolio {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-15px); }
+    40%, 80% { transform: translateX(15px); }
+}
+
+/* --- PULSANTE MESSAGGI TOP RIGHT --- */
+/* --- PULSANTE MENU HAMBURGER (Sostituisce btn-messaggi-top) --- */
+.btn-menu-top {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    color: #d63384;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- MENU LATERALE A SCOMPARSA (SIDEBAR) --- */
+#sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -260px; /* Nascosto fuori dallo schermo a destra */
+    width: 250px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 10000; /* Sopra a tutto */
+    transition: right 0.3s ease; /* Animazione di scorrimento */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#sidebar-menu.aperto {
+    right: 0; /* Entra nello schermo */
+}
+
+/* Tasto per chiudere il menu (la X) */
+.btn-chiudi-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #d63384;
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0;
+}
+
+.btn-chiudi-menu:hover {
+    transform: scale(1.1);
+}
+
+/* Stile per i pulsanti dentro il menu */
+.menu-item {
+    background: transparent;
+    color: #444;
+    border: none;
+    text-align: left;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(214, 51, 132, 0.1);
+    border-radius: 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s, padding-left 0.2s;
+    box-shadow: none; /* Rimuove l'ombra dei pulsanti normali */
+}
+
+.menu-item:hover {
+    background: rgba(214, 51, 132, 0.05);
+    padding-left: 15px;
+    transform: none; /* Disattiva lo zoom al passaggio del mouse per le voci di menu */
+}
+
+/* Sfondo scuro semitrasparente dietro il menu */
+#overlay-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#overlay-menu.aperto {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- CHAT iMESSAGE STYLE --- */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.btn-indietro {
+    background: none;
+    border: none;
+    color: #007aff; /* Blu iMessage */
+    font-size: 16px;
+    padding: 0;
+    cursor: pointer;
+}
+
 .chat-utente {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.avatar {
-    font-size: 20px;
+.chat-utente .avatar {
+    font-size: 20px;
+}
+
+.chat-utente h2 {
+    font-size: 14px;
+    margin: 2px 0 0 0;
+    color: #333;
 }
 
 .area-messaggi {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background: #f9f9f9;
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #fff;
 }
 
+/* Bolle del messaggio */
 .messaggio {
-    max-width: 75%;
-    padding: 12px 15px;
-    border-radius: 18px;
-    font-size: 15px;
-    position: relative;
-    word-break: break-word;
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
 }
 
 .messaggio.inviato {
-    background: #d63384;
-    color: white;
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+    background: #007aff; /* Blu Apple */
+    color: white;
+    border-bottom-right-radius: 4px;
 }
 
 .messaggio.ricevuto {
-    background: #e5e5ea;
-    color: #333;
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+    background: #e9e9eb; /* Grigio Apple */
+    color: black;
+    border-bottom-left-radius: 4px;
 }
 
 .ora-messaggio {
-    font-size: 10px;
-    opacity: 0.7;
-    text-align: right;
-    margin-top: 4px;
+    font-size: 10px;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
 }
 
+/* Input Bar */
 .chat-input-bar {
-    display: flex;
-    padding: 15px;
-    background: #fff;
-    border-top: 1px solid #eee;
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f6f6f6;
+    gap: 10px;
+    border-top: 1px solid #e5e5e5;
 }
 
 .chat-input-bar input {
-    flex-grow: 1;
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    outline: none;
-    font-size: 15px;
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
 }
 
-.chat-input-bar button {
-    background: #d63384;
-    color: white;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#btn-invia {
+    background: #007aff;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
-/* Bucket list item */
+/* --- STILE BUCKET LIST --- */
 .bucket-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 12px 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    border: 1px solid #eee;
-}
-
-.bucket-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    flex-grow: 1;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(214, 51, 132, 0.08);
+    transition: all 0.2s ease;
 }
 
 .bucket-item.completato span {
-    text-decoration: line-through;
-    color: #aaa;
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.bucket-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.bucket-info input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #d63384;
+    cursor: pointer;
 }
 
 .bucket-elimina {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+    background: none;
+    border: none;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px;
+    transition: transform 0.2s;
 }
 
-/* Magic 8-Ball */
+.bucket-elimina:hover {
+    transform: scale(1.2);
+}
+
+/* --- STILE PALLA DELLA FORTUNA (MAGIC 8-BALL) --- */
 .magic-ball {
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle at 30% 30%, #444, #111);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 5px 15px rgba(255,255,255,0.2);
-    cursor: pointer;
-    margin: 0 auto;
-    transition: transform 0.1s;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at 30% 30%, #ff9ebb, #d63384 70%, #8b0032);
+    border-radius: 50%;
+    box-shadow: 0 15px 35px rgba(214, 51, 132, 0.4), inset -10px -10px 20px rgba(0,0,0,0.3), inset 10px 10px 20px rgba(255,255,255,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    position: relative;
+    margin: 0 auto;
 }
 
 .magic-ball:active {
-    transform: scale(0.97);
-}
-
-.shake-ball {
-    animation: shake 0.5s ease;
+    transform: scale(0.95);
 }
 
 .magic-inner-window {
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 30% 30%, #1a0033, #050011);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-    border: 3px solid #333;
-    box-shadow: inset 0 5px 10px rgba(0,0,0,0.8);
+    width: 110px;
+    height: 110px;
+    background: #111;
+    border-radius: 50%;
+    border: 4px solid #333;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-align: center;
 }
 
 #magic-text {
-    color: #ffb6c1;
-    font-size: 13px;
-    font-weight: 600;
-    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.2;
+    transition: opacity 0.3s ease;
 }
 
-/* Animazioni effetti */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Animazione di scuotimento della sfera */
+.shake-ball {
+    animation: scuotiSfera 0.5s ease-in-out;
 }
 
-.fade-in {
-    animation: fadeIn 0.4s ease forwards;
-}
-
-@keyframes flyUp {
-    0% { transform: translateY(0) scale(0.8); opacity: 1; }
-    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
-}
-
-.cuoricino-volante {
-    position: fixed;
-    bottom: 20px;
-    z-index: 9999;
-    pointer-events: none;
-    animation: flyUp 3s linear forwards;
+@keyframes scuotiSfera {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    20% { transform: rotate(-10deg) scale(1.05); }
+    40% { transform: rotate(10deg) scale(0.95); }
+    60% { transform: rotate(-10deg) scale(1.05); }
+    80% { transform: rotate(10deg) scale(1); }
 }
