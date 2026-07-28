@@ -446,3 +446,135 @@ button:hover {
     20%, 60% { transform: translateX(-15px); }
     40%, 80% { transform: translateX(15px); }
 }
+
+/* --- PULSANTE MESSAGGI TOP RIGHT --- */
+.btn-messaggi-top {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* --- CHAT iMESSAGE STYLE --- */
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.btn-indietro {
+    background: none;
+    border: none;
+    color: #007aff; /* Blu iMessage */
+    font-size: 16px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.chat-utente {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-utente .avatar {
+    font-size: 20px;
+}
+
+.chat-utente h2 {
+    font-size: 14px;
+    margin: 2px 0 0 0;
+    color: #333;
+}
+
+.area-messaggi {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #fff;
+}
+
+/* Bolle del messaggio */
+.messaggio {
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
+}
+
+.messaggio.inviato {
+    align-self: flex-end;
+    background: #007aff; /* Blu Apple */
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.messaggio.ricevuto {
+    align-self: flex-start;
+    background: #e9e9eb; /* Grigio Apple */
+    color: black;
+    border-bottom-left-radius: 4px;
+}
+
+.ora-messaggio {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
+}
+
+/* Input Bar */
+.chat-input-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: #f6f6f6;
+    gap: 10px;
+    border-top: 1px solid #e5e5e5;
+}
+
+.chat-input-bar input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 20px;
+    outline: none;
+    font-size: 15px;
+}
+
+#btn-invia {
+    background: #007aff;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
