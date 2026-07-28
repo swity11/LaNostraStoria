@@ -154,7 +154,7 @@ button:hover {
 /* --- Stile Griglia Quadrata (tipo iPhone) --- */
 .griglia-quadrata {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colonne fisse */
+    grid-template-columns: repeat(5, 1fr); /* 5 quadratini per ogni fila */
     gap: 4px; /* Spazio piccolissimo tra le foto */
     padding: 10px;
     box-sizing: border-box;
