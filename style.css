@@ -774,3 +774,13 @@ button:hover {
     pointer-events: none; /* Evita che interferisca con i tocchi */
     z-index: 5;
 }
+
+.lock-content {
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    display: flex;               /* Attende il flexbox */
+    flex-direction: column;      /* <-- METTE GLI ELEMENTI UNO SOTTO L'ALTRO */
+    align-items: center;         /* <-- LI CENTRA PERFETTAMENTE */
+    gap: 20px;                   /* Spazio verticale tra la scritta e il tastierino */
+}
