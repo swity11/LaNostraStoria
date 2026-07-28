@@ -129,29 +129,31 @@
     </div>
 
     <!-- === SCHERMATA CHAT iMESSAGE STYLE === -->
-<div id="chat-schermo" class="schermo-intero">
-    <div class="chat-header">
-        <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
-        <div class="chat-utente">
-            <span class="avatar">🩷</span>
-            <h2>Amore Mio</h2>
+<!-- === SCHERMATA CHAT iMESSAGE STYLE === -->
+    <div id="chat-schermo" class="schermo-intero">
+        <div class="chat-header">
+            <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
+            <div class="chat-utente">
+                <span class="avatar">🩷</span>
+                <h2>Amore Mio</h2>
+            </div>
+            <div style="width: 50px;"></div> <!-- Spaziatore per centrare il titolo -->
         </div>
-        <div style="width: 50px;"></div> <!-- Spaziatore per centrare il titolo -->
+
+        <!-- Lista dei messaggi -->
+        <div id="lista-messaggi" class="area-messaggi"></div>
+
+        <!-- Barra di invio messaggio -->
+        <div class="chat-input-bar">
+            <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
+            <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
+        </div>
     </div>
 
-    <!-- Lista dei messaggi -->
-    <div id="lista-messaggi" class="area-messaggi"></div>
-
-    <!-- Barra di invio messaggio -->
-    <div class="chat-input-bar">
-        <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
-        <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
-    </div>
-
-    <!-- SCHERMATA BUCKET LIST CONDIVISA -->
+    <!-- SCHERMATA BUCKET LIST CONDIVISA (Ora è fuori dalla chat, corretta!) -->
     <div id="bucket-schermo" class="schermo-intero" style="display: none;">
         <div class="galleria-header">
-            <h2>✨ La Nostra Bucket List</h2>
+            <h2>✨ Cose da fare insieme</h2>
             <button class="btn-chiudi" onclick="chiudiBucketList()">❌ Chiudi</button>
         </div>
         
@@ -162,9 +164,9 @@
             </div>
             <div id="lista-bucket" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding-bottom: 20px;"></div>
         </div>
-</div>
+    </div>
 
-    <!-- SDK Firebase Compat (Devono stare PRIMA del tuo script.js) -->
+    <!-- SDK Firebase Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
@@ -176,9 +178,6 @@
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
       }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
