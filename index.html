@@ -17,6 +17,41 @@
 
 <body>
 
+    <!-- === SCHERMATA DI BLOCCO STILE iPHONE === -->
+    <div id="lock-screen" style="display: flex;">
+        <div class="lock-content">
+            <h2>L'accesso al nostro mondo 🩷</h2>
+            <p>Inserisci la nostra data speciale</p>
+
+            <!-- Pallini del codice (6 cifre) -->
+            <div class="dots-container">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <!-- Tastierino Numerico -->
+            <div class="keypad">
+                <button class="key-btn" onclick="premiTasto('1')">1</button>
+                <button class="key-btn" onclick="premiTasto('2')">2</button>
+                <button class="key-btn" onclick="premiTasto('3')">3</button>
+                <button class="key-btn" onclick="premiTasto('4')">4</button>
+                <button class="key-btn" onclick="premiTasto('5')">5</button>
+                <button class="key-btn" onclick="premiTasto('6')">6</button>
+                <button class="key-btn" onclick="premiTasto('7')">7</button>
+                <button class="key-btn" onclick="premiTasto('8')">8</button>
+                <button class="key-btn" onclick="premiTasto('9')">9</button>
+                <button class="key-btn invisibile"></button> <!-- Spazio per allineare lo zero -->
+                <button class="key-btn" onclick="premiTasto('0')">0</button>
+                <button class="key-btn btn-cancella" onclick="cancellaTasto()">C</button>
+            </div>
+        </div>
+    </div>
+    <!-- ======================================== -->
+
     <!-- Mini countdown in alto a sinistra -->
     <div class="mini-countdown">
         Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
