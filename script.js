@@ -475,7 +475,7 @@ const risposteSfera = [
     "Oggi proprio no, riprova domani 🌙",
     "Sicuro al 100%! 🚀",
     "Chiedimelo più tardi... 🤫",
-    "Sì, ma solo se ordiniamo il gelato 🍨",
+    "Sì, ma solo se mi dai un bacio 🩷",
     "Le probabilità sono bassissime 📉",
     "Ovviamente sì! Non ci sono dubbi 🩷",
     "La risposta è un no definitivo ❌",
