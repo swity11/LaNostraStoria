@@ -446,3 +446,19 @@ function toggleBucketItem(id, statoAttuale) {
 function eliminaBucketItem(id) {
     database.ref("bucket_list/" + id).remove();
 }
+
+// === 8. GESTIONE MENU LATERALE ===
+function apriMenu() {
+    document.getElementById("sidebar-menu").classList.add("aperto");
+    document.getElementById("overlay-menu").classList.add("aperto");
+}
+
+function chiudiMenu() {
+    document.getElementById("sidebar-menu").classList.remove("aperto");
+    document.getElementById("overlay-menu").classList.remove("aperto");
+}
+
+function apriChatDalMenu() {
+    chiudiMenu(); // Richiude il menu per fare ordine
+    setTimeout(apriChat, 300); // Aspetta un attimo che l'animazione finisca, poi apre la chat
+}
