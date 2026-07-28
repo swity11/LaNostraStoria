@@ -26,10 +26,12 @@ body {
 }
 
 .container {
-    width: 90%;
-    max-width: 420px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    box-sizing: border-box;
     text-align: center;
-    padding: 20px 0;
+    margin-top: 40px; /* Spinge leggermente giù il titolo per staccarlo dall'angolo */
 }
 
 h1 {
