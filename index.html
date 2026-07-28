@@ -57,6 +57,11 @@
         Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
     </div>
 
+    <!-- Pulsante Messaggi in alto a destra -->
+<button class="btn-messaggi-top" onclick="apriChat()">
+    💬 <span id="badge-non-letti" class="badge-nascosto"></span>
+</button>
+
     <!-- Contenitore principale -->
     <div class="container">
         <h1>Per l'amore mio 🩷</h1>
@@ -118,11 +123,38 @@
         </div>
     </div>
 
+    <!-- === SCHERMATA CHAT iMESSAGE STYLE === -->
+<div id="chat-schermo" class="schermo-intero">
+    <div class="chat-header">
+        <button class="btn-indietro" onclick="chiudiChat()">❮ Indietro</button>
+        <div class="chat-utente">
+            <span class="avatar">🩷</span>
+            <h2>Amore Mio</h2>
+        </div>
+        <div style="width: 50px;"></div> <!-- Spaziatore per centrare il titolo -->
+    </div>
+
+    <!-- Lista dei messaggi -->
+    <div id="lista-messaggi" class="area-messaggi"></div>
+
+    <!-- Barra di invio messaggio -->
+    <div class="chat-input-bar">
+        <input type="text" id="input-messaggio" placeholder="iMessage..." onkeypress="gestisciInvioInvio(event)">
+        <button id="btn-invia" onclick="inviaMessaggio()">⬆</button>
+    </div>
+</div>
+
     <script src="script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
       }
+
+    <!-- SDK Firebase Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <script src="script.js"></script>
     </script>
 </body>
 </html>
