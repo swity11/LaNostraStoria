@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La nostra storia 🩷</title>
-<link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>La nostra storia 🩷</title>
+
+    <!-- Meta tag per trasformarla in una vera App su iPhone e Android -->
+    <meta name="theme-color" content="#ffd1e3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Noi 🩷">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
 
-    <!-- Countdown in alto a sinistra -->
+    <!-- Mini countdown in alto a sinistra -->
     <div class="mini-countdown">
         Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
     </div>
 
-    <!-- Contenitore principale di tutta la pagina -->
+    <!-- Contenitore principale -->
     <div class="container">
-        <h1>Per l'amore mio🩷</h1>
+        <h1>Per l'amore mio 🩷</h1>
         
         <div class="card">
             <h2>⏳ Insieme da</h2>
@@ -42,7 +49,7 @@
                 <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
             </div>
             
-            <!-- Input invisibile per far scegliere la foto al telefono/PC -->
+            <!-- Input invisibile per scegliere le foto -->
             <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
         </div>
 
@@ -53,29 +60,27 @@
         <p id="secret"></p>
     </div>
 
-<div id="galleria-schermo" class="schermo-intero">
-    
-    <!-- Header della galleria -->
-    <div class="galleria-header">
-        <h2>I nostri ricordi 🩷</h2>
-        <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
-    </div>
-    
-    <!-- Griglia delle miniature (stile iPhone) -->
-    <div id="griglia-foto" class="griglia-quadrata">
-        <!-- Le foto quadrate appariranno qui dinamicamente via JS -->
-    </div>
+    <!-- SCHERMATA GALLERIA INTERA -->
+    <div id="galleria-schermo" class="schermo-intero">
+        
+        <div class="galleria-header">
+            <h2>I nostri ricordi 🩷</h2>
+            <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
+        </div>
+        
+        <!-- Griglia foto quadrate -->
+        <div id="griglia-foto" class="griglia-quadrata"></div>
 
-    <!-- *NUOVO* Visualizzatore immagine singola (per lo zoom e dissolvenza) -->
-<!-- *NUOVO* Visualizzatore immagine singola (per lo zoom, dissolvenza ed eliminazione) -->
-    <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
-        <!-- Pulsante Cestino in alto a destra -->
-        <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
-        
-        <img id="immagine-grande" src="" alt="Foto ingrandita">
-        
-        <!-- Pulsante per chiudere l'immagine grande (cliccando fuori o qui) -->
-        <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
+        <!-- Visualizzatore foto ingrandita con frecce -->
+        <div id="visualizzatore-singolo" class="visualizzatore-nascosto">
+            <button class="btn-elimina-foto" onclick="chiediConfermaEliminazione()" title="Elimina foto">🗑️</button>
+            
+            <button class="btn-freccia btn-sinistra" onclick="cambiaFoto(-1)">❮</button>
+            <img id="immagine-grande" src="" alt="Foto ingrandita">
+            <button class="btn-freccia btn-destra" onclick="cambiaFoto(1)">❯</button>
+            
+            <button class="btn-chiudi-foto" onclick="chiudiFotoGrande()">❌ Chiudi</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
@@ -84,9 +89,5 @@
         navigator.serviceWorker.register("sw.js");
       }
     </script>
-
-</body>
-</html>
-
 </body>
 </html>
