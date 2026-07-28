@@ -10,65 +10,66 @@
 
 <body>
 
+    <!-- Countdown in alto a sinistra -->
     <div class="mini-countdown">
-        Anniversario🩷- <span id="giorni-mancanti">...</span> giorni
+        Anniversario 🩷 - <span id="giorni-mancanti">...</span> giorni
     </div>
 
+    <!-- Contenitore principale di tutta la pagina -->
     <div class="container">
         <h1>Per Izabel 🩷</h1>
-    </div>
-    
-    <div class="card">
-        <h2>⏳ Insieme da</h2>
-        <p id="counter">Caricamento...</p>
-    </div>
-    
-<div class="card">
-        <h2>💌 Una lettera per te</h2>
-        <p>
-        Sei il mio posto felice, la persona con cui voglio
-        condividere risate, sogni e momenti semplici.
-        Grazie per essere nella mia vita. 🩷
-        </p>
-    </div>
-
-    <div class="card">
-        <h2>📸 I nostri ricordi</h2>
-        <p>Qui aggiungeremo le nostre foto più belle.</p>
         
-        <div class="bottoni-ricordi">
-            <button class="btn-piccolo" onclick="scegliFoto()">➕ Aggiungi foto</button>
-            <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
+        <div class="card">
+            <h2>⏳ Insieme da</h2>
+            <p id="counter">Caricamento...</p>
         </div>
         
-        <!-- Input invisibile per far scegliere la foto al telefono/PC -->
-        <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
+        <div class="card">
+            <h2>💌 Una lettera per te</h2>
+            <p>
+                Sei il mio posto felice, la persona con cui voglio
+                condividere risate, sogni e momenti semplici.
+                Grazie per essere nella mia vita. 🩷
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>📸 I nostri ricordi</h2>
+            <p>Qui aggiungeremo le nostre foto più belle.</p>
+            
+            <div class="bottoni-ricordi">
+                <button class="btn-piccolo" onclick="scegliFoto()">➕ Aggiungi foto</button>
+                <button class="btn-piccolo" onclick="apriGalleria()">🖼️ Vedi Galleria</button>
+            </div>
+            
+            <!-- Input invisibile per far scegliere la foto al telefono/PC -->
+            <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="salvaFoto(event)">
+        </div>
+
+        <button onclick="sorpresa()">
+            🎁 Apri la sorpresa
+        </button>
+
+        <p id="secret"></p>
     </div>
 
-    <button onclick="sorpresa()">
-        🎁 Apri la sorpresa
-    </button>
-
-    <p id="secret"></p>
-</div>
-
-<!-- SCHERMATA GALLERIA (Invisibile finché non viene cliccata) -->
-<div id="galleria-schermo" class="schermo-intero">
-    <div class="galleria-header">
-        <h2>I nostri ricordi 🩷</h2>
-        <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
+    <!-- SCHERMATA GALLERIA (Invisibile finché non viene cliccata) -->
+    <div id="galleria-schermo" class="schermo-intero">
+        <div class="galleria-header">
+            <h2>I nostri ricordi 🩷</h2>
+            <button class="btn-chiudi" onclick="chiudiGalleria()">❌ Chiudi</button>
+        </div>
+        <div id="griglia-foto" class="griglia">
+            <!-- Le foto appariranno qui -->
+        </div>
     </div>
-    <div id="griglia-foto" class="griglia">
-        <!-- Le foto appariranno qui -->
-    </div>
-</div>
 
-<script src="script.js"></script>
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
-</script>
+    <script src="script.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
 
 </body>
 </html>
