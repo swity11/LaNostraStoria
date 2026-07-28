@@ -82,37 +82,43 @@ function salvaFoto(event) {
 }
 
 // Variabile globale per ricordarci quale foto stiamo visualizzando in grande
-let fotoCorrenteUrl = null;
+// Variabile globale per ricordarci l'INDICE (il numero) della foto che stiamo guardando
+let indiceFotoCorrente = null;
 
-// --- MODIFICA APRI GALLERIA ---
+// --- APRI GALLERIA (con salvataggio dell'indice) ---
 function apriGalleria() {
     document.getElementById("galleria-schermo").style.display = "flex";
     const griglia = document.getElementById("griglia-foto");
-    griglia.innerHTML = ""; // Pulisci la griglia prima di caricarla
+    griglia.innerHTML = ""; 
 
     let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
 
     if (fotoSalvate.length === 0) {
-        griglia.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center;'>Non hai ancora aggiunto foto.</p>";
+        griglia.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center; padding: 20px;'>Non hai ancora aggiunto foto.</p>";
         return;
     }
 
     fotoSalvate.forEach((dataUrl, index) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "img-wrapper";
+        
         const img = document.createElement("img");
         img.src = dataUrl;
         img.alt = "Ricordo di coppia " + (index + 1);
         
+        // Passiamo l'indice esatto (index) della foto quando viene cliccata
         img.onclick = function() {
-            apriFotoGrande(dataUrl);
+            apriFotoGrande(dataUrl, index);
         };
         
-        griglia.appendChild(img);
+        wrapper.appendChild(img);
+        griglia.appendChild(wrapper);
     });
 }
 
 // --- VISUALIZZATORE FOTO GRANDE ---
-function apriFotoGrande(url) {
-    fotoCorrenteUrl = url; // Memorizza l'URL della foto aperta
+function apriFotoGrande(url, index) {
+    indiceFotoCorrente = index; // Memorizza l'esatta posizione della foto nella memoria
     const visualizzatore = document.getElementById("visualizzatore-singolo");
     const imgGrande = document.getElementById("immagine-grande");
     
@@ -123,7 +129,7 @@ function apriFotoGrande(url) {
 function chiudiFotoGrande() {
     const visualizzatore = document.getElementById("visualizzatore-singolo");
     visualizzatore.classList.remove("mostra");
-    fotoCorrenteUrl = null;
+    indiceFotoCorrente = null;
 }
 
 function chiudiGalleria() {
@@ -131,24 +137,22 @@ function chiudiGalleria() {
     chiudiFotoGrande();
 }
 
-// --- NUOVA FUNZIONE: CHIEDI CONFERMA ED ELIMINA ---
+// --- ELIMINAZIONE BASATA SULL'INDICE (Impossibile che le elimini tutte) ---
 function chiediConfermaEliminazione() {
-    if (!fotoCorrenteUrl) return;
+    if (indiceFotoCorrente === null || indiceFotoCorrente === undefined) return;
 
-    // Mostra il popup di conferma del browser
     let conferma = confirm("Vuoi davvero eliminare questa foto dai ricordi? 🥺");
     
     if (conferma) {
-        // Recupera le foto salvate
         let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
         
-        // Filtra via la foto corrente
-        let fotoAggiornate = fotoSalvate.filter(url => url !== fotoCorrenteUrl);
+        // Rimuove esattamente ed unicamente l'elemento che si trova in quella posizione
+        fotoSalvate.splice(indiceFotoCorrente, 1);
         
-        // Salva di nuovo nel localStorage
-        localStorage.setItem("fotoAmore", JSON.stringify(fotoAggiornate));
+        // Salva la lista aggiornata
+        localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
         
-        // Chiudi il visualizzatore e ricarica la galleria per aggiornare la griglia
+        // Chiudi il visualizzatore e ricarica la galleria
         chiudiFotoGrande();
         apriGalleria();
         
