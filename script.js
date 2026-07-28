@@ -87,8 +87,8 @@ function apriGalleria() {
     const griglia = document.getElementById("griglia-foto");
     griglia.innerHTML = ""; // Pulisci la griglia prima di caricarla
 
-    // Recupera le foto salvate (o array vuoto)
-    let fotoSalvate = JSON.parse(localStorage.getItem("nostreFoto")) || [];
+    // Recupera le foto salvate usando la chiave corretta "fotoAmore"
+    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
 
     if (fotoSalvate.length === 0) {
         griglia.innerHTML = "<p style='color:white; grid-column: 1/-1; text-align:center;'>Non hai ancora aggiunto foto.</p>";
@@ -101,7 +101,7 @@ function apriGalleria() {
         img.src = dataUrl;
         img.alt = "Ricordo di coppia " + (index + 1);
         
-        // ♥♥♥ Aggiungi l'evento click per ingrandire la foto ♥♥♥
+        // Evento click per ingrandire la foto con dissolvenza
         img.onclick = function() {
             apriFotoGrande(dataUrl);
         };
@@ -109,7 +109,6 @@ function apriGalleria() {
         griglia.appendChild(img);
     });
 }
-
 // --- FUNZIONI AGGIUNTIVE PER GESTIRE L'IMMAGINE SINGOLA ---
 
 // 1. Mostra l'immagine grande con dissolvenza
