@@ -457,7 +457,7 @@ const risposteSfera = [
     "Forse... il destino sta decidendo 🔮",
     "Assolutamente no 🙈",
     "Le stelle dicono sì 🌟",
-    "Chiedimelo dopo un gelato 🍨",
+    "Ovvio amoremio 🩷",
     "Probabilità altissime 💕",
     "Non lo so... ma ti amo comunque 🩷",
     "Sì, senza dubbio ❤️",
@@ -502,10 +502,10 @@ function chiediAllaSfera() {
 // ==========================================
 const frasiAmore = [
     "Sei il mio posto felice 🩷",
-    "Ogni giorno scelgo ancora te ❤️",
+    "Sei perfetta amore 🩷",
     "Il mio sorriso più bello nasce con te 🩷",
-    "Sei il mio rifugio sicuro 💕",
-    "Con te anche le cose semplici diventano speciali ✨",
+    "Hai gli occhietti più belli del mondo 🩷",
+    "Con te anche le cose semplici diventano speciali",
     "Ti sceglierei altre mille volte 🩷"
 ];
 
