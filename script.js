@@ -56,7 +56,7 @@ function controllaCodice() {
         lock.classList.add("sbloccato");
         setTimeout(() => {
             lock.style.display = "none";
-        }, 300);
+        }, 600);
     } else {
         const box = document.querySelector(".dots-container");
         box.classList.add("errore-shake");
