@@ -623,3 +623,18 @@ if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js").catch(err => console.log("SW errore", err));
     });
 }
+
+// Funzione per aprire la schermata del messaggio
+function apriMessaggio() {
+    // Chiude prima il menu laterale se è aperto
+    document.getElementById('sidebar-menu').classList.remove('aperto');
+    document.getElementById('overlay-menu').classList.remove('aperto');
+    
+    // Mostra la schermata del messaggio
+    document.getElementById('messaggio-schermo').style.display = 'flex';
+}
+
+// Funzione per chiudere la schermata del messaggio e tornare alla home
+function chiudiMessaggio() {
+    document.getElementById('messaggio-schermo').style.display = 'none';
+}
