@@ -1,516 +1,2612 @@
-// === 1. CONFIGURAZIONE E INIZIALIZZAZIONE FIREBASE ===
+// =========================================
+// FIREBASE CONFIGURAZIONE
+// =========================================
+
 const firebaseConfig = {
-    apiKey: "AIzaSyDdhoHC6hhXl8rshWvxbTWT8hMkoa82pl4",
-    authDomain: "amoremio-43a39.firebaseapp.com",
-    databaseURL: "https://amoremio-43a39-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "amoremio-43a39",
-    storageBucket: "amoremio-43a39.firebasestorage.app",
-    messagingSenderId: "948222176917",
-    appId: "1:948222176917:web:881c34a38da68ffc9d759c",
-    measurementId: "G-2186W8C114"
+
+    apiKey: "AIzaSyDdhoHC6hhXl8rshWvxbTWT8hMkoa82pl4",
+
+    authDomain: "amoremio-43a39.firebaseapp.com",
+
+    databaseURL:
+    "https://amoremio-43a39-default-rtdb.europe-west1.firebasedatabase.app",
+
+    projectId:"amoremio-43a39",
+
+    storageBucket:
+    "amoremio-43a39.firebasestorage.app",
+
+    messagingSenderId:"948222176917",
+
+    appId:
+    "1:948222176917:web:881c34a38da68ffc9d759c"
+
 };
 
-// Inizializza Firebase
+
 firebase.initializeApp(firebaseConfig);
+
+
 const database = firebase.database();
 
-// Distingue chi invia il messaggio
-// Nota: Sul tuo telefono lascialo così ("io"). Sul telefono della tua ragazza cambialo in "amore"!
-let mioID = "io"; 
 
 
-// === 2. SCHERMATA DI BLOCCO ===
-const codiceSegreto = "080526"; // La vostra data speciale
-let codiceInserito = "";
 
-function premiTasto(numero) {
-    if (codiceInserito.length < 6) {
-        codiceInserito += numero;
-        aggiornaPallini();
+// Cambia questo nell'altro telefono
+let mioID="io";
 
-        if (codiceInserito.length === 6) {
-            setTimeout(controllaCodice, 200);
-        }
-    }
-}
 
-function cancellaTasto() {
-    if (codiceInserito.length > 0) {
-        codiceInserito = codiceInserito.slice(0, -1);
-        aggiornaPallini();
-    }
-}
 
-function aggiornaPallini() {
-    const pallini = document.querySelectorAll(".dot");
-    pallini.forEach((pallino, index) => {
-        if (index < codiceInserito.length) {
-            pallino.classList.add("pieno");
-        } else {
-            pallino.classList.remove("pieno");
-        }
-    });
-}
 
-function controllaCodice() {
-    if (codiceInserito === codiceSegreto) {
-        const lockScreen = document.getElementById("lock-screen");
-        lockScreen.style.opacity = "0";
-        
-        setTimeout(() => {
-            lockScreen.style.display = "none";
-            codiceInserito = "";
-            aggiornaPallini();
-            lockScreen.style.opacity = "1";
-        }, 500);
-    } else {
-        const contenitorePallini = document.querySelector(".dots-container");
-        contenitorePallini.classList.add("errore-shake");
-        
-        setTimeout(() => {
-            contenitorePallini.classList.remove("errore-shake");
-            codiceInserito = "";
-            aggiornaPallini();
-        }, 400);
-    }
+
+
+// =========================================
+// SISTEMA APERTURA SCHERMATE
+// =========================================
+
+
+function apriSchermata(id){
+
+    const pagina=document.getElementById(id);
+
+    if(!pagina)return;
+
+
+    pagina.style.display="flex";
+
+
+    document.body.classList.add(
+        "blocca-scroll"
+    );
+
 }
 
 
-// === 3. SEZIONE TIMER & COUNTDOWN ===
-const inizio = new Date("2026-05-08T00:00:00");
 
-function aggiornaContatore() {
-    const oggi = new Date();
-    const differenza = oggi - inizio;
 
-    const giorni = Math.floor(differenza / (1000 * 60 * 60 * 24));
-    const ore = Math.floor((differenza / (1000 * 60 * 60)) % 24);
-    const minuti = Math.floor((differenza / (1000 * 60)) % 60);
-    const secondi = Math.floor((differenza / 1000) % 60);
+function chiudiSchermata(id){
 
-    const el = document.getElementById("counter");
-    if(el) {
-        el.innerHTML = `${giorni} giorni, ${ore} ore, ${minuti} minuti e ${secondi} secondi 🩷`;
-    }
+    const pagina=document.getElementById(id);
+
+    if(!pagina)return;
+
+
+    pagina.style.display="none";
+
+
+    document.body.classList.remove(
+        "blocca-scroll"
+    );
+
 }
-setInterval(aggiornaContatore, 1000);
+
+
+
+
+
+
+
+
+// =========================================
+// LOCK SCREEN
+// =========================================
+
+
+const codiceSegreto="080526";
+
+
+let codiceInserito="";
+
+
+
+
+function premiTasto(numero){
+
+
+    if(codiceInserito.length>=6)
+        return;
+
+
+
+    codiceInserito+=numero;
+
+
+    aggiornaPallini();
+
+
+
+    if(codiceInserito.length===6){
+
+
+        setTimeout(
+            controllaCodice,
+            250
+        );
+
+
+    }
+
+}
+
+
+
+
+
+function cancellaTasto(){
+
+
+    codiceInserito=
+    codiceInserito.slice(0,-1);
+
+
+    aggiornaPallini();
+
+
+}
+
+
+
+
+
+
+function aggiornaPallini(){
+
+
+    document
+    .querySelectorAll(".dot")
+    .forEach((dot,index)=>{
+
+
+        dot.classList.toggle(
+
+            "pieno",
+
+            index < codiceInserito.length
+
+        );
+
+
+    });
+
+
+}
+
+
+
+
+
+
+function controllaCodice(){
+
+
+
+    const lock=
+    document.getElementById(
+        "lock-screen"
+    );
+
+
+
+
+    if(codiceInserito===codiceSegreto){
+
+
+        lock.style.opacity="0";
+
+
+
+        setTimeout(()=>{
+
+
+            lock.style.display="none";
+
+
+            lock.style.opacity="1";
+
+
+        },500);
+
+
+
+    }
+
+
+    else{
+
+
+        const dots=
+        document.querySelector(
+            ".dots-container"
+        );
+
+
+
+        dots.classList.add(
+            "errore-shake"
+        );
+
+
+
+        setTimeout(()=>{
+
+
+            dots.classList.remove(
+                "errore-shake"
+            );
+
+
+            codiceInserito="";
+
+
+            aggiornaPallini();
+
+
+
+        },500);
+
+
+
+    }
+
+
+}
+
+/* =========================================
+   COUNTDOWN RELAZIONE
+========================================= */
+
+
+const inizioRelazione =
+new Date("2026-05-08T00:00:00");
+
+
+
+function aggiornaContatore(){
+
+
+    const ora=new Date();
+
+
+    const differenza =
+    ora - inizioRelazione;
+
+
+
+    if(differenza < 0)
+        return;
+
+
+
+    const giorni =
+    Math.floor(
+        differenza /
+        (1000*60*60*24)
+    );
+
+
+
+    const ore =
+    Math.floor(
+        (differenza /
+        (1000*60*60)) % 24
+    );
+
+
+
+    const minuti =
+    Math.floor(
+        (differenza /
+        (1000*60)) % 60
+    );
+
+
+
+    const secondi =
+    Math.floor(
+        (differenza /
+        1000) % 60
+    );
+
+
+
+    const elemento =
+    document.getElementById(
+        "counter"
+    );
+
+
+    if(elemento){
+
+
+        elemento.innerHTML =
+
+        `${giorni} giorni, 
+        ${ore} ore,
+        ${minuti} minuti
+        e ${secondi} secondi 🩷`;
+
+    }
+
+}
+
+
+
+setInterval(
+    aggiornaContatore,
+    1000
+);
+
+
 aggiornaContatore();
 
-function aggiornaMiniCountdown() {
-    const giornoAnniversario = 8;
-    const meseAnniversario = 4; // Maggio (0=Gennaio)
 
-    const oraCorrente = new Date();
-    let annoCorrente = oraCorrente.getFullYear();
 
-    let prossimoAnniversario = new Date(annoCorrente, meseAnniversario, giornoAnniversario);
 
-    if (oraCorrente > prossimoAnniversario) {
-        prossimoAnniversario.setFullYear(annoCorrente + 1);
-    }
 
-    const differenza = prossimoAnniversario - oraCorrente;
-    const el = document.getElementById("giorni-mancanti");
 
-    if (el) {
-        if (differenza <= 0) {
-            el.innerHTML = "Oggi! 🎉";
-        } else {
-            const giorni = Math.ceil(differenza / (1000 * 60 * 60 * 24));
-            el.innerHTML = giorni;
-        }
-    }
+
+
+/* =========================================
+   MINI COUNTDOWN ANNIVERSARIO
+========================================= */
+
+
+function aggiornaMiniCountdown(){
+
+
+    const oggi=new Date();
+
+
+
+    const anniversario =
+    new Date(
+        oggi.getFullYear(),
+        4,
+        8
+    );
+
+
+
+    if(oggi > anniversario){
+
+
+        anniversario.setFullYear(
+            oggi.getFullYear()+1
+        );
+
+    }
+
+
+
+    const differenza =
+    anniversario - oggi;
+
+
+
+    const giorni =
+    Math.ceil(
+        differenza /
+        (1000*60*60*24)
+    );
+
+
+
+    const elemento =
+    document.getElementById(
+        "giorni-mancanti"
+    );
+
+
+
+    if(elemento){
+
+
+        elemento.textContent =
+        giorni;
+
+
+    }
+
 }
+
+
 aggiornaMiniCountdown();
 
 
-// === 4. CHAT DI COPPIA IN TEMPO REALE ===
-function apriChat() {
-    document.getElementById("chat-schermo").style.display = "flex";
-    caricaMessaggi();
-}
 
-function chiudiChat() {
-    document.getElementById("chat-schermo").style.display = "none";
-}
 
-function inviaMessaggio() {
-    const input = document.getElementById("input-messaggio");
-    const testo = input.value.trim();
 
-    if (testo === "") return;
 
-    const nuovoMessaggio = {
-        mittente: mioID,
-        testo: testo,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    };
 
-    database.ref("chat_coppia").push(nuovoMessaggio);
-    input.value = "";
-}
 
-function gestisciInvioInvio(e) {
-    if (e.key === "Enter") inviaMessaggio();
-}
 
-function caricaMessaggi() {
-    const lista = document.getElementById("lista-messaggi");
 
-    database.ref("chat_coppia").on("value", (snapshot) => {
-        lista.innerHTML = "";
-        const dati = snapshot.val();
+/* =========================================
+   MENU LATERALE
+========================================= */
 
-        if (dati) {
-            Object.values(dati).forEach(msg => {
-                const div = document.createElement("div");
-                const classeMittente = (msg.mittente === mioID) ? "inviato" : "ricevuto";
-                div.className = `messaggio ${classeMittente}`;
-                
-                div.innerHTML = `
-                    <div>${msg.testo}</div>
-                    <div class="ora-messaggio">${msg.timestamp}</div>
-                `;
-                
-                lista.appendChild(div);
-            });
 
-            lista.scrollTop = lista.scrollHeight;
-        }
-    });
+function apriMenu(){
+
+
+    document
+    .getElementById(
+        "sidebar-menu"
+    )
+    .classList.add(
+        "aperto"
+    );
+
+
+
+    document
+    .getElementById(
+        "overlay-menu"
+    )
+    .classList.add(
+        "aperto"
+    );
+
 }
 
 
-// === 5. SEZIONE SORPRESA (Frasi e Cuoricini) ===
-const frasiAmore = [
-    "Sei il mio primo pensiero al mattino e l'ultimo prima di dormire. 🩷",
-    "Amore mio, ogni istante con te è pura magia. 🩷",
-    "Non ho mai smesso di innamorarmi di te dal primo momento. 🩷",
-    "Sei il mio rifugio sicuro e la mia pace. 🩷",
-    "Guardarti sorridere mi riempie il cuore di gioia. 🩷",
-    "Insieme a te ho trovato tutto ciò che cercavo. 🩷",
-    "Rendi la mia vita migliore semplicemente essendoci, amore. 🩷",
-    "Sei la stella più luminosa del mio cielo. 🩷",
-    "Ogni giorno che passo con te è un regalo meraviglioso. 🩷",
-    "Il mio cuore batte più forte solo a sentire il tuo nome. 🩷",
-    "Sei la mia persona preferita in assoluto. 🩷",
-    "Non potrei mai immaginare il mio futuro senza di te al mio fianco. 🩷",
-    "La mia felicità ha i tuoi occhi e il tuo sorriso. 🩷",
-    "Amore, sei la ragione per cui mi sveglio felice ogni mattina. 🩷",
-    "Tutto ha più senso da quando ci sei tu nella mia vita. 🩷",
-    "Stringerti forte tra le mie braccia è la sensazione più bella dell'universo. 🩷",
-    "Non importa dove andiamo, l'importante è tenersi per mano. 🩷",
-    "Sei la mia certezza più bella. 🩷",
-    "Ti sceglierei in questa vita e in altre mille ancora, amore mio. 🩷",
-    "Sei esattamente tutto ciò di cui ho bisogno. 🩷"
-];
 
-function sorpresa() {
-    const secretElement = document.getElementById("secret");
-    const indiceCasuale = Math.floor(Math.random() * frasiAmore.length);
-    
-    secretElement.innerHTML = frasiAmore[indiceCasuale];
 
-    secretElement.classList.remove("fade-in");
-    void secretElement.offsetWidth; 
-    secretElement.classList.add("fade-in");
 
-    creaPioggiaDiCuoricini();
-}
+function chiudiMenu(){
 
-function creaPioggiaDiCuoricini() {
-    for (let i = 0; i < 20; i++) {
-        setTimeout(() => {
-            const cuore = document.createElement("div");
-            cuore.innerHTML = "🩷";
-            cuore.className = "cuoricino-volante";
-            cuore.style.left = Math.random() * 100 + "vw";
-            cuore.style.fontSize = (Math.random() * 20 + 15) + "px";
-            document.body.appendChild(cuore);
 
-            setTimeout(() => {
-                cuore.remove();
-            }, 3000);
-        }, i * 100);
-    }
+    document
+    .getElementById(
+        "sidebar-menu"
+    )
+    .classList.remove(
+        "aperto"
+    );
+
+
+
+    document
+    .getElementById(
+        "overlay-menu"
+    )
+    .classList.remove(
+        "aperto"
+    );
+
+
 }
 
 
-// === 6. GALLERIA RICORDI ===
+
+
+
+
+
+
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+
+let chatCaricata=false;
+
+
+
+
+function apriChat(){
+
+
+    apriSchermata(
+        "chat-schermo"
+    );
+
+
+    if(!chatCaricata){
+
+
+        caricaMessaggi();
+
+
+        chatCaricata=true;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+function chiudiChat(){
+
+
+    chiudiSchermata(
+        "chat-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   BUCKET LIST
+========================================= */
+
+
+let bucketCaricato=false;
+
+
+
+
+function apriBucketList(){
+
+
+    apriSchermata(
+        "bucket-schermo"
+    );
+
+
+
+    if(!bucketCaricato){
+
+
+        caricaBucketList();
+
+
+        bucketCaricato=true;
+
+
+    }
+
+}
+
+
+
+
+
+function chiudiBucketList(){
+
+
+    chiudiSchermata(
+        "bucket-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   MAGIC BALL
+========================================= */
+
+
+function apriMagicBall(){
+
+
+    apriSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+function chiudiMagicBall(){
+
+
+    chiudiSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   MENU COLLEGAMENTI
+========================================= */
+
+
+function apriChatDalMenu(){
+
+
+    chiudiMenu();
+
+
+    setTimeout(
+        apriChat,
+        300
+    );
+
+}
+
+
+
+
+
+function apriMagicBallDalMenu(){
+
+
+    chiudiMenu();
+
+
+    setTimeout(
+        apriMagicBall,
+        300
+    );
+
+
+}
+
+/* =========================================
+   CHAT FIREBASE TEMPO REALE
+========================================= */
+
+
+function inviaMessaggio(){
+
+
+    const input =
+    document.getElementById(
+        "input-messaggio"
+    );
+
+
+    const testo =
+    input.value.trim();
+
+
+
+    if(testo==="")
+        return;
+
+
+
+
+    const messaggio={
+
+
+        mittente:mioID,
+
+
+        testo:testo,
+
+
+        timestamp:
+        new Date()
+        .toLocaleTimeString(
+            [],
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
+
+
+    };
+
+
+
+    database
+    .ref("chat_coppia")
+    .push(messaggio);
+
+
+
+    input.value="";
+
+
+
+}
+
+
+
+
+
+
+
+function gestisciInvioInvio(event){
+
+
+    if(event.key==="Enter"){
+
+
+        event.preventDefault();
+
+
+        inviaMessaggio();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+function caricaMessaggi(){
+
+
+    const lista =
+    document.getElementById(
+        "lista-messaggi"
+    );
+
+
+
+    database
+    .ref("chat_coppia")
+    .on(
+        "value",
+        snapshot=>{
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snapshot.val();
+
+
+
+            if(!dati)
+                return;
+
+
+
+            Object.values(dati)
+            .forEach(msg=>{
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "messaggio " +
+                (
+                    msg.mittente===mioID
+                    ?
+                    "inviato"
+                    :
+                    "ricevuto"
+                );
+
+
+
+                div.innerHTML=`
+
+                    <div>
+                        ${msg.testo}
+                    </div>
+
+                    <div class="ora-messaggio">
+                        ${msg.timestamp}
+                    </div>
+
+                `;
+
+
+
+                lista.appendChild(div);
+
+
+
+            });
+
+
+
+            lista.scrollTop =
+            lista.scrollHeight;
+
+
+
+        }
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   BUCKET LIST FIREBASE
+========================================= */
+
+
+
+function aggiungiBucketItem(){
+
+
+    const input =
+    document.getElementById(
+        "input-bucket"
+    );
+
+
+
+    const testo =
+    input.value.trim();
+
+
+
+    if(testo==="")
+        return;
+
+
+
+
+    database
+    .ref("bucket_list")
+    .push({
+
+        testo:testo,
+
+        completato:false
+
+    });
+
+
+
+    input.value="";
+
+
+}
+
+
+
+
+
+
+
+function gestisciInvioBucket(event){
+
+
+    if(event.key==="Enter"){
+
+
+        event.preventDefault();
+
+
+        aggiungiBucketItem();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+function caricaBucketList(){
+
+
+    const lista =
+    document.getElementById(
+        "lista-bucket"
+    );
+
+
+
+    database
+    .ref("bucket_list")
+    .on(
+        "value",
+        snapshot=>{
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snapshot.val();
+
+
+
+
+            if(!dati){
+
+
+                lista.innerHTML=
+
+                `
+
+                <p style="
+                text-align:center;
+                color:#777;
+                ">
+                Nessun sogno aggiunto ancora 🩷
+                </p>
+
+                `;
+
+
+                return;
+
+
+            }
+
+
+
+
+
+
+            Object.entries(dati)
+            .forEach(
+            ([id,item])=>{
+
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "bucket-item " +
+                (
+                    item.completato
+                    ?
+                    "completato"
+                    :
+                    ""
+                );
+
+
+
+                div.innerHTML=`
+
+                <div 
+                class="bucket-info"
+                onclick="
+                toggleBucketItem(
+                '${id}',
+                ${item.completato}
+                )">
+
+                    <input 
+                    type="checkbox"
+                    ${item.completato
+                    ?
+                    "checked"
+                    :
+                    ""}
+                    >
+
+                    <span>
+                    ${item.testo}
+                    </span>
+
+
+                </div>
+
+
+
+                <button
+                class="bucket-elimina"
+                onclick="
+                eliminaBucketItem(
+                '${id}'
+                )">
+
+                🗑️
+
+                </button>
+
+                `;
+
+
+
+                lista.appendChild(div);
+
+
+
+            });
+
+
+
+        }
+
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+function toggleBucketItem(id,stato){
+
+
+    database
+    .ref(
+        "bucket_list/"+id
+    )
+    .update({
+
+        completato:
+        !stato
+
+    });
+
+
+}
+
+
+
+
+
+
+
+
+function eliminaBucketItem(id){
+
+
+    database
+    .ref(
+        "bucket_list/"+id
+    )
+    .remove();
+
+
+}
+
+/* =========================================
+   GALLERIA RICORDI
+========================================= */
+
+
 let indiceFotoCorrente = null;
 
-function scegliFoto() {
-    document.getElementById("fileInput").click();
+
+
+
+
+function scegliFoto(){
+
+
+    document
+    .getElementById(
+        "fileInput"
+    )
+    .click();
+
+
 }
 
-function salvaFoto(event) {
-    const file = event.target.files[0];
-    if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const img = new Image();
-        img.onload = function() {
-            const canvas = document.createElement("canvas");
-            const MAX_WIDTH = 800;
-            let width = img.width;
-            let height = img.height;
 
-            if (width > MAX_WIDTH) {
-                height *= MAX_WIDTH / width;
-                width = MAX_WIDTH;
-            }
 
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
 
-            const fotoCompressaDataUrl = canvas.toDataURL("image/jpeg", 0.8);
 
-            let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-            fotoSalvate.push(fotoCompressaDataUrl);
-            
-            try {
-                localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
-                alert("Foto aggiunta ai nostri ricordi! 🩷");
-            } catch (errore) {
-                alert("Oops! Memoria piena.");
-            }
-        };
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+
+
+function salvaFoto(event){
+
+
+    const file =
+    event.target.files[0];
+
+
+
+    if(!file)
+        return;
+
+
+
+
+    const reader =
+    new FileReader();
+
+
+
+    reader.onload=function(e){
+
+
+
+        const img =
+        new Image();
+
+
+
+        img.onload=function(){
+
+
+
+            const canvas =
+            document.createElement(
+                "canvas"
+            );
+
+
+
+            const maxWidth=900;
+
+
+
+            let width =
+            img.width;
+
+
+
+            let height =
+            img.height;
+
+
+
+
+
+            if(width>maxWidth){
+
+
+                height =
+                height *
+                maxWidth /
+                width;
+
+
+                width=maxWidth;
+
+
+            }
+
+
+
+            canvas.width=width;
+
+            canvas.height=height;
+
+
+
+            const ctx =
+            canvas.getContext(
+                "2d"
+            );
+
+
+
+            ctx.drawImage(
+                img,
+                0,
+                0,
+                width,
+                height
+            );
+
+
+
+            const foto =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.8
+            );
+
+
+
+
+            let salvate =
+            JSON.parse(
+                localStorage
+                .getItem(
+                    "fotoAmore"
+                )
+            ) || [];
+
+
+
+
+            salvate.push(foto);
+
+
+
+
+            try{
+
+
+                localStorage.setItem(
+                    "fotoAmore",
+                    JSON.stringify(
+                        salvate
+                    )
+                );
+
+
+
+                alert(
+                    "Foto aggiunta ai nostri ricordi 🩷"
+                );
+
+
+
+            }
+            catch(err){
+
+
+                alert(
+                    "Memoria piena 😢"
+                );
+
+
+            }
+
+
+        };
+
+
+
+        img.src=e.target.result;
+
+
+    };
+
+
+
+    reader.readAsDataURL(file);
+
+
+
+    event.target.value="";
+
+
 }
 
-function apriGalleria() {
-    document.getElementById("galleria-schermo").style.display = "flex";
-    const griglia = document.getElementById("griglia-foto");
-    griglia.innerHTML = ""; 
 
-    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
 
-    if (fotoSalvate.length === 0) {
-        griglia.innerHTML = "<p style='color:white; grid-column: 1 / -1; text-align:center; padding: 20px;'>Non hai ancora aggiunto foto.</p>";
-        return;
-    }
 
-    fotoSalvate.forEach((dataUrl, index) => {
-        const wrapper = document.createElement("div");
-        wrapper.className = "img-wrapper";
-        
-        const img = document.createElement("img");
-        img.src = dataUrl;
-        img.alt = "Ricordo di coppia " + (index + 1);
-        
-        img.onclick = function() {
-            apriFotoGrande(index);
-        };
-        
-        wrapper.appendChild(img);
-        griglia.appendChild(wrapper);
-    });
+
+
+
+
+
+function apriGalleria(){
+
+
+
+    apriSchermata(
+        "galleria-schermo"
+    );
+
+
+
+    const griglia =
+    document.getElementById(
+        "griglia-foto"
+    );
+
+
+
+    griglia.innerHTML="";
+
+
+
+    const foto =
+    JSON.parse(
+        localStorage
+        .getItem(
+            "fotoAmore"
+        )
+    ) || [];
+
+
+
+
+
+    if(foto.length===0){
+
+
+        griglia.innerHTML=`
+
+        <p style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:30px;
+        color:#777;
+        ">
+        Nessuna foto ancora 🩷
+        </p>
+
+        `;
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    foto.forEach(
+    (immagine,index)=>{
+
+
+        const img =
+        document.createElement(
+            "img"
+        );
+
+
+
+        img.src=immagine;
+
+
+
+        img.onclick=()=>{
+
+
+            apriFotoGrande(
+                index
+            );
+
+
+        };
+
+
+
+        griglia.appendChild(img);
+
+
+    });
+
+
 }
 
-function apriFotoGrande(index) {
-    indiceFotoCorrente = index; 
-    aggiornaImmagineGrande();
-    document.getElementById("visualizzatore-singolo").classList.add("mostra");
+
+
+
+
+
+
+
+
+function apriFotoGrande(index){
+
+
+    indiceFotoCorrente=index;
+
+
+
+    aggiornaImmagineGrande();
+
+
+
+    document
+    .getElementById(
+        "visualizzatore-singolo"
+    )
+    .classList
+    .add(
+        "mostra"
+    );
+
+
 }
 
-function aggiornaImmagineGrande() {
-    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-    if (fotoSalvate.length === 0) return;
 
-    if (indiceFotoCorrente < 0) {
-        indiceFotoCorrente = fotoSalvate.length - 1;
-    } else if (indiceFotoCorrente >= fotoSalvate.length) {
-        indiceFotoCorrente = 0;
-    }
 
-    const imgGrande = document.getElementById("immagine-grande");
-    imgGrande.src = fotoSalvate[indiceFotoCorrente];
+
+
+
+
+
+
+function aggiornaImmagineGrande(){
+
+
+
+    const foto =
+    JSON.parse(
+        localStorage
+        .getItem(
+            "fotoAmore"
+        )
+    ) || [];
+
+
+
+    if(foto.length===0)
+        return;
+
+
+
+    if(indiceFotoCorrente<0)
+
+
+        indiceFotoCorrente =
+        foto.length-1;
+
+
+
+
+    if(indiceFotoCorrente>=foto.length)
+
+
+        indiceFotoCorrente=0;
+
+
+
+
+
+    document
+    .getElementById(
+        "immagine-grande"
+    )
+    .src =
+    foto[indiceFotoCorrente];
+
+
+
 }
 
-function cambiaFoto(direzione, evento) {
-    if (evento) evento.stopPropagation();
-    
-    let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-    if (fotoSalvate.length <= 1) return;
 
-    indiceFotoCorrente += direzione;
-    aggiornaImmagineGrande();
+
+
+
+
+
+
+
+function cambiaFoto(direzione){
+
+
+
+    const foto =
+    JSON.parse(
+        localStorage
+        .getItem(
+            "fotoAmore"
+        )
+    ) || [];
+
+
+
+    if(foto.length<=1)
+        return;
+
+
+
+    indiceFotoCorrente += direzione;
+
+
+
+    aggiornaImmagineGrande();
+
+
 }
 
-function chiudiFotoGrande() {
-    document.getElementById("visualizzatore-singolo").classList.remove("mostra");
-    indiceFotoCorrente = null;
+
+
+
+
+
+
+
+
+function chiudiFotoGrande(){
+
+
+    document
+    .getElementById(
+        "visualizzatore-singolo"
+    )
+    .classList
+    .remove(
+        "mostra"
+    );
+
+
+
+    indiceFotoCorrente=null;
+
+
 }
 
-function chiudiGalleria() {
-    document.getElementById("galleria-schermo").style.display = "none";
-    chiudiFotoGrande();
+
+
+
+
+
+
+
+function chiudiGalleria(){
+
+
+
+    chiudiSchermata(
+        "galleria-schermo"
+    );
+
+
+
+    chiudiFotoGrande();
+
+
+
 }
 
-function chiediConfermaEliminazione() {
-    if (indiceFotoCorrente === null) return;
-    let conferma = confirm("Vuoi davvero eliminare questa foto dai ricordi? 🥺");
-    
-    if (conferma) {
-        let fotoSalvate = JSON.parse(localStorage.getItem("fotoAmore")) || [];
-        fotoSalvate.splice(indiceFotoCorrente, 1);
-        localStorage.setItem("fotoAmore", JSON.stringify(fotoSalvate));
-        
-        chiudiFotoGrande();
-        apriGalleria();
-    }
+
+
+
+
+
+
+
+function chiediConfermaEliminazione(){
+
+
+
+    if(indiceFotoCorrente===null)
+        return;
+
+
+
+    if(!confirm(
+        "Eliminare questa foto? 🥺"
+    ))
+        return;
+
+
+
+
+    let foto =
+    JSON.parse(
+        localStorage
+        .getItem(
+            "fotoAmore"
+        )
+    ) || [];
+
+
+
+    foto.splice(
+        indiceFotoCorrente,
+        1
+    );
+
+
+
+    localStorage.setItem(
+        "fotoAmore",
+        JSON.stringify(
+            foto
+        )
+    );
+
+
+
+    chiudiFotoGrande();
+
+
+    apriGalleria();
+
+
+
 }
 
-// Scorrimento touch (Swipe)
-let touchStartX = 0;
-let touchEndX = 0;
 
-const visualizzatore = document.getElementById("visualizzatore-singolo");
-if (visualizzatore) {
-    visualizzatore.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
 
-    visualizzatore.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchEndX < touchStartX - 50) cambiaFoto(1);
-        if (touchEndX > touchStartX + 50) cambiaFoto(-1);
-    });
+
+
+
+
+
+
+/* =========================================
+   SWIPE FOTO MOBILE
+========================================= */
+
+
+let touchStartX=0;
+
+
+let touchEndX=0;
+
+
+
+
+const viewer =
+document.getElementById(
+    "visualizzatore-singolo"
+);
+
+
+
+if(viewer){
+
+
+    viewer.addEventListener(
+        "touchstart",
+        e=>{
+
+
+            touchStartX =
+            e.changedTouches[0]
+            .screenX;
+
+
+        }
+    );
+
+
+
+
+    viewer.addEventListener(
+        "touchend",
+        e=>{
+
+
+            touchEndX =
+            e.changedTouches[0]
+            .screenX;
+
+
+
+
+            if(
+                touchEndX <
+                touchStartX-50
+            ){
+
+
+                cambiaFoto(1);
+
+
+            }
+
+
+
+
+            if(
+                touchEndX >
+                touchStartX+50
+            ){
+
+
+                cambiaFoto(-1);
+
+
+            }
+
+
+        }
+    );
+
+
 }
 
-// === 7. BUCKET LIST CONDIVISA ===
-function apriBucketList() {
-    document.getElementById("bucket-schermo").style.display = "flex";
-    caricaBucketList();
+
+
+
+
+
+
+
+
+/* =========================================
+   CUORICINI VOLANTI
+========================================= */
+
+
+function creaPioggiaDiCuoricini(){
+
+
+
+    for(
+        let i=0;
+        i<25;
+        i++
+    ){
+
+
+        setTimeout(()=>{
+
+
+
+            const cuore =
+            document.createElement(
+                "div"
+            );
+
+
+
+            cuore.innerHTML="🩷";
+
+
+
+            cuore.className =
+            "cuoricino-volante";
+
+
+
+            cuore.style.left =
+            Math.random()*100+"vw";
+
+
+
+            cuore.style.fontSize =
+            (
+                Math.random()*20+15
+            )
+            +"px";
+
+
+
+            document
+            .body
+            .appendChild(
+                cuore
+            );
+
+
+
+            setTimeout(
+                ()=>{
+                    cuore.remove();
+                },
+                3000
+            );
+
+
+
+        },i*100);
+
+
+
+    }
+
+
 }
 
-function chiudiBucketList() {
-    document.getElementById("bucket-schermo").style.display = "none";
-}
+/* =========================================
+   SORPRESA AMORE
+========================================= */
 
-function aggiungiBucketItem() {
-    const input = document.getElementById("input-bucket");
-    const testo = input.value.trim();
-    if (testo === "") return;
 
-    const nuovoSogno = {
-        testo: testo,
-        completato: false
-    };
+const frasiAmore = [
 
-    database.ref("bucket_list").push(nuovoSogno);
-    input.value = "";
-}
+"Sei il mio primo pensiero al mattino e l'ultimo prima di dormire 🩷",
 
-function gestisciInvioBucket(e) {
-    if (e.key === "Enter") aggiungiBucketItem();
-}
+"Ogni momento con te è il mio momento preferito 🩷",
 
-function caricaBucketList() {
-    const lista = document.getElementById("lista-bucket");
-    database.ref("bucket_list").on("value", (snapshot) => {
-        lista.innerHTML = "";
-        const dati = snapshot.val();
-        
-        if (dati) {
-            Object.entries(dati).forEach(([id, item]) => {
-                const div = document.createElement("div");
-                div.className = `bucket-item ${item.completato ? 'completato' : ''}`;
-                
-                div.innerHTML = `
-                    <div class="bucket-info" onclick="toggleBucketItem('${id}', ${item.completato})">
-                        <input type="checkbox" ${item.completato ? 'checked' : ''} style="pointer-events: none;">
-                        <span>${item.testo}</span>
-                    </div>
-                    <button class="bucket-elimina" onclick="eliminaBucketItem('${id}')">🗑️</button>
-                `;
-                lista.appendChild(div);
-            });
-        } else {
-            lista.innerHTML = "<p style='text-align:center; color:#777; margin-top:20px;'>Nessun sogno aggiunto ancora. Scrivi il primo! 🩷</p>";
-        }
-    });
-}
+"Sei la mia casa anche quando siamo lontani 🩷",
 
-function toggleBucketItem(id, statoAttuale) {
-    database.ref("bucket_list/" + id).update({
-        completato: !statoAttuale
-    });
-}
+"Con te anche le giornate normali diventano speciali ✨",
 
-function eliminaBucketItem(id) {
-    database.ref("bucket_list/" + id).remove();
-}
+"Il mio posto preferito è sempre vicino a te 🩷",
 
-// === 8. GESTIONE MENU LATERALE ===
-function apriMenu() {
-    document.getElementById("sidebar-menu").classList.add("aperto");
-    document.getElementById("overlay-menu").classList.add("aperto");
-}
+"Ti sceglierei oggi, domani e in ogni vita possibile 🩷",
 
-function chiudiMenu() {
-    document.getElementById("sidebar-menu").classList.remove("aperto");
-    document.getElementById("overlay-menu").classList.remove("aperto");
-}
+"Il tuo sorriso è la mia cosa preferita al mondo 🩷",
 
-function apriChatDalMenu() {
-    chiudiMenu(); // Richiude il menu per fare ordine
-    setTimeout(apriChat, 300); // Aspetta un attimo che l'animazione finisca, poi apre la chat
-}
+"Grazie per rendere la mia vita più bella ogni giorno 🩷",
 
-// === 9. PALLA DELL'AMORE (MAGIC 8-BALL) ===
-const risposteSfera = [
-    "Certamente sì! ✨",
-    "Mh, direi proprio di no 🙈",
-    "È altamente probabile 🩷",
-    "NO PORK",
-    "Assolutamente sì, amore mio! 🩷",
-    "Non ci sperare troppo 😜",
-    "Le stelle dicono di sì 🌟",
-    "Oggi proprio no, riprova domani 🌙",
-    "Sicuro al 100%! 🚀",
-    "Chiedimelo più tardi... 🤫",
-    "Sì, ma solo se ordiniamo il gelato 🍨",
-    "Le probabilità sono bassissime 📉",
-    "Ovviamente sì! Non ci sono dubbi 🩷",
-    "La risposta è un no definitivo ❌",
-    "Mh, ci sto pensando... 🤔",
-    "Forse sì, forse no... 🔮"
+"Non ho bisogno di altro quando ho te accanto 🩷",
+
+"Sei il mio piccolo miracolo quotidiano 🩷"
+
 ];
 
-function apriMagicBall() {
-    document.getElementById("magic-schermo").style.display = "flex";
+
+
+
+function sorpresa(){
+
+
+    const box =
+    document.getElementById(
+        "secret"
+    );
+
+
+    const frase =
+    frasiAmore[
+        Math.floor(
+            Math.random()
+            *
+            frasiAmore.length
+        )
+    ];
+
+
+
+    box.innerHTML=frase;
+
+
+
+    box.classList.remove(
+        "fade-in"
+    );
+
+
+    void box.offsetWidth;
+
+
+    box.classList.add(
+        "fade-in"
+    );
+
+
+    creaPioggiaDiCuoricini();
+
+
+
 }
 
-function chiudiMagicBall() {
-    document.getElementById("magic-schermo").style.display = "none";
+
+
+
+
+
+
+
+/* =========================================
+   MENU LATERALE
+========================================= */
+
+
+function apriMenu(){
+
+
+    document
+    .getElementById(
+        "sidebar-menu"
+    )
+    .classList
+    .add(
+        "aperto"
+    );
+
+
+    document
+    .getElementById(
+        "overlay-menu"
+    )
+    .classList
+    .add(
+        "aperto"
+    );
+
 }
 
-function apriMagicBallDalMenu() {
-    chiudiMenu(); // Chiude il menu laterale
-    setTimeout(apriMagicBall, 300); // Apre la sfera con la stessa transizione fluida della chat
+
+
+function chiudiMenu(){
+
+
+    document
+    .getElementById(
+        "sidebar-menu"
+    )
+    .classList
+    .remove(
+        "aperto"
+    );
+
+
+    document
+    .getElementById(
+        "overlay-menu"
+    )
+    .classList
+    .remove(
+        "aperto"
+    );
+
 }
 
-function chiediAllaSfera() {
-    const ball = document.getElementById("magic-ball");
-    const textElement = document.getElementById("magic-text");
 
-    // Fa partire l'animazione di scuotimento e nasconde il testo temporaneamente
-    ball.classList.add("shake-ball");
-    textElement.style.opacity = "0";
 
-    setTimeout(() => {
-        const indiceCasuale = Math.floor(Math.random() * risposteSfera.length);
-        textElement.innerHTML = risposteSfera[indiceCasuale];
-        textElement.style.opacity = "1";
-        ball.classList.remove("shake-ball");
 
-        // Esplosione di cuoricini all'apparire della risposta!
-        creaPioggiaDiCuoricini();
-    }, 1200);
+
+/* =========================================
+   CHAT
+========================================= */
+
+
+function apriChatDalMenu(){
+
+
+    chiudiMenu();
+
+
+    setTimeout(()=>{
+
+
+        apriChat();
+
+
+    },300);
+
+
 }
+
+
+
+
+
+function apriChat(){
+
+
+    apriSchermata(
+        "chat-schermo"
+    );
+
+
+    caricaMessaggi();
+
+
+}
+
+
+
+
+
+function chiudiChat(){
+
+
+    chiudiSchermata(
+        "chat-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+function inviaMessaggio(){
+
+
+
+    const input =
+    document.getElementById(
+        "input-messaggio"
+    );
+
+
+    const testo =
+    input.value.trim();
+
+
+
+    if(!testo)
+        return;
+
+
+
+    database
+    .ref(
+        "chat_coppia"
+    )
+    .push({
+
+        mittente:mioID,
+
+        testo:testo,
+
+        timestamp:
+        new Date()
+        .toLocaleTimeString(
+            [],
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
+
+    });
+
+
+
+    input.value="";
+
+
+
+}
+
+
+
+
+
+function gestisciInvioInvio(e){
+
+
+    if(e.key==="Enter")
+        inviaMessaggio();
+
+
+}
+
+
+
+
+
+
+function caricaMessaggi(){
+
+
+
+    const lista =
+    document.getElementById(
+        "lista-messaggi"
+    );
+
+
+
+    database
+    .ref(
+        "chat_coppia"
+    )
+    .on(
+        "value",
+        snapshot=>{
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snapshot.val();
+
+
+
+            if(!dati)
+                return;
+
+
+
+
+            Object.values(dati)
+            .forEach(
+            msg=>{
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "messaggio " +
+                (
+                msg.mittente===mioID
+                ?
+                "inviato"
+                :
+                "ricevuto"
+                );
+
+
+
+                div.innerHTML=`
+
+                <div>
+                ${msg.testo}
+                </div>
+
+                <small>
+                ${msg.timestamp}
+                </small>
+
+                `;
+
+
+
+                lista.appendChild(div);
+
+
+            });
+
+
+
+            lista.scrollTop =
+            lista.scrollHeight;
+
+
+        }
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   BUCKET LIST
+========================================= */
+
+
+function apriBucketList(){
+
+
+    apriSchermata(
+        "bucket-schermo"
+    );
+
+
+    caricaBucketList();
+
+
+}
+
+
+
+function chiudiBucketList(){
+
+
+    chiudiSchermata(
+        "bucket-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+function aggiungiBucketItem(){
+
+
+    const input =
+    document.getElementById(
+        "input-bucket"
+    );
+
+
+    const testo =
+    input.value.trim();
+
+
+
+    if(!testo)
+        return;
+
+
+
+
+    database
+    .ref(
+        "bucket_list"
+    )
+    .push({
+
+        testo:testo,
+
+        completato:false
+
+    });
+
+
+
+    input.value="";
+
+
+}
+
+
+
+
+
+function gestisciInvioBucket(e){
+
+
+    if(e.key==="Enter")
+        aggiungiBucketItem();
+
+
+}
+
+
+
+
+
+
+
+function caricaBucketList(){
+
+
+
+    const lista =
+    document.getElementById(
+        "lista-bucket"
+    );
+
+
+
+    database
+    .ref(
+        "bucket_list"
+    )
+    .on(
+        "value",
+        snap=>{
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snap.val();
+
+
+
+            if(!dati)
+                return;
+
+
+
+            Object.entries(dati)
+            .forEach(
+            ([id,item])=>{
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "bucket-item";
+
+
+
+                div.innerHTML=`
+
+                <span>
+                <input type="checkbox"
+                ${item.completato?"checked":""}
+                onclick="toggleBucketItem('${id}',${item.completato})">
+
+                ${item.testo}
+
+                </span>
+
+
+                <button onclick="eliminaBucketItem('${id}')">
+                🗑️
+                </button>
+
+                `;
+
+
+
+                lista.appendChild(div);
+
+
+
+            });
+
+
+        }
+    );
+
+
+}
+
+
+
+
+function toggleBucketItem(id,stato){
+
+
+    database
+    .ref(
+        "bucket_list/"+id
+    )
+    .update({
+
+        completato:!stato
+
+    });
+
+
+}
+
+
+
+
+
+function eliminaBucketItem(id){
+
+
+    database
+    .ref(
+        "bucket_list/"+id
+    )
+    .remove();
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   MAGIC BALL
+========================================= */
+
+
+const risposteSfera=[
+
+"Certamente sì 🩷",
+
+"Assolutamente no 😂",
+
+"Le stelle dicono sì ✨",
+
+"Probabilmente sì",
+
+"Riprova più tardi 🔮",
+
+"Il destino sorride a voi due 🩷",
+
+"Sì, ma solo con il gelato 🍦",
+
+"Non ne sono sicuro 🤔"
+
+];
+
+
+
+
+
+
+function apriMagicBallDalMenu(){
+
+
+    chiudiMenu();
+
+
+    setTimeout(()=>{
+
+
+        apriMagicBall();
+
+
+    },300);
+
+
+}
+
+
+
+
+
+function apriMagicBall(){
+
+
+    apriSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+
+function chiudiMagicBall(){
+
+
+    chiudiSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+
+function chiediAllaSfera(){
+
+
+
+    const testo =
+    document.getElementById(
+        "magic-text"
+    );
+
+
+
+    const ball =
+    document.getElementById(
+        "magic-ball"
+    );
+
+
+
+    ball.classList.add(
+        "shake-ball"
+    );
+
+
+
+    testo.style.opacity=0;
+
+
+
+    setTimeout(()=>{
+
+
+        testo.innerHTML =
+        risposteSfera[
+            Math.floor(
+                Math.random()
+                *
+                risposteSfera.length
+            )
+        ];
+
+
+
+        testo.style.opacity=1;
+
+
+
+        ball.classList.remove(
+            "shake-ball"
+        );
+
+
+
+        creaPioggiaDiCuoricini();
+
+
+
+    },1000);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   FUNZIONI SCHERMATE
+========================================= */
+
+
+function apriSchermata(id){
+
+
+    const el =
+    document.getElementById(id);
+
+
+
+    if(el)
+        el.style.display="flex";
+
+
+}
+
+
+
+
+
+function chiudiSchermata(id){
+
+
+    const el =
+    document.getElementById(id);
+
+
+
+    if(el)
+        el.style.display="none";
+
+
+}
+
+
+
+
+
+
+
+/* =========================================
+   AVVIO APP
+========================================= */
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+    aggiornaContatore();
+
+    aggiornaMiniCountdown();
+
+
+});
+
