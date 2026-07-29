@@ -1,126 +1,238 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>La nostra storia 🩷</title>
+<meta charset="UTF-8">
 
-    <meta name="theme-color" content="#ffd1e3">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Noi 🩷">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+<title>La nostra storia 🩷</title>
+
+
+<meta name="theme-color" content="#ffd1e3">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="Noi 🩷">
+
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+
+
 </head>
+
 
 
 <body>
 
 
-<!-- =========================
-     LOCK SCREEN
-========================= -->
+<!-- ======================================
+     SCHERMATA BLOCCO CODICE
+====================================== -->
+
 
 <div id="lock-screen">
 
+
     <div class="lock-content">
 
-        <h2>Ciao amore mio 🩷</h2>
+
+        <h2>
+            Ciao amore mio 🩷
+        </h2>
+
 
         <p>
             Inserisci il codice per continuare
         </p>
 
 
+
         <div class="dots-container">
 
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
+            <div class="dot"></div>
+
 
         </div>
+
+
 
 
 
         <div class="keypad">
 
-            <button class="key-btn" onclick="premiTasto('1')">1</button>
-            <button class="key-btn" onclick="premiTasto('2')">2</button>
-            <button class="key-btn" onclick="premiTasto('3')">3</button>
 
-            <button class="key-btn" onclick="premiTasto('4')">4</button>
-            <button class="key-btn" onclick="premiTasto('5')">5</button>
-            <button class="key-btn" onclick="premiTasto('6')">6</button>
-
-            <button class="key-btn" onclick="premiTasto('7')">7</button>
-            <button class="key-btn" onclick="premiTasto('8')">8</button>
-            <button class="key-btn" onclick="premiTasto('9')">9</button>
-
-            <button class="key-btn invisibile"></button>
-
-            <button class="key-btn" onclick="premiTasto('0')">0</button>
-
-            <button class="key-btn btn-cancella" onclick="cancellaTasto()">
-                C
+            <button class="key-btn"
+            onclick="premiTasto('1')">
+            1
             </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('2')">
+            2
+            </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('3')">
+            3
+            </button>
+
+
+
+            <button class="key-btn"
+            onclick="premiTasto('4')">
+            4
+            </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('5')">
+            5
+            </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('6')">
+            6
+            </button>
+
+
+
+            <button class="key-btn"
+            onclick="premiTasto('7')">
+            7
+            </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('8')">
+            8
+            </button>
+
+
+            <button class="key-btn"
+            onclick="premiTasto('9')">
+            9
+            </button>
+
+
+
+
+            <button class="key-btn invisibile">
+            </button>
+
+
+
+            <button class="key-btn"
+            onclick="premiTasto('0')">
+            0
+            </button>
+
+
+
+            <button class="key-btn btn-cancella"
+            onclick="cancellaTasto()">
+            C
+            </button>
+
 
         </div>
 
+
     </div>
+
 
 </div>
 
 
 
-<!-- =========================
+
+
+
+
+<!-- ======================================
      ELEMENTI FISSI SUPERIORI
-========================= -->
+====================================== -->
 
 
 <div class="mini-countdown">
-    Anniversario 🩷 -
-    <span id="giorni-mancanti">...</span>
-    giorni
+
+Anniversario 🩷 -
+
+<span id="giorni-mancanti">
+...
+</span>
+
+giorni
+
 </div>
 
 
 
-<button class="btn-menu-top" onclick="apriMenu()">
 
-    ☰
 
-    <span id="badge-non-letti"></span>
+<button class="btn-menu-top"
+onclick="apriMenu()">
+
+☰
+
+<span id="badge-non-letti"></span>
 
 </button>
 
 
 
-<div id="overlay-menu" onclick="chiudiMenu()"></div>
+
+
+<div id="overlay-menu"
+onclick="chiudiMenu()">
+</div>
 
 
 
-<!-- =========================
-     MENU LATERALE
-========================= -->
 
 
-<aside id="sidebar-menu">
+
+<!-- MENU LATERALE -->
+
+
+<div id="sidebar-menu">
 
 
 <button class="btn-chiudi-menu"
 onclick="chiudiMenu()">
+
 ❌
+
 </button>
 
 
-<h3>
+
+<h3 class="menu-titolo">
+
 Menu 🩷
+
 </h3>
+
 
 
 <button class="menu-item"
@@ -131,6 +243,7 @@ onclick="apriChatDalMenu()">
 </button>
 
 
+
 <button class="menu-item"
 onclick="apriMagicBallDalMenu()">
 
@@ -139,53 +252,67 @@ onclick="apriMagicBallDalMenu()">
 </button>
 
 
-</aside>
+
+</div>
 
 
 
 
 
-<!-- =========================
-     HOME PRINCIPALE
-========================= -->
 
 
-<main class="container">
+
+<!-- ======================================
+     PAGINA PRINCIPALE
+====================================== -->
 
 
-<header class="home-header">
+<div class="container">
+
+
 
 <h1>
+
 Per l'amore mio 🩷
+
 </h1>
 
-</header>
 
 
 
-<section class="card">
+
+<div class="card">
+
 
 <h2>
+
 ⏳ Insieme da
+
 </h2>
 
 
 <p id="counter">
+
 Caricamento...
+
 </p>
 
 
-</section>
+</div>
 
 
 
 
-<section class="card">
+
+<div class="card">
 
 
 <h2>
+
 💌 Una lettera per te
+
 </h2>
+
 
 
 <p>
@@ -200,22 +327,27 @@ Grazie per essere nella mia vita. 🩷
 </p>
 
 
-</section>
+</div>
 
 
 
 
 
-<section class="card">
+<div class="card">
 
 
 <h2>
+
 📸 I nostri ricordi
+
 </h2>
 
 
+
 <p>
+
 Aggiungi qui tutte le nostre foto.
+
 </p>
 
 
@@ -244,25 +376,24 @@ onclick="apriGalleria()">
 
 
 
-<input
+<input 
 type="file"
 id="fileInput"
 accept="image/*"
 hidden
-onchange="salvaFoto(event)"
->
-
-
-</section>
+onchange="salvaFoto(event)">
 
 
 
+</div>
+
+    <!-- ======================================
+     PULSANTI PRINCIPALI
+====================================== -->
 
 
-<div class="home-buttons">
-
-
-<button onclick="apriBucketList()">
+<button class="btn-principale"
+onclick="apriBucketList()">
 
 ✨ Cose da fare insieme
 
@@ -270,14 +401,14 @@ onchange="salvaFoto(event)"
 
 
 
-<button onclick="sorpresa()">
+
+<button class="btn-principale"
+onclick="sorpresa()">
 
 🎁 Apri la sorpresa
 
 </button>
 
-
-</div>
 
 
 
@@ -285,29 +416,32 @@ onchange="salvaFoto(event)"
 
 
 
-</main>
 
 
 
 
 
 
+<!-- ======================================
+     SCHERMATA GALLERIA
+====================================== -->
 
-<!-- =========================
-     GALLERIA
-========================= -->
 
-
-<section id="galleria-schermo"
+<div id="galleria-schermo"
 class="schermo-intero">
 
 
-<header class="screen-header">
+
+<div class="galleria-header">
 
 
 <h2>
+
 I nostri ricordi 🩷
+
 </h2>
+
+
 
 
 <button class="btn-chiudi"
@@ -318,7 +452,9 @@ onclick="chiudiGalleria()">
 </button>
 
 
-</header>
+</div>
+
+
 
 
 
@@ -331,8 +467,15 @@ class="griglia-quadrata">
 
 
 
+
+
+
+<!-- VISUALIZZATORE FOTO GRANDE -->
+
+
 <div id="visualizzatore-singolo"
 class="visualizzatore-nascosto">
+
 
 
 <button class="btn-elimina-foto"
@@ -341,6 +484,7 @@ onclick="chiediConfermaEliminazione()">
 🗑️
 
 </button>
+
 
 
 
@@ -353,9 +497,15 @@ onclick="cambiaFoto(-1)">
 
 
 
+
+
 <img id="immagine-grande"
 src=""
-alt="Foto">
+alt="Foto ricordo">
+
+
+
+
 
 
 <button class="btn-freccia btn-destra"
@@ -367,6 +517,8 @@ onclick="cambiaFoto(1)">
 
 
 
+
+
 <button class="btn-chiudi-foto"
 onclick="chiudiFotoGrande()">
 
@@ -375,25 +527,34 @@ onclick="chiudiFotoGrande()">
 </button>
 
 
+
 </div>
 
 
-</section>
+
+</div>
 
 
 
 
 
-<!-- =========================
-     CHAT
-========================= -->
 
 
-<section id="chat-schermo"
+
+
+<!-- ======================================
+     CHAT COPPIA
+====================================== -->
+
+
+<div id="chat-schermo"
 class="schermo-intero">
 
 
-<header class="screen-header chat-header">
+
+
+
+<div class="chat-header">
 
 
 <button class="btn-indietro"
@@ -405,16 +566,23 @@ onclick="chiudiChat()">
 
 
 
+
+
 <div class="chat-utente">
 
 
 <span class="avatar">
+
 🩷
+
 </span>
 
 
+
 <h2>
+
 Amore Mio
+
 </h2>
 
 
@@ -422,10 +590,20 @@ Amore Mio
 
 
 
-<div class="header-spacer"></div>
 
 
-</header>
+<div class="spazio-header">
+
+</div>
+
+
+
+</div>
+
+
+
+
+
 
 
 
@@ -433,25 +611,30 @@ Amore Mio
 <div id="lista-messaggi"
 class="area-messaggi">
 
+
 </div>
 
 
 
 
 
-<footer class="chat-input-bar">
 
 
-<input
+<div class="chat-input-bar">
+
+
+
+<input 
 type="text"
 id="input-messaggio"
 placeholder="iMessage..."
-onkeypress="gestisciInvioInvio(event)"
->
+onkeypress="gestisciInvioInvio(event)">
 
 
 
-<button id="btn-invia-chat"
+
+
+<button id="btn-invia"
 onclick="inviaMessaggio()">
 
 ⬆
@@ -459,30 +642,36 @@ onclick="inviaMessaggio()">
 </button>
 
 
-</footer>
 
-
-
-</section>
+</div>
 
 
 
 
 
-<!-- =========================
+</div>
+
+    <!-- ======================================
      BUCKET LIST
-========================= -->
+====================================== -->
 
 
-<section id="bucket-schermo"
+<div id="bucket-schermo"
 class="schermo-intero">
 
 
-<header class="screen-header">
+
+
+
+<div class="galleria-header">
+
 
 <h2>
+
 ✨ Cose da fare insieme
+
 </h2>
+
 
 
 <button class="btn-chiudi"
@@ -493,27 +682,33 @@ onclick="chiudiBucketList()">
 </button>
 
 
-</header>
+</div>
 
 
 
 
-<div class="screen-content">
+
+
+
+
+<div class="pagina-interna">
+
 
 
 <div class="chat-input-bar">
 
 
-<input
-id="input-bucket"
+<input 
 type="text"
-placeholder="Nuovo sogno o viaggio..."
-onkeypress="gestisciInvioBucket(event)"
->
+id="input-bucket"
+placeholder="Nuovo sogno o viaggio da fare..."
+onkeypress="gestisciInvioBucket(event)">
 
 
 
-<button id="btn-aggiungi-bucket"
+
+
+<button id="btn-invia"
 onclick="aggiungiBucketItem()">
 
 +
@@ -526,8 +721,9 @@ onclick="aggiungiBucketItem()">
 
 
 
-<div id="lista-bucket"
-class="bucket-list">
+
+
+<div id="lista-bucket">
 
 </div>
 
@@ -537,28 +733,39 @@ class="bucket-list">
 
 
 
-</section>
+
+</div>
 
 
 
 
 
 
-<!-- =========================
-     MAGIC BALL
-========================= -->
 
 
-<section id="magic-schermo"
+
+<!-- ======================================
+     SFERA DELL'AMORE
+====================================== -->
+
+
+<div id="magic-schermo"
 class="schermo-intero">
 
 
-<header class="screen-header">
+
+
+
+<div class="galleria-header">
 
 
 <h2>
+
 🔮 Sfera dell'Amore
+
 </h2>
+
+
 
 
 <button class="btn-chiudi"
@@ -569,7 +776,9 @@ onclick="chiudiMagicBall()">
 </button>
 
 
-</header>
+</div>
+
+
 
 
 
@@ -578,13 +787,17 @@ onclick="chiudiMagicBall()">
 <div class="magic-container">
 
 
+
 <p>
 
 Fai una domanda ad alta voce,
 poi tocca la sfera per scoprire
-cosa dice il destino ✨
+cosa dice il destino! ✨
 
 </p>
+
+
+
 
 
 
@@ -594,7 +807,10 @@ onclick="chiediAllaSfera()">
 
 
 
+
+
 <div class="magic-inner-window">
+
 
 <span id="magic-text">
 
@@ -603,16 +819,20 @@ Tocca per la risposta 🩷
 </span>
 
 
-</div>
-
 
 </div>
 
 
 
 
+</div>
 
-<button class="btn-piccolo magic-button"
+
+
+
+
+
+<button class="btn-piccolo btn-magic"
 onclick="chiediAllaSfera()">
 
 Chiedi alla sfera 🔮
@@ -620,15 +840,26 @@ Chiedi alla sfera 🔮
 </button>
 
 
+
+
 </div>
 
 
-</section>
+
+
+</div>
 
 
 
 
 
+
+
+
+
+<!-- ======================================
+     FIREBASE
+====================================== -->
 
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -636,15 +867,28 @@ Chiedi alla sfera 🔮
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 
+
+
+
+<!-- SCRIPT PRINCIPALE -->
+
+
 <script src="script.js"></script>
 
 
+
+
+
+
+
+
+<!-- SERVICE WORKER -->
 
 <script>
 
 if ("serviceWorker" in navigator) {
 
-navigator.serviceWorker.register("sw.js");
+    navigator.serviceWorker.register("sw.js");
 
 }
 
@@ -652,5 +896,7 @@ navigator.serviceWorker.register("sw.js");
 
 
 
+
 </body>
+
 </html>
