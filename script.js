@@ -1,6 +1,7 @@
-// =========================================
-// FIREBASE CONFIGURAZIONE
-// =========================================
+// ==========================================
+// CONFIGURAZIONE FIREBASE
+// ==========================================
+
 
 const firebaseConfig = {
 
@@ -11,17 +12,19 @@ const firebaseConfig = {
     databaseURL:
     "https://amoremio-43a39-default-rtdb.europe-west1.firebasedatabase.app",
 
-    projectId:"amoremio-43a39",
+    projectId: "amoremio-43a39",
 
     storageBucket:
     "amoremio-43a39.firebasestorage.app",
 
-    messagingSenderId:"948222176917",
+    messagingSenderId:
+    "948222176917",
 
     appId:
     "1:948222176917:web:881c34a38da68ffc9d759c"
 
 };
+
 
 
 firebase.initializeApp(firebaseConfig);
@@ -31,54 +34,11 @@ const database = firebase.database();
 
 
 
+// Cambiare su ogni telefono
+// "io" = tuo telefono
+// "amore" = telefono della tua ragazza
 
-// Cambia questo nell'altro telefono
-let mioID="io";
-
-
-
-
-
-
-// =========================================
-// SISTEMA APERTURA SCHERMATE
-// =========================================
-
-
-function apriSchermata(id){
-
-    const pagina=document.getElementById(id);
-
-    if(!pagina)return;
-
-
-    pagina.style.display="flex";
-
-
-    document.body.classList.add(
-        "blocca-scroll"
-    );
-
-}
-
-
-
-
-function chiudiSchermata(id){
-
-    const pagina=document.getElementById(id);
-
-    if(!pagina)return;
-
-
-    pagina.style.display="none";
-
-
-    document.body.classList.remove(
-        "blocca-scroll"
-    );
-
-}
+const mioID = "io";
 
 
 
@@ -86,16 +46,17 @@ function chiudiSchermata(id){
 
 
 
-
-// =========================================
-// LOCK SCREEN
-// =========================================
-
-
-const codiceSegreto="080526";
+// ==========================================
+// SCHERMATA BLOCCO CODICE
+// ==========================================
 
 
-let codiceInserito="";
+const codiceSegreto = "080526";
+
+
+let codiceInserito = "";
+
+
 
 
 
@@ -103,26 +64,21 @@ let codiceInserito="";
 function premiTasto(numero){
 
 
-    if(codiceInserito.length>=6)
+    if(codiceInserito.length >= 6)
         return;
 
 
 
-    codiceInserito+=numero;
+    codiceInserito += numero;
 
 
     aggiornaPallini();
 
 
 
-    if(codiceInserito.length===6){
+    if(codiceInserito.length === 6){
 
-
-        setTimeout(
-            controllaCodice,
-            250
-        );
-
+        setTimeout(controllaCodice,200);
 
     }
 
@@ -132,10 +88,11 @@ function premiTasto(numero){
 
 
 
+
 function cancellaTasto(){
 
 
-    codiceInserito=
+    codiceInserito =
     codiceInserito.slice(0,-1);
 
 
@@ -149,20 +106,22 @@ function cancellaTasto(){
 
 
 
+
+
 function aggiornaPallini(){
 
 
-    document
-    .querySelectorAll(".dot")
-    .forEach((dot,index)=>{
+    const pallini =
+    document.querySelectorAll(".dot");
 
 
-        dot.classList.toggle(
 
+    pallini.forEach((p,i)=>{
+
+
+        p.classList.toggle(
             "pieno",
-
-            index < codiceInserito.length
-
+            i < codiceInserito.length
         );
 
 
@@ -176,22 +135,20 @@ function aggiornaPallini(){
 
 
 
+
 function controllaCodice(){
 
 
-
-    const lock=
-    document.getElementById(
-        "lock-screen"
-    );
+    const lock =
+    document.getElementById("lock-screen");
 
 
 
+    if(codiceInserito === codiceSegreto){
 
-    if(codiceInserito===codiceSegreto){
 
 
-        lock.style.opacity="0";
+        lock.classList.add("sbloccato");
 
 
 
@@ -199,9 +156,6 @@ function controllaCodice(){
 
 
             lock.style.display="none";
-
-
-            lock.style.opacity="1";
 
 
         },500);
@@ -214,25 +168,19 @@ function controllaCodice(){
     else{
 
 
-        const dots=
-        document.querySelector(
-            ".dots-container"
-        );
+        const box =
+        document.querySelector(".dots-container");
 
 
 
-        dots.classList.add(
-            "errore-shake"
-        );
+        box.classList.add("errore-shake");
 
 
 
         setTimeout(()=>{
 
 
-            dots.classList.remove(
-                "errore-shake"
-            );
+            box.classList.remove("errore-shake");
 
 
             codiceInserito="";
@@ -242,7 +190,7 @@ function controllaCodice(){
 
 
 
-        },500);
+        },400);
 
 
 
@@ -251,35 +199,49 @@ function controllaCodice(){
 
 }
 
-/* =========================================
-   COUNTDOWN RELAZIONE
-========================================= */
 
 
-const inizioRelazione =
+
+
+
+
+
+
+// ==========================================
+// TIMER RELAZIONE
+// ==========================================
+
+
+const inizio =
 new Date("2026-05-08T00:00:00");
+
+
+
 
 
 
 function aggiornaContatore(){
 
 
-    const ora=new Date();
 
-
-    const differenza =
-    ora - inizioRelazione;
+    const ora =
+    new Date();
 
 
 
-    if(differenza < 0)
+    const diff =
+    ora - inizio;
+
+
+
+    if(diff < 0)
         return;
 
 
 
     const giorni =
     Math.floor(
-        differenza /
+        diff /
         (1000*60*60*24)
     );
 
@@ -287,32 +249,32 @@ function aggiornaContatore(){
 
     const ore =
     Math.floor(
-        (differenza /
-        (1000*60*60)) % 24
-    );
+        diff /
+        (1000*60*60)
+    ) % 24;
 
 
 
     const minuti =
     Math.floor(
-        (differenza /
-        (1000*60)) % 60
-    );
+        diff /
+        (1000*60)
+    ) % 60;
 
 
 
     const secondi =
     Math.floor(
-        (differenza /
-        1000) % 60
-    );
+        diff / 1000
+    ) % 60;
+
+
 
 
 
     const elemento =
-    document.getElementById(
-        "counter"
-    );
+    document.getElementById("counter");
+
 
 
     if(elemento){
@@ -320,14 +282,17 @@ function aggiornaContatore(){
 
         elemento.innerHTML =
 
-        `${giorni} giorni, 
+        `${giorni} giorni,
         ${ore} ore,
         ${minuti} minuti
         e ${secondi} secondi 🩷`;
 
     }
 
+
 }
+
+
 
 
 
@@ -345,72 +310,113 @@ aggiornaContatore();
 
 
 
-
-/* =========================================
-   MINI COUNTDOWN ANNIVERSARIO
-========================================= */
+// ==========================================
+// MINI COUNTDOWN ANNIVERSARIO
+// ==========================================
 
 
 function aggiornaMiniCountdown(){
 
 
-    const oggi=new Date();
+
+    const oggi =
+    new Date();
 
 
 
-    const anniversario =
+    let anno =
+    oggi.getFullYear();
+
+
+
+    let prossimo =
     new Date(
-        oggi.getFullYear(),
+        anno,
         4,
         8
     );
 
 
 
-    if(oggi > anniversario){
+    if(oggi > prossimo){
 
-
-        anniversario.setFullYear(
-            oggi.getFullYear()+1
+        prossimo.setFullYear(
+            anno+1
         );
 
     }
 
 
 
-    const differenza =
-    anniversario - oggi;
-
-
 
     const giorni =
+
     Math.ceil(
-        differenza /
+        (prossimo-oggi)
+        /
         (1000*60*60*24)
     );
 
 
 
-    const elemento =
+    const el =
     document.getElementById(
         "giorni-mancanti"
     );
 
 
 
-    if(elemento){
+    if(el){
 
-
-        elemento.textContent =
+        el.innerHTML =
         giorni;
 
+    }
+
+
+
+}
+
+
+
+aggiornaMiniCountdown();
+
+// ==========================================
+// GESTIONE SCHERMATE
+// ==========================================
+
+
+function apriSchermata(id){
+
+    const schermata =
+    document.getElementById(id);
+
+
+    if(schermata){
+
+        schermata.style.display="flex";
 
     }
 
 }
 
 
-aggiornaMiniCountdown();
+
+
+
+function chiudiSchermata(id){
+
+    const schermata =
+    document.getElementById(id);
+
+
+    if(schermata){
+
+        schermata.style.display="none";
+
+    }
+
+}
 
 
 
@@ -420,10 +426,279 @@ aggiornaMiniCountdown();
 
 
 
+// ==========================================
+// CHAT COPPIA FIREBASE
+// ==========================================
 
-/* =========================================
-   MENU LATERALE
-========================================= */
+
+let chatCaricata = false;
+
+
+
+
+
+
+function apriChat(){
+
+
+    apriSchermata(
+        "chat-schermo"
+    );
+
+
+    if(!chatCaricata){
+
+        caricaMessaggi();
+
+        chatCaricata=true;
+
+    }
+
+
+}
+
+
+
+
+
+
+
+function chiudiChat(){
+
+
+    chiudiSchermata(
+        "chat-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+function inviaMessaggio(){
+
+
+    const input =
+    document.getElementById(
+        "input-messaggio"
+    );
+
+
+    if(!input)
+        return;
+
+
+
+    const testo =
+    input.value.trim();
+
+
+
+    if(testo === "")
+        return;
+
+
+
+
+
+    const messaggio = {
+
+
+        mittente:
+        mioID,
+
+
+        testo:
+        testo,
+
+
+        timestamp:
+        new Date()
+        .toLocaleTimeString(
+            [],
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
+
+
+    };
+
+
+
+
+
+    database
+    .ref("chat_coppia")
+    .push(messaggio);
+
+
+
+    input.value="";
+
+
+}
+
+
+
+
+
+
+
+
+function gestisciInvioInvio(e){
+
+
+    if(e.key==="Enter"){
+
+        inviaMessaggio();
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+function caricaMessaggi(){
+
+
+
+    const lista =
+    document.getElementById(
+        "lista-messaggi"
+    );
+
+
+
+    if(!lista)
+        return;
+
+
+
+
+
+    database
+    .ref("chat_coppia")
+    .on(
+        "value",
+        snapshot=>{
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snapshot.val();
+
+
+
+
+            if(!dati)
+                return;
+
+
+
+
+
+
+            Object.values(dati)
+            .forEach(msg=>{
+
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                const classe =
+
+                msg.mittente === mioID
+
+                ?
+
+                "inviato"
+
+                :
+
+                "ricevuto";
+
+
+
+
+
+                div.className =
+                "messaggio " +
+                classe;
+
+
+
+
+
+                div.innerHTML = `
+
+                <div>
+                ${msg.testo}
+                </div>
+
+                <div class="ora-messaggio">
+                ${msg.timestamp}
+                </div>
+
+                `;
+
+
+
+                lista.appendChild(div);
+
+
+
+            });
+
+
+
+
+
+            lista.scrollTop =
+            lista.scrollHeight;
+
+
+
+        }
+    );
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================================
+// MENU LATERALE
+// ==========================================
+
 
 
 function apriMenu(){
@@ -447,7 +722,10 @@ function apriMenu(){
         "aperto"
     );
 
+
 }
+
+
 
 
 
@@ -484,633 +762,28 @@ function chiudiMenu(){
 
 
 
-
-
-/* =========================================
-   CHAT
-========================================= */
-
-
-let chatCaricata=false;
-
-
-
-
-function apriChat(){
-
-
-    apriSchermata(
-        "chat-schermo"
-    );
-
-
-    if(!chatCaricata){
-
-
-        caricaMessaggi();
-
-
-        chatCaricata=true;
-
-
-    }
-
-
-}
-
-
-
-
-
-
-function chiudiChat(){
-
-
-    chiudiSchermata(
-        "chat-schermo"
-    );
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   BUCKET LIST
-========================================= */
-
-
-let bucketCaricato=false;
-
-
-
-
-function apriBucketList(){
-
-
-    apriSchermata(
-        "bucket-schermo"
-    );
-
-
-
-    if(!bucketCaricato){
-
-
-        caricaBucketList();
-
-
-        bucketCaricato=true;
-
-
-    }
-
-}
-
-
-
-
-
-function chiudiBucketList(){
-
-
-    chiudiSchermata(
-        "bucket-schermo"
-    );
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   MAGIC BALL
-========================================= */
-
-
-function apriMagicBall(){
-
-
-    apriSchermata(
-        "magic-schermo"
-    );
-
-
-}
-
-
-
-
-function chiudiMagicBall(){
-
-
-    chiudiSchermata(
-        "magic-schermo"
-    );
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   MENU COLLEGAMENTI
-========================================= */
-
-
 function apriChatDalMenu(){
 
 
     chiudiMenu();
 
 
-    setTimeout(
-        apriChat,
-        300
-    );
 
-}
+    setTimeout(()=>{
 
+
+        apriChat();
 
 
 
-
-function apriMagicBallDalMenu(){
-
-
-    chiudiMenu();
-
-
-    setTimeout(
-        apriMagicBall,
-        300
-    );
+    },300);
 
 
 }
 
-/* =========================================
-   CHAT FIREBASE TEMPO REALE
-========================================= */
-
-
-function inviaMessaggio(){
-
-
-    const input =
-    document.getElementById(
-        "input-messaggio"
-    );
-
-
-    const testo =
-    input.value.trim();
-
-
-
-    if(testo==="")
-        return;
-
-
-
-
-    const messaggio={
-
-
-        mittente:mioID,
-
-
-        testo:testo,
-
-
-        timestamp:
-        new Date()
-        .toLocaleTimeString(
-            [],
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        )
-
-
-    };
-
-
-
-    database
-    .ref("chat_coppia")
-    .push(messaggio);
-
-
-
-    input.value="";
-
-
-
-}
-
-
-
-
-
-
-
-function gestisciInvioInvio(event){
-
-
-    if(event.key==="Enter"){
-
-
-        event.preventDefault();
-
-
-        inviaMessaggio();
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-
-function caricaMessaggi(){
-
-
-    const lista =
-    document.getElementById(
-        "lista-messaggi"
-    );
-
-
-
-    database
-    .ref("chat_coppia")
-    .on(
-        "value",
-        snapshot=>{
-
-
-            lista.innerHTML="";
-
-
-
-            const dati =
-            snapshot.val();
-
-
-
-            if(!dati)
-                return;
-
-
-
-            Object.values(dati)
-            .forEach(msg=>{
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-
-                div.className =
-                "messaggio " +
-                (
-                    msg.mittente===mioID
-                    ?
-                    "inviato"
-                    :
-                    "ricevuto"
-                );
-
-
-
-                div.innerHTML=`
-
-                    <div>
-                        ${msg.testo}
-                    </div>
-
-                    <div class="ora-messaggio">
-                        ${msg.timestamp}
-                    </div>
-
-                `;
-
-
-
-                lista.appendChild(div);
-
-
-
-            });
-
-
-
-            lista.scrollTop =
-            lista.scrollHeight;
-
-
-
-        }
-    );
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   BUCKET LIST FIREBASE
-========================================= */
-
-
-
-function aggiungiBucketItem(){
-
-
-    const input =
-    document.getElementById(
-        "input-bucket"
-    );
-
-
-
-    const testo =
-    input.value.trim();
-
-
-
-    if(testo==="")
-        return;
-
-
-
-
-    database
-    .ref("bucket_list")
-    .push({
-
-        testo:testo,
-
-        completato:false
-
-    });
-
-
-
-    input.value="";
-
-
-}
-
-
-
-
-
-
-
-function gestisciInvioBucket(event){
-
-
-    if(event.key==="Enter"){
-
-
-        event.preventDefault();
-
-
-        aggiungiBucketItem();
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-
-
-function caricaBucketList(){
-
-
-    const lista =
-    document.getElementById(
-        "lista-bucket"
-    );
-
-
-
-    database
-    .ref("bucket_list")
-    .on(
-        "value",
-        snapshot=>{
-
-
-            lista.innerHTML="";
-
-
-
-            const dati =
-            snapshot.val();
-
-
-
-
-            if(!dati){
-
-
-                lista.innerHTML=
-
-                `
-
-                <p style="
-                text-align:center;
-                color:#777;
-                ">
-                Nessun sogno aggiunto ancora 🩷
-                </p>
-
-                `;
-
-
-                return;
-
-
-            }
-
-
-
-
-
-
-            Object.entries(dati)
-            .forEach(
-            ([id,item])=>{
-
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-
-                div.className =
-                "bucket-item " +
-                (
-                    item.completato
-                    ?
-                    "completato"
-                    :
-                    ""
-                );
-
-
-
-                div.innerHTML=`
-
-                <div 
-                class="bucket-info"
-                onclick="
-                toggleBucketItem(
-                '${id}',
-                ${item.completato}
-                )">
-
-                    <input 
-                    type="checkbox"
-                    ${item.completato
-                    ?
-                    "checked"
-                    :
-                    ""}
-                    >
-
-                    <span>
-                    ${item.testo}
-                    </span>
-
-
-                </div>
-
-
-
-                <button
-                class="bucket-elimina"
-                onclick="
-                eliminaBucketItem(
-                '${id}'
-                )">
-
-                🗑️
-
-                </button>
-
-                `;
-
-
-
-                lista.appendChild(div);
-
-
-
-            });
-
-
-
-        }
-
-    );
-
-
-}
-
-
-
-
-
-
-
-
-
-function toggleBucketItem(id,stato){
-
-
-    database
-    .ref(
-        "bucket_list/"+id
-    )
-    .update({
-
-        completato:
-        !stato
-
-    });
-
-
-}
-
-
-
-
-
-
-
-
-function eliminaBucketItem(id){
-
-
-    database
-    .ref(
-        "bucket_list/"+id
-    )
-    .remove();
-
-
-}
-
-/* =========================================
-   GALLERIA RICORDI
-========================================= */
+// ==========================================
+// GALLERIA RICORDI
+// ==========================================
 
 
 let indiceFotoCorrente = null;
@@ -1122,11 +795,17 @@ let indiceFotoCorrente = null;
 function scegliFoto(){
 
 
-    document
-    .getElementById(
+    const input =
+    document.getElementById(
         "fileInput"
-    )
-    .click();
+    );
+
+
+    if(input){
+
+        input.click();
+
+    }
 
 
 }
@@ -1141,6 +820,7 @@ function scegliFoto(){
 function salvaFoto(event){
 
 
+
     const file =
     event.target.files[0];
 
@@ -1152,17 +832,23 @@ function salvaFoto(event){
 
 
 
+
+
     const reader =
     new FileReader();
 
 
 
-    reader.onload=function(e){
+
+
+    reader.onload = function(e){
 
 
 
         const img =
         new Image();
+
+
 
 
 
@@ -1177,7 +863,8 @@ function salvaFoto(event){
 
 
 
-            const maxWidth=900;
+            const max =
+            900;
 
 
 
@@ -1193,25 +880,37 @@ function salvaFoto(event){
 
 
 
-            if(width>maxWidth){
+
+            if(width > max){
 
 
                 height =
                 height *
-                maxWidth /
+                max /
                 width;
 
 
-                width=maxWidth;
+
+                width=max;
 
 
             }
 
 
 
-            canvas.width=width;
 
-            canvas.height=height;
+
+
+            canvas.width =
+            width;
+
+
+
+            canvas.height =
+            height;
+
+
+
 
 
 
@@ -1232,27 +931,39 @@ function salvaFoto(event){
 
 
 
+
+
+
             const foto =
+
             canvas.toDataURL(
                 "image/jpeg",
-                0.8
+                0.75
             );
 
 
 
 
-            let salvate =
+
+
+            let archivio =
+
             JSON.parse(
-                localStorage
-                .getItem(
+                localStorage.getItem(
                     "fotoAmore"
                 )
-            ) || [];
+            )
+            ||
+            [];
 
 
 
 
-            salvate.push(foto);
+
+            archivio.push(
+                foto
+            );
+
 
 
 
@@ -1263,46 +974,57 @@ function salvaFoto(event){
                 localStorage.setItem(
                     "fotoAmore",
                     JSON.stringify(
-                        salvate
+                        archivio
                     )
                 );
 
 
 
                 alert(
-                    "Foto aggiunta ai nostri ricordi 🩷"
+                    "Foto aggiunta ai ricordi 🩷"
                 );
 
 
 
             }
+
+
             catch(err){
 
 
                 alert(
-                    "Memoria piena 😢"
+                    "Memoria piena, elimina qualche foto"
                 );
 
 
             }
+
+
+
 
 
         };
 
 
 
-        img.src=e.target.result;
+
+
+
+        img.src =
+        e.target.result;
+
 
 
     };
 
 
 
-    reader.readAsDataURL(file);
 
 
+    reader.readAsDataURL(
+        file
+    );
 
-    event.target.value="";
 
 
 }
@@ -1332,17 +1054,27 @@ function apriGalleria(){
 
 
 
+    if(!griglia)
+        return;
+
+
+
+
     griglia.innerHTML="";
 
 
 
+
+
     const foto =
+
     JSON.parse(
-        localStorage
-        .getItem(
+        localStorage.getItem(
             "fotoAmore"
         )
-    ) || [];
+    )
+    ||
+    [];
 
 
 
@@ -1353,13 +1085,8 @@ function apriGalleria(){
 
         griglia.innerHTML=`
 
-        <p style="
-        grid-column:1/-1;
-        text-align:center;
-        padding:30px;
-        color:#777;
-        ">
-        Nessuna foto ancora 🩷
+        <p class="nessuna-foto">
+        Non hai ancora aggiunto foto 🩷
         </p>
 
         `;
@@ -1374,41 +1101,50 @@ function apriGalleria(){
 
 
 
+
+
+
     foto.forEach(
-    (immagine,index)=>{
-
-
-        const img =
-        document.createElement(
-            "img"
-        );
+        (immagine,index)=>{
 
 
 
-        img.src=immagine;
-
-
-
-        img.onclick=()=>{
-
-
-            apriFotoGrande(
-                index
+            const img =
+            document.createElement(
+                "img"
             );
 
 
-        };
+
+            img.src =
+            immagine;
 
 
 
-        griglia.appendChild(img);
+            img.onclick=()=>{
 
 
-    });
+                apriFotoGrande(
+                    index
+                );
+
+
+            };
+
+
+
+            griglia.appendChild(
+                img
+            );
+
+
+
+        }
+    );
+
 
 
 }
-
 
 
 
@@ -1420,11 +1156,13 @@ function apriGalleria(){
 function apriFotoGrande(index){
 
 
-    indiceFotoCorrente=index;
+    indiceFotoCorrente =
+    index;
 
 
 
-    aggiornaImmagineGrande();
+    aggiornaFotoGrande();
+
 
 
 
@@ -1432,10 +1170,10 @@ function apriFotoGrande(index){
     .getElementById(
         "visualizzatore-singolo"
     )
-    .classList
-    .add(
+    .classList.add(
         "mostra"
     );
+
 
 
 }
@@ -1447,18 +1185,20 @@ function apriFotoGrande(index){
 
 
 
-
-function aggiornaImmagineGrande(){
+function aggiornaFotoGrande(){
 
 
 
     const foto =
+
     JSON.parse(
-        localStorage
-        .getItem(
+        localStorage.getItem(
             "fotoAmore"
         )
-    ) || [];
+    )
+    ||
+    [];
+
 
 
 
@@ -1467,19 +1207,28 @@ function aggiornaImmagineGrande(){
 
 
 
-    if(indiceFotoCorrente<0)
+
+
+    if(indiceFotoCorrente < 0){
 
 
         indiceFotoCorrente =
         foto.length-1;
 
 
+    }
 
 
-    if(indiceFotoCorrente>=foto.length)
+
+    if(indiceFotoCorrente >= foto.length){
 
 
         indiceFotoCorrente=0;
+
+
+    }
+
+
 
 
 
@@ -1509,29 +1258,36 @@ function cambiaFoto(direzione){
 
 
     const foto =
+
     JSON.parse(
-        localStorage
-        .getItem(
+        localStorage.getItem(
             "fotoAmore"
         )
-    ) || [];
+    )
+    ||
+    [];
 
 
 
-    if(foto.length<=1)
+
+
+    if(foto.length <= 1)
         return;
 
 
 
-    indiceFotoCorrente += direzione;
+
+
+    indiceFotoCorrente +=
+    direzione;
 
 
 
-    aggiornaImmagineGrande();
+    aggiornaFotoGrande();
+
 
 
 }
-
 
 
 
@@ -1547,8 +1303,7 @@ function chiudiFotoGrande(){
     .getElementById(
         "visualizzatore-singolo"
     )
-    .classList
-    .remove(
+    .classList.remove(
         "mostra"
     );
 
@@ -1569,15 +1324,12 @@ function chiudiFotoGrande(){
 function chiudiGalleria(){
 
 
-
     chiudiSchermata(
         "galleria-schermo"
     );
 
 
-
     chiudiFotoGrande();
-
 
 
 }
@@ -1598,21 +1350,32 @@ function chiediConfermaEliminazione(){
 
 
 
-    if(!confirm(
+
+
+    if(
+        !confirm(
         "Eliminare questa foto? 🥺"
-    ))
-        return;
+        )
+    )
+    return;
+
+
+
 
 
 
 
     let foto =
+
     JSON.parse(
-        localStorage
-        .getItem(
+        localStorage.getItem(
             "fotoAmore"
         )
-    ) || [];
+    )
+    ||
+    [];
+
+
 
 
 
@@ -1620,6 +1383,8 @@ function chiediConfermaEliminazione(){
         indiceFotoCorrente,
         1
     );
+
+
 
 
 
@@ -1632,8 +1397,9 @@ function chiediConfermaEliminazione(){
 
 
 
-    chiudiFotoGrande();
 
+
+    chiudiFotoGrande();
 
     apriGalleria();
 
@@ -1648,21 +1414,17 @@ function chiediConfermaEliminazione(){
 
 
 
-
-/* =========================================
-   SWIPE FOTO MOBILE
-========================================= */
+// ==========================================
+// SWIPE FOTO IPHONE
+// ==========================================
 
 
 let touchStartX=0;
 
 
-let touchEndX=0;
-
-
-
 
 const viewer =
+
 document.getElementById(
     "visualizzatore-singolo"
 );
@@ -1672,61 +1434,87 @@ document.getElementById(
 if(viewer){
 
 
-    viewer.addEventListener(
-        "touchstart",
-        e=>{
+
+viewer.addEventListener(
+"touchstart",
+e=>{
 
 
-            touchStartX =
-            e.changedTouches[0]
-            .screenX;
+touchStartX =
+e.changedTouches[0].screenX;
 
 
-        }
+});
+
+
+
+
+
+viewer.addEventListener(
+"touchend",
+e=>{
+
+
+let fine =
+
+e.changedTouches[0]
+.screenX;
+
+
+
+
+
+if(fine < touchStartX-50){
+
+    cambiaFoto(1);
+
+}
+
+
+
+if(fine > touchStartX+50){
+
+    cambiaFoto(-1);
+
+}
+
+
+
+});
+
+
+}
+
+// ==========================================
+// BUCKET LIST CONDIVISA
+// ==========================================
+
+
+
+function apriBucketList(){
+
+
+    apriSchermata(
+        "bucket-schermo"
     );
 
 
+    caricaBucketList();
 
 
-    viewer.addEventListener(
-        "touchend",
-        e=>{
-
-
-            touchEndX =
-            e.changedTouches[0]
-            .screenX;
+}
 
 
 
 
-            if(
-                touchEndX <
-                touchStartX-50
-            ){
-
-
-                cambiaFoto(1);
-
-
-            }
 
 
 
-
-            if(
-                touchEndX >
-                touchStartX+50
-            ){
+function chiudiBucketList(){
 
 
-                cambiaFoto(-1);
-
-
-            }
-
-
-        }
+    chiudiSchermata(
+        "bucket-schermo"
     );
 
 
@@ -1739,10 +1527,578 @@ if(viewer){
 
 
 
+function aggiungiBucketItem(){
 
-/* =========================================
-   CUORICINI VOLANTI
-========================================= */
+
+
+    const input =
+    document.getElementById(
+        "input-bucket"
+    );
+
+
+
+    if(!input)
+        return;
+
+
+
+
+    const testo =
+    input.value.trim();
+
+
+
+
+    if(testo==="")
+        return;
+
+
+
+
+
+
+    database
+    .ref("bucket_list")
+    .push({
+
+        testo:testo,
+
+        completato:false
+
+    });
+
+
+
+
+
+    input.value="";
+
+
+
+}
+
+
+
+
+
+
+
+
+function gestisciInvioBucket(e){
+
+
+
+    if(e.key==="Enter"){
+
+        aggiungiBucketItem();
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+function caricaBucketList(){
+
+
+
+    const lista =
+    document.getElementById(
+        "lista-bucket"
+    );
+
+
+
+    if(!lista)
+        return;
+
+
+
+
+
+
+
+    database
+    .ref("bucket_list")
+    .on(
+        "value",
+        snapshot=>{
+
+
+
+            lista.innerHTML="";
+
+
+
+            const dati =
+            snapshot.val();
+
+
+
+
+
+            if(!dati){
+
+
+                lista.innerHTML=
+
+                `
+
+                <p class="vuota">
+
+                Nessun sogno ancora 🩷
+
+                </p>
+
+                `;
+
+
+                return;
+
+            }
+
+
+
+
+
+
+
+
+            Object.entries(dati)
+            .forEach(([id,item])=>{
+
+
+
+
+
+                const div =
+                document.createElement(
+                    "div"
+                );
+
+
+
+                div.className =
+                "bucket-item";
+
+
+
+
+
+                if(item.completato){
+
+                    div.classList.add(
+                        "completato"
+                    );
+
+                }
+
+
+
+
+
+
+
+                div.innerHTML = `
+
+
+                <div class="bucket-info">
+
+
+                <input 
+                type="checkbox"
+                ${item.completato ? "checked":""}
+                >
+
+
+                <span>
+                ${item.testo}
+                </span>
+
+
+                </div>
+
+
+
+                <button 
+                class="bucket-elimina">
+
+                🗑️
+
+                </button>
+
+
+                `;
+
+
+
+
+
+
+                div
+                .querySelector("input")
+                .onclick=()=>{
+
+
+                    database
+                    .ref(
+                    "bucket_list/"+id
+                    )
+                    .update({
+
+                        completato:
+                        !item.completato
+
+                    });
+
+
+
+                };
+
+
+
+
+
+
+
+
+                div
+                .querySelector(".bucket-elimina")
+                .onclick=()=>{
+
+
+                    database
+                    .ref(
+                    "bucket_list/"+id
+                    )
+                    .remove();
+
+
+                };
+
+
+
+
+
+
+
+                lista.appendChild(
+                    div
+                );
+
+
+
+            });
+
+
+
+        }
+    );
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================================
+// SFERA DELL'AMORE
+// ==========================================
+
+
+
+const risposteSfera=[
+
+
+"Certamente sì! ✨",
+
+"Direi proprio di sì amore mio 🩷",
+
+"Forse... il destino sta decidendo 🔮",
+
+"Assolutamente no 🙈",
+
+"Le stelle dicono sì 🌟",
+
+"Chiedimelo dopo un gelato 🍨",
+
+"Probabilità altissime 💕",
+
+"Non lo so... ma ti amo comunque 🩷",
+
+"Sì, senza dubbio ❤️",
+
+"Riprova tra poco 😜"
+
+
+];
+
+
+
+
+
+
+
+
+
+function apriMagicBall(){
+
+
+    apriSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+function chiudiMagicBall(){
+
+
+    chiudiSchermata(
+        "magic-schermo"
+    );
+
+
+}
+
+
+
+
+
+
+
+
+function apriMagicBallDalMenu(){
+
+
+    chiudiMenu();
+
+
+
+    setTimeout(()=>{
+
+
+        apriMagicBall();
+
+
+    },300);
+
+
+
+}
+
+
+
+
+
+
+
+
+function chiediAllaSfera(){
+
+
+
+    const ball =
+    document.getElementById(
+        "magic-ball"
+    );
+
+
+
+    const testo =
+    document.getElementById(
+        "magic-text"
+    );
+
+
+
+
+
+
+    if(!ball || !testo)
+        return;
+
+
+
+
+
+
+    ball.classList.add(
+        "shake-ball"
+    );
+
+
+
+    testo.style.opacity="0";
+
+
+
+
+
+
+
+    setTimeout(()=>{
+
+
+
+        const risposta =
+
+        risposteSfera[
+        Math.floor(
+        Math.random()
+        *
+        risposteSfera.length
+        )
+        ];
+
+
+
+
+
+        testo.innerHTML =
+        risposta;
+
+
+
+        testo.style.opacity="1";
+
+
+
+        ball.classList.remove(
+            "shake-ball"
+        );
+
+
+
+        creaPioggiaDiCuoricini();
+
+
+
+
+    },1200);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================================
+// SORPRESA ROMANTICA
+// ==========================================
+
+
+
+const frasiAmore=[
+
+
+"Sei il mio posto felice 🩷",
+
+"Ogni giorno scelgo ancora te ❤️",
+
+"Il mio sorriso più bello nasce con te 🩷",
+
+"Sei il mio rifugio sicuro 💕",
+
+"Con te anche le cose semplici diventano speciali ✨",
+
+"Ti sceglierei altre mille volte 🩷"
+
+
+];
+
+
+
+
+
+
+
+
+function sorpresa(){
+
+
+
+    const elemento =
+    document.getElementById(
+        "secret"
+    );
+
+
+
+    if(!elemento)
+        return;
+
+
+
+
+
+    elemento.innerHTML =
+
+    frasiAmore[
+    Math.floor(
+    Math.random()
+    *
+    frasiAmore.length
+    )
+    ];
+
+
+
+
+
+    elemento.classList.remove(
+        "fade-in"
+    );
+
+
+    void elemento.offsetWidth;
+
+
+
+    elemento.classList.add(
+        "fade-in"
+    );
+
+
+
+    creaPioggiaDiCuoricini();
+
+
+
+}
+
+
+
+
+
+
 
 
 function creaPioggiaDiCuoricini(){
@@ -1750,10 +2106,11 @@ function creaPioggiaDiCuoricini(){
 
 
     for(
-        let i=0;
-        i<25;
-        i++
+    let i=0;
+    i<20;
+    i++
     ){
+
 
 
         setTimeout(()=>{
@@ -1783,26 +2140,29 @@ function creaPioggiaDiCuoricini(){
 
             cuore.style.fontSize =
             (
-                Math.random()*20+15
+            Math.random()*20+15
             )
             +"px";
 
 
 
-            document
-            .body
+
+            document.body
             .appendChild(
                 cuore
             );
 
 
 
-            setTimeout(
-                ()=>{
-                    cuore.remove();
-                },
-                3000
-            );
+
+
+            setTimeout(()=>{
+
+
+                cuore.remove();
+
+
+            },3000);
 
 
 
@@ -1815,798 +2175,343 @@ function creaPioggiaDiCuoricini(){
 
 }
 
-/* =========================================
-   SORPRESA AMORE
-========================================= */
-
-
-const frasiAmore = [
-
-"Sei il mio primo pensiero al mattino e l'ultimo prima di dormire 🩷",
-
-"Ogni momento con te è il mio momento preferito 🩷",
-
-"Sei la mia casa anche quando siamo lontani 🩷",
-
-"Con te anche le giornate normali diventano speciali ✨",
-
-"Il mio posto preferito è sempre vicino a te 🩷",
-
-"Ti sceglierei oggi, domani e in ogni vita possibile 🩷",
-
-"Il tuo sorriso è la mia cosa preferita al mondo 🩷",
-
-"Grazie per rendere la mia vita più bella ogni giorno 🩷",
-
-"Non ho bisogno di altro quando ho te accanto 🩷",
-
-"Sei il mio piccolo miracolo quotidiano 🩷"
-
-];
+// ==========================================
+// AVVIO APP E CONTROLLI FINALI
+// ==========================================
 
 
 
-
-function sorpresa(){
-
-
-    const box =
-    document.getElementById(
-        "secret"
-    );
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-    const frase =
-    frasiAmore[
-        Math.floor(
-            Math.random()
-            *
-            frasiAmore.length
-        )
+    // Nasconde correttamente
+    // le schermate secondarie all'avvio
+
+
+    const schermate = [
+
+        "galleria-schermo",
+
+        "chat-schermo",
+
+        "bucket-schermo",
+
+        "magic-schermo"
+
     ];
 
 
 
-    box.innerHTML=frase;
 
+    schermate.forEach(id=>{
 
 
-    box.classList.remove(
-        "fade-in"
-    );
+        const el =
+        document.getElementById(id);
 
 
-    void box.offsetWidth;
 
+        if(el){
 
-    box.classList.add(
-        "fade-in"
-    );
 
-
-    creaPioggiaDiCuoricini();
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   MENU LATERALE
-========================================= */
-
-
-function apriMenu(){
-
-
-    document
-    .getElementById(
-        "sidebar-menu"
-    )
-    .classList
-    .add(
-        "aperto"
-    );
-
-
-    document
-    .getElementById(
-        "overlay-menu"
-    )
-    .classList
-    .add(
-        "aperto"
-    );
-
-}
-
-
-
-function chiudiMenu(){
-
-
-    document
-    .getElementById(
-        "sidebar-menu"
-    )
-    .classList
-    .remove(
-        "aperto"
-    );
-
-
-    document
-    .getElementById(
-        "overlay-menu"
-    )
-    .classList
-    .remove(
-        "aperto"
-    );
-
-}
-
-
-
-
-
-/* =========================================
-   CHAT
-========================================= */
-
-
-function apriChatDalMenu(){
-
-
-    chiudiMenu();
-
-
-    setTimeout(()=>{
-
-
-        apriChat();
-
-
-    },300);
-
-
-}
-
-
-
-
-
-function apriChat(){
-
-
-    apriSchermata(
-        "chat-schermo"
-    );
-
-
-    caricaMessaggi();
-
-
-}
-
-
-
-
-
-function chiudiChat(){
-
-
-    chiudiSchermata(
-        "chat-schermo"
-    );
-
-
-}
-
-
-
-
-
-
-
-function inviaMessaggio(){
-
-
-
-    const input =
-    document.getElementById(
-        "input-messaggio"
-    );
-
-
-    const testo =
-    input.value.trim();
-
-
-
-    if(!testo)
-        return;
-
-
-
-    database
-    .ref(
-        "chat_coppia"
-    )
-    .push({
-
-        mittente:mioID,
-
-        testo:testo,
-
-        timestamp:
-        new Date()
-        .toLocaleTimeString(
-            [],
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        )
-
-    });
-
-
-
-    input.value="";
-
-
-
-}
-
-
-
-
-
-function gestisciInvioInvio(e){
-
-
-    if(e.key==="Enter")
-        inviaMessaggio();
-
-
-}
-
-
-
-
-
-
-function caricaMessaggi(){
-
-
-
-    const lista =
-    document.getElementById(
-        "lista-messaggi"
-    );
-
-
-
-    database
-    .ref(
-        "chat_coppia"
-    )
-    .on(
-        "value",
-        snapshot=>{
-
-
-            lista.innerHTML="";
-
-
-
-            const dati =
-            snapshot.val();
-
-
-
-            if(!dati)
-                return;
-
-
-
-
-            Object.values(dati)
-            .forEach(
-            msg=>{
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-
-                div.className =
-                "messaggio " +
-                (
-                msg.mittente===mioID
-                ?
-                "inviato"
-                :
-                "ricevuto"
-                );
-
-
-
-                div.innerHTML=`
-
-                <div>
-                ${msg.testo}
-                </div>
-
-                <small>
-                ${msg.timestamp}
-                </small>
-
-                `;
-
-
-
-                lista.appendChild(div);
-
-
-            });
-
-
-
-            lista.scrollTop =
-            lista.scrollHeight;
+            el.style.display="none";
 
 
         }
-    );
 
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   BUCKET LIST
-========================================= */
-
-
-function apriBucketList(){
-
-
-    apriSchermata(
-        "bucket-schermo"
-    );
-
-
-    caricaBucketList();
-
-
-}
-
-
-
-function chiudiBucketList(){
-
-
-    chiudiSchermata(
-        "bucket-schermo"
-    );
-
-
-}
-
-
-
-
-
-
-function aggiungiBucketItem(){
-
-
-    const input =
-    document.getElementById(
-        "input-bucket"
-    );
-
-
-    const testo =
-    input.value.trim();
-
-
-
-    if(!testo)
-        return;
-
-
-
-
-    database
-    .ref(
-        "bucket_list"
-    )
-    .push({
-
-        testo:testo,
-
-        completato:false
 
     });
 
 
 
-    input.value="";
 
 
-}
 
 
-
-
-
-function gestisciInvioBucket(e){
-
-
-    if(e.key==="Enter")
-        aggiungiBucketItem();
-
-
-}
-
-
-
-
-
-
-
-function caricaBucketList(){
-
-
-
-    const lista =
-    document.getElementById(
-        "lista-bucket"
-    );
-
-
-
-    database
-    .ref(
-        "bucket_list"
-    )
-    .on(
-        "value",
-        snap=>{
-
-
-            lista.innerHTML="";
-
-
-
-            const dati =
-            snap.val();
-
-
-
-            if(!dati)
-                return;
-
-
-
-            Object.entries(dati)
-            .forEach(
-            ([id,item])=>{
-
-
-                const div =
-                document.createElement(
-                    "div"
-                );
-
-
-
-                div.className =
-                "bucket-item";
-
-
-
-                div.innerHTML=`
-
-                <span>
-                <input type="checkbox"
-                ${item.completato?"checked":""}
-                onclick="toggleBucketItem('${id}',${item.completato})">
-
-                ${item.testo}
-
-                </span>
-
-
-                <button onclick="eliminaBucketItem('${id}')">
-                🗑️
-                </button>
-
-                `;
-
-
-
-                lista.appendChild(div);
-
-
-
-            });
-
-
-        }
-    );
-
-
-}
-
-
-
-
-function toggleBucketItem(id,stato){
-
-
-    database
-    .ref(
-        "bucket_list/"+id
-    )
-    .update({
-
-        completato:!stato
-
-    });
-
-
-}
-
-
-
-
-
-function eliminaBucketItem(id){
-
-
-    database
-    .ref(
-        "bucket_list/"+id
-    )
-    .remove();
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   MAGIC BALL
-========================================= */
-
-
-const risposteSfera=[
-
-"Certamente sì 🩷",
-
-"Assolutamente no 😂",
-
-"Le stelle dicono sì ✨",
-
-"Probabilmente sì",
-
-"Riprova più tardi 🔮",
-
-"Il destino sorride a voi due 🩷",
-
-"Sì, ma solo con il gelato 🍦",
-
-"Non ne sono sicuro 🤔"
-
-];
-
-
-
-
-
-
-function apriMagicBallDalMenu(){
-
-
-    chiudiMenu();
-
-
-    setTimeout(()=>{
-
-
-        apriMagicBall();
-
-
-    },300);
-
-
-}
-
-
-
-
-
-function apriMagicBall(){
-
-
-    apriSchermata(
-        "magic-schermo"
-    );
-
-
-}
-
-
-
-
-
-function chiudiMagicBall(){
-
-
-    chiudiSchermata(
-        "magic-schermo"
-    );
-
-
-}
-
-
-
-
-
-function chiediAllaSfera(){
-
-
-
-    const testo =
-    document.getElementById(
-        "magic-text"
-    );
-
-
-
-    const ball =
-    document.getElementById(
-        "magic-ball"
-    );
-
-
-
-    ball.classList.add(
-        "shake-ball"
-    );
-
-
-
-    testo.style.opacity=0;
-
-
-
-    setTimeout(()=>{
-
-
-        testo.innerHTML =
-        risposteSfera[
-            Math.floor(
-                Math.random()
-                *
-                risposteSfera.length
-            )
-        ];
-
-
-
-        testo.style.opacity=1;
-
-
-
-        ball.classList.remove(
-            "shake-ball"
-        );
-
-
-
-        creaPioggiaDiCuoricini();
-
-
-
-    },1000);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   FUNZIONI SCHERMATE
-========================================= */
-
-
-function apriSchermata(id){
-
-
-    const el =
-    document.getElementById(id);
-
-
-
-    if(el)
-        el.style.display="flex";
-
-
-}
-
-
-
-
-
-function chiudiSchermata(id){
-
-
-    const el =
-    document.getElementById(id);
-
-
-
-    if(el)
-        el.style.display="none";
-
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   AVVIO APP
-========================================= */
-
-
-window.addEventListener(
-"load",
-()=>{
+    // Aggiorna timer subito
 
 
     aggiornaContatore();
 
+
     aggiornaMiniCountdown();
 
 
+
 });
+
+
+
+
+
+
+
+
+
+// ==========================================
+// RESET INPUT FOTO
+// ==========================================
+
+
+const inputFoto =
+document.getElementById(
+"fileInput"
+);
+
+
+
+if(inputFoto){
+
+
+
+    inputFoto.addEventListener(
+    "change",
+    ()=>{
+
+
+        setTimeout(()=>{
+
+
+            inputFoto.value="";
+
+
+        },500);
+
+
+
+    });
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================================
+// BLOCCO SCROLL QUANDO APRI SCHERMATE
+// ==========================================
+
+
+
+function bloccaScroll(){
+
+
+    document.body.style.overflow="hidden";
+
+
+}
+
+
+
+
+function abilitaScroll(){
+
+
+    document.body.style.overflow="";
+
+
+}
+
+
+
+
+
+
+
+
+
+// sostituisce apertura schermata
+// con versione più fluida
+
+
+const apriOriginale =
+window.apriSchermata;
+
+
+
+window.apriSchermata=function(id){
+
+
+    const el =
+    document.getElementById(id);
+
+
+
+    if(el){
+
+
+        el.style.display="flex";
+
+
+        bloccaScroll();
+
+
+    }
+
+
+};
+
+
+
+
+
+
+
+
+const chiudiOriginale =
+window.chiudiSchermata;
+
+
+
+window.chiudiSchermata=function(id){
+
+
+    const el =
+    document.getElementById(id);
+
+
+
+    if(el){
+
+
+        el.style.display="none";
+
+
+        abilitaScroll();
+
+
+    }
+
+
+};
+
+
+
+
+
+
+
+
+
+// ==========================================
+// PREVENZIONE DOPPIO TAP ZOOM IPHONE
+// ==========================================
+
+
+let ultimoTap=0;
+
+
+
+document.addEventListener(
+"touchend",
+e=>{
+
+
+    const ora =
+    Date.now();
+
+
+
+    if(
+        ora-ultimoTap < 300
+    ){
+
+
+        e.preventDefault();
+
+
+    }
+
+
+
+    ultimoTap=ora;
+
+
+
+},
+{
+    passive:false
+});
+
+
+
+
+
+
+
+
+
+// ==========================================
+// GESTIONE ROTAZIONE SCHERMO
+// ==========================================
+
+
+window.addEventListener(
+"orientationchange",
+()=>{
+
+
+    setTimeout(()=>{
+
+
+        window.scrollTo(
+            0,
+            0
+        );
+
+
+    },300);
+
+
+
+});
+
+
+
+
+
+
+
+
+// ==========================================
+// SERVICE WORKER PWA
+// ==========================================
+
+
+if(
+"serviceWorker" in navigator
+){
+
+
+    window.addEventListener(
+    "load",
+    ()=>{
+
+
+        navigator
+        .serviceWorker
+        .register(
+            "sw.js"
+        )
+        .catch(
+        err=>
+        console.log(
+            "SW errore",
+            err
+        )
+        );
+
+
+    });
+
+
+}
 
