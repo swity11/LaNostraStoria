@@ -607,7 +607,7 @@ button {
 }
 
 /* ==========================================
-   BUCKET LIST (CASELLE A SINISTRA)
+   BUCKET LIST
 ========================================== */
 #bucket-schermo {
     background: linear-gradient(135deg, #fff0f7, #ffffff);
@@ -631,7 +631,7 @@ button {
     animation: comparsa .25s;
 }
 
-/* Checkbox allineata a SINISTRA */
+/* 1. Casella a SINISTRA */
 .bucket-item input[type="checkbox"] {
     width: 22px;
     height: 22px;
@@ -640,9 +640,9 @@ button {
     flex-shrink: 0;
 }
 
-/* Testo al CENTRO */
+/* 2. Testo al CENTRO */
 .bucket-item span {
-    flex: 1;
+    flex: 1; /* Si espande per occupare tutto lo spazio disponibile */
     color: #444;
     font-size: 16px;
     line-height: 1.4;
@@ -656,7 +656,7 @@ button {
     opacity: .5;
 }
 
-/* Bottone Elimina a DESTRA */
+/* 3. Cestino fisso a DESTRA */
 .bucket-elimina {
     background: none;
     color: #ff3b30;
@@ -664,6 +664,7 @@ button {
     padding: 5px;
     cursor: pointer;
     flex-shrink: 0;
+    margin-left: auto; /* <--- Questo spinge il cestino tutto a destra */
 }
 
 #input-bucket {
