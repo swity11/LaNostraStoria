@@ -846,3 +846,39 @@ button, img {
         transform: scale(1);
     }
 }
+
+/* ==========================================
+   MESSAGGIO SPECIALE
+========================================== */
+#messaggio-schermo {
+    background: linear-gradient(135deg, #fff0f7, #ffd1e3);
+}
+
+.messaggio-container {
+    flex: 1;
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra orizzontalmente */
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.messaggio-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 35px 25px;
+    box-shadow: 0 10px 30px rgba(214, 51, 132, 0.15);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    color: #444;
+    font-size: 17px;
+    line-height: 1.6;
+    animation: comparsa 0.4s ease;
+}
+
+/* Stile per dare un tocco in più al testo nel messaggio */
+.messaggio-card p {
+    margin: 0;
+}
