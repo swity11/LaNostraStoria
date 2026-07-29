@@ -669,13 +669,15 @@ button {
 ========================================== */
 #magic-schermo {
     background: linear-gradient(135deg, #fff0f7, #ffd1e3);
+    display: flex;
+    flex-direction: column;
 }
 
 .magic-ball {
-    width: 230px;
-    height: 230px;
+    width: 250px; /* Leggermente più grande per riempire meglio lo spazio centrale */
+    height: 250px;
     border-radius: 50%;
-    margin: auto;
+    margin: auto; /* Centra perfettamente la sfera in mezzo allo schermo */
     background: radial-gradient(circle at 30% 30%, #ffb6d5, #d63384, #8b0032);
     box-shadow: 0 20px 40px rgba(214, 51, 132, .35);
     display: flex;
@@ -690,8 +692,8 @@ button {
 }
 
 .magic-inner-window {
-    width: 115px;
-    height: 115px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     background: #111;
     display: flex;
@@ -703,7 +705,7 @@ button {
 
 #magic-text {
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
     transition: .3s;
 }
