@@ -1,766 +1,57 @@
-/* =========================================
+/* ==========================================
    RESET GENERALE
-========================================= */
+========================================== */
 
-* {
+
+*,
+*::before,
+*::after {
+
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+}
+
+
+
+html,
+body {
+
+    width:100%;
+    min-height:100%;
+
+    margin:0;
+    padding:0;
+
     font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "SF Pro Display",
-        "Segoe UI",
-        sans-serif;
-}
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
-
-:root {
-
-    --rosa-principale: #d63384;
-    --rosa-chiaro: #ffd1e3;
-    --rosa-vetro: rgba(255,255,255,0.75);
-
-    --testo-scuro: #444;
-
-    --ombra:
-        0 15px 40px rgba(214,51,132,0.18);
-
-    --vetro:
-        rgba(255,255,255,0.55);
+    overflow-x:hidden;
 
 }
 
-
-
-
-
-/* =========================================
-   BODY E SFONDO PRINCIPALE
-========================================= */
 
 
 body {
 
-    min-height: 100vh;
 
     background:
-        linear-gradient(
-            135deg,
-            #ffd1e3,
-            #ff9ebb,
-            #d63384
-        );
-
-    background-attachment: fixed;
-
-    color: var(--testo-scuro);
-
-    overflow-x: hidden;
-
-}
-
-
-
-
-
-/* =========================================
-   HOME PRINCIPALE
-========================================= */
-
-
-.container {
-
-    width: min(100%, 430px);
-
-    min-height: 100vh;
-
-    margin: 0 auto;
-
-    padding:
-        90px 20px 40px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-}
-
-
-
-
-.home-header {
-
-    width:100%;
-
-    text-align:center;
-
-    margin-bottom:25px;
-
-}
-
-
-
-h1 {
-
-    color:white;
-
-    font-size:32px;
-
-    font-weight:700;
-
-    letter-spacing:-0.5px;
-
-    text-shadow:
-        0 5px 15px rgba(0,0,0,0.15);
-
-}
-
-
-
-
-
-h2 {
-
-    color:var(--rosa-principale);
-
-    font-size:22px;
-
-    margin-bottom:15px;
-
-}
-
-
-
-
-p {
-
-    line-height:1.6;
-
-    font-size:16px;
-
-}
-
-
-
-
-
-/* =========================================
-   CARD PRINCIPALI
-========================================= */
-
-
-.card {
-
-    width:100%;
-
-    padding:24px;
-
-    margin-bottom:20px;
-
-    background:
-        var(--rosa-vetro);
-
-    backdrop-filter:
-        blur(15px);
-
-    -webkit-backdrop-filter:
-        blur(15px);
-
-
-    border-radius:28px;
-
-
-    box-shadow:
-        var(--ombra);
-
-
-    border:
-        1px solid rgba(255,255,255,0.5);
-
-
-    animation:
-        comparsaCard .5s ease;
-
-}
-
-
-
-
-
-#counter {
-
-    color:var(--rosa-principale);
-
-    font-weight:700;
-
-    font-size:20px;
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   BOTTONI GENERALI
-========================================= */
-
-
-button {
-
-    border:none;
-
-    cursor:pointer;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease,
-        background .2s ease;
-
-}
-
-
-
-
-button:active {
-
-    transform:scale(.95);
-
-}
-
-
-
-
-
-.container button {
-
-    background:
-        linear-gradient(
-            135deg,
-            #d63384,
-            #ff5ca8
-        );
-
-
-    color:white;
-
-
-    padding:
-        15px 28px;
-
-
-    border-radius:50px;
-
-
-    box-shadow:
-        0 8px 20px rgba(214,51,132,.3);
-
-}
-
-
-
-.container button:hover {
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-
-
-
-/* =========================================
-   BOTTONI PICCOLI
-========================================= */
-
-
-.bottoni-ricordi {
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:12px;
-
-    margin-top:20px;
-
-    flex-wrap:wrap;
-
-}
-
-
-
-.btn-piccolo {
-
-    padding:
-        12px 18px !important;
-
-
-    font-size:14px !important;
-
-
-    background:
-        rgba(255,255,255,.8) !important;
-
-
-    color:
-        var(--rosa-principale) !important;
-
-
-    box-shadow:
-        none !important;
-
-}
-
-
-
-
-.home-buttons {
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-}
-
-
-
-
-
-#secret {
-
-    min-height:60px;
-
-    margin-top:20px;
-
-    color:#222;
-
-    text-align:center;
-
-    font-size:20px;
-
-}
-
-
-
-
-
-/* =========================================
-   ANIMAZIONI BASE
-========================================= */
-
-
-@keyframes comparsaCard {
-
-    from {
-
-        opacity:0;
-
-        transform:
-            translateY(20px);
-
-    }
-
-
-    to {
-
-        opacity:1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-
-.fade-in {
-
-    animation:
-        comparsa .5s ease;
-
-}
-
-
-
-@keyframes comparsa {
-
-
-    from {
-
-        opacity:0;
-
-        transform:
-            translateY(-10px);
-
-    }
-
-
-    to {
-
-        opacity:1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-/* =========================================
-   MINI COUNTDOWN FISSO
-========================================= */
-
-
-.mini-countdown {
-
-    position:fixed;
-
-    top:15px;
-
-    left:15px;
-
-
-    z-index:50;
-
-
-    padding:
-        8px 15px;
-
-
-    border-radius:25px;
-
-
-    background:
-        rgba(255,255,255,.35);
-
-
-    backdrop-filter:
-        blur(12px);
-
-
-    -webkit-backdrop-filter:
-        blur(12px);
-
-
-    border:
-        1px solid rgba(255,255,255,.4);
-
-
-    color:#8b0032;
-
-
-    font-size:14px;
-
-    font-weight:700;
-
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.08);
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   PULSANTE MENU SUPERIORE
-========================================= */
-
-
-.btn-menu-top {
-
-    position:fixed;
-
-
-    top:15px;
-
-    right:15px;
-
-
-    width:45px;
-
-    height:45px;
-
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    border-radius:50%;
-
-
-    z-index:60;
-
-
-    color:white;
-
-
-    font-size:22px;
-
-
-    background:
-        rgba(214,51,132,.75);
-
-
-    backdrop-filter:
-        blur(10px);
-
-
-    box-shadow:
-        0 8px 25px rgba(214,51,132,.35);
-
-}
-
-
-
-
-.badge-nascosto {
-
-    display:none;
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   OVERLAY MENU
-========================================= */
-
-
-#overlay-menu {
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    background:
-        rgba(0,0,0,.35);
-
-
-    z-index:90;
-
-
-    opacity:0;
-
-
-    visibility:hidden;
-
-
-    transition:
-        .3s ease;
-
-}
-
-
-
-
-#overlay-menu.aperto {
-
-
-    opacity:1;
-
-
-    visibility:visible;
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   SIDEBAR MENU
-========================================= */
-
-
-#sidebar-menu {
-
-
-    position:fixed;
-
-
-    top:0;
-
-
-    right:-300px;
-
-
-    width:280px;
-
-
-    height:100%;
-
-
-    z-index:100;
-
-
-    padding:25px;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:10px;
-
-
-    background:
-        rgba(255,255,255,.9);
-
-
-    backdrop-filter:
-        blur(20px);
-
-
-    -webkit-backdrop-filter:
-        blur(20px);
-
-
-    box-shadow:
-        -10px 0 35px rgba(0,0,0,.15);
-
-
-    transition:
-        right .35s ease;
-
-}
-
-
-
-
-#sidebar-menu.aperto {
-
-
-    right:0;
-
-}
-
-
-
-
-
-#sidebar-menu h3 {
-
-
-    margin-top:40px;
-
-
-    margin-bottom:20px;
-
-
-    color:
-        var(--rosa-principale);
-
-
-    font-size:24px;
-
-}
-
-
-
-
-
-.btn-chiudi-menu {
-
-
-    position:absolute;
-
-
-    top:20px;
-
-
-    right:20px;
-
-
-    background:none;
-
-
-    color:
-        var(--rosa-principale);
-
-
-    font-size:18px;
-
-
-    box-shadow:none;
-
-
-}
-
-
-
-
-
-
-.menu-item {
-
-
-    width:100%;
-
-
-    text-align:left;
-
-
-    padding:15px;
-
-
-    border-radius:15px;
-
-
-    background:
-        rgba(214,51,132,.08);
+    linear-gradient(
+        135deg,
+        #ffd1e3,
+        #ff9ebb,
+        #d63384
+    );
+
+
+    background-attachment:fixed;
 
 
     color:#444;
 
 
-    font-size:16px;
-
-
-}
-
-
-
-.menu-item:hover {
-
-
-    background:
-        rgba(214,51,132,.15);
-
-
 }
 
 
@@ -768,12 +59,9 @@ button:active {
 
 
 
-
-
-
-/* =========================================
-   LOCK SCREEN STILE IPHONE
-========================================= */
+/* ==========================================
+   SCHERMATA DI BLOCCO
+========================================== */
 
 
 #lock-screen {
@@ -781,34 +69,33 @@ button:active {
 
     position:fixed;
 
-
     inset:0;
 
-
-    z-index:9999;
+    width:100%;
+    height:100dvh;
 
 
     display:flex;
 
-
     justify-content:center;
-
 
     align-items:center;
 
 
     background:
+    linear-gradient(
+        135deg,
+        #ffd1e3,
+        #d63384
+    );
 
 
-        linear-gradient(
-            135deg,
-            #ffd1e3,
-            #d63384
-        );
+    z-index:99999;
 
 
     transition:
-        opacity .5s ease;
+    opacity .5s ease,
+    visibility .5s ease;
 
 
 }
@@ -822,12 +109,9 @@ button:active {
 
     width:100%;
 
+    max-width:360px;
 
-    max-width:350px;
-
-
-    padding:30px;
-
+    padding:25px;
 
     text-align:center;
 
@@ -837,20 +121,20 @@ button:active {
 
 
 
+
 #lock-screen h2 {
 
 
     color:white;
 
+    font-size:24px;
 
-    font-size:26px;
-
-
-    margin-bottom:8px;
+    margin:0 0 10px;
 
 
     text-shadow:
-        0 5px 15px rgba(0,0,0,.15);
+    0 3px 8px rgba(0,0,0,.15);
+
 
 }
 
@@ -862,7 +146,7 @@ button:active {
 
 
     color:
-        rgba(255,255,255,.9);
+    rgba(255,255,255,.9);
 
 
     margin-bottom:35px;
@@ -875,9 +159,7 @@ button:active {
 
 
 
-/* =========================================
-   PALLINI CODICE
-========================================= */
+/* Pallini codice */
 
 
 .dots-container {
@@ -885,14 +167,12 @@ button:active {
 
     display:flex;
 
-
     justify-content:center;
 
+    gap:14px;
 
-    gap:15px;
+    margin-bottom:40px;
 
-
-    margin-bottom:45px;
 
 }
 
@@ -905,7 +185,6 @@ button:active {
 
     width:16px;
 
-
     height:16px;
 
 
@@ -913,11 +192,11 @@ button:active {
 
 
     border:
-        2px solid white;
+    2px solid white;
 
 
-    transition:
-        .2s ease;
+    transition:.2s;
+
 
 }
 
@@ -941,9 +220,7 @@ button:active {
 
 
 
-/* =========================================
-   TASTIERINO
-========================================= */
+/* Tastierino */
 
 
 .keypad {
@@ -953,10 +230,13 @@ button:active {
 
 
     grid-template-columns:
-        repeat(3,1fr);
+    repeat(3,1fr);
 
 
     gap:18px;
+
+
+    padding:0 20px;
 
 
 }
@@ -964,13 +244,13 @@ button:active {
 
 
 
+
 .key-btn {
 
 
-    width:75px;
+    width:72px;
 
-
-    height:75px;
+    height:72px;
 
 
     margin:auto;
@@ -979,25 +259,42 @@ button:active {
     border-radius:50%;
 
 
+    border:
+    1px solid
+    rgba(255,255,255,.4);
+
+
     background:
-        rgba(255,255,255,.25);
+    rgba(255,255,255,.22);
 
 
-    backdrop-filter:
-        blur(10px);
+    backdrop-filter:blur(10px);
 
 
     color:white;
 
 
-    border:
-        1px solid rgba(255,255,255,.4);
-
-
     font-size:30px;
 
 
-    font-weight:400;
+    font-weight:300;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    padding:0;
+
+
+    cursor:pointer;
+
+
+    transition:.15s;
 
 
 }
@@ -1009,24 +306,11 @@ button:active {
 .key-btn:active {
 
 
-    transform:
-        scale(.9);
-
-
-}
-
-
-
-
-
-.btn-cancella {
+    transform:scale(.9);
 
 
     background:
-        transparent;
-
-
-    border:none;
+    rgba(255,255,255,.5);
 
 
 }
@@ -1035,13 +319,29 @@ button:active {
 
 
 
-.invisibile {
+.key-btn.invisibile {
 
 
     opacity:0;
 
-
     pointer-events:none;
+
+
+}
+
+
+
+
+
+.key-btn.btn-cancella {
+
+
+    background:transparent;
+
+    border:none;
+
+    font-size:22px;
+
 
 }
 
@@ -1051,58 +351,741 @@ button:active {
 
 
 
-/* =========================================
-   ERRORE CODICE
-========================================= */
 
 
 .errore-shake {
 
 
     animation:
-        tremolio .4s ease;
+    shake .4s;
+
 
 }
 
 
 
+@keyframes shake {
 
 
-@keyframes tremolio {
-
-
-    0%,100% {
-
+    0%,100%{
         transform:translateX(0);
-
     }
 
 
-    25% {
-
+    25%{
         transform:translateX(-15px);
-
     }
 
 
-    75% {
-
+    75%{
         transform:translateX(15px);
-
     }
+
 
 }
 
-/* =========================================
-   SCHERMATE FULLSCREEN GENERALI
-========================================= */
+
+
+
+
+
+
+
+
+/* ==========================================
+   CONTENUTO PRINCIPALE
+========================================== */
+
+
+
+.container {
+
+
+    width:100%;
+
+
+    max-width:420px;
+
+
+    margin:0 auto;
+
+
+    padding:
+    90px 20px 40px;
+
+
+    text-align:center;
+
+
+}
+
+
+
+
+
+
+
+h1 {
+
+
+    color:white;
+
+
+    font-size:30px;
+
+
+    margin:
+    0 0 25px;
+
+
+    text-shadow:
+    0 3px 8px rgba(0,0,0,.15);
+
+
+}
+
+
+
+
+
+.card {
+
+
+    background:
+    rgba(255,255,255,.88);
+
+
+    border-radius:28px;
+
+
+    padding:22px;
+
+
+    margin-bottom:20px;
+
+
+    box-shadow:
+
+    0 10px 30px
+    rgba(214,51,132,.15);
+
+
+    backdrop-filter:
+    blur(10px);
+
+
+}
+
+
+
+
+
+
+.card h2 {
+
+
+    margin-top:0;
+
+
+    color:#d63384;
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+
+.card p {
+
+
+    line-height:1.6;
+
+    color:#555;
+
+
+}
+
+
+
+
+
+
+
+#counter {
+
+
+    font-weight:bold;
+
+
+    font-size:20px;
+
+
+    color:#d63384;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   PULSANTI
+========================================== */
+
+
+button {
+
+
+    border:none;
+
+
+    cursor:pointer;
+
+
+    font-family:inherit;
+
+
+}
+
+
+
+
+
+.container > button {
+
+
+    width:100%;
+
+
+    padding:16px;
+
+
+    margin-bottom:15px;
+
+
+    border-radius:50px;
+
+
+    background:#d63384;
+
+
+    color:white;
+
+
+    font-size:17px;
+
+
+    box-shadow:
+
+    0 8px 20px
+    rgba(214,51,132,.25);
+
+
+    transition:.2s;
+
+
+}
+
+
+
+
+
+.container > button:active {
+
+
+    transform:scale(.96);
+
+
+}
+
+
+
+
+
+
+
+.btn-piccolo {
+
+
+    padding:
+    12px 18px;
+
+
+    border-radius:30px;
+
+
+    background:#ffb6c1;
+
+
+    color:#444;
+
+
+    font-size:14px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+
+.bottoni-ricordi {
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    flex-wrap:wrap;
+
+
+}
+
+
+
+
+
+
+#secret {
+
+
+    min-height:60px;
+
+
+    margin-top:20px;
+
+
+    font-size:22px;
+
+
+    color:#222;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+
+
+.fade-in {
+
+
+    animation:
+    comparsa .5s;
+
+
+}
+
+
+
+
+@keyframes comparsa {
+
+
+    from {
+
+
+        opacity:0;
+
+        transform:
+        translateY(-15px);
+
+
+    }
+
+
+    to {
+
+
+        opacity:1;
+
+        transform:
+        translateY(0);
+
+
+    }
+
+
+}
+
+/* ==========================================
+   MINI COUNTDOWN FISSO
+========================================== */
+
+
+.mini-countdown {
+
+
+    position:fixed;
+
+
+    top:15px;
+
+
+    left:15px;
+
+
+    z-index:5000;
+
+
+    padding:
+    8px 15px;
+
+
+    border-radius:25px;
+
+
+    background:
+    rgba(255,255,255,.35);
+
+
+    backdrop-filter:
+    blur(12px);
+
+
+    border:
+    1px solid
+    rgba(255,255,255,.4);
+
+
+    color:#8b0032;
+
+
+    font-size:13px;
+
+
+    font-weight:600;
+
+
+    box-shadow:
+
+    0 5px 20px
+    rgba(0,0,0,.08);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   MENU HAMBURGER
+========================================== */
+
+
+.btn-menu-top {
+
+
+    position:fixed;
+
+
+    top:15px;
+
+
+    right:15px;
+
+
+    z-index:5000;
+
+
+    width:48px;
+
+
+    height:48px;
+
+
+    border-radius:50%;
+
+
+    background:
+    rgba(255,255,255,.35);
+
+
+    backdrop-filter:
+    blur(12px);
+
+
+    border:
+    1px solid
+    rgba(255,255,255,.4);
+
+
+    color:#d63384;
+
+
+    font-size:22px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    box-shadow:
+
+    0 5px 20px
+    rgba(0,0,0,.1);
+
+
+}
+
+
+
+
+
+
+
+/* ==========================================
+   SIDEBAR MENU
+========================================== */
+
+
+#sidebar-menu {
+
+
+    position:fixed;
+
+
+    top:0;
+
+
+    right:-290px;
+
+
+    width:270px;
+
+
+    height:100dvh;
+
+
+    z-index:10000;
+
+
+    padding:25px;
+
+
+    background:
+    rgba(255,255,255,.92);
+
+
+    backdrop-filter:
+    blur(15px);
+
+
+    box-shadow:
+
+    -10px 0 30px
+    rgba(0,0,0,.15);
+
+
+    transition:
+    right .35s ease;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+}
+
+
+
+
+#sidebar-menu.aperto {
+
+
+    right:0;
+
+
+}
+
+
+
+
+
+
+
+.btn-chiudi-menu {
+
+
+    align-self:flex-end;
+
+
+    background:none;
+
+
+    color:#d63384;
+
+
+    font-size:20px;
+
+
+}
+
+
+
+
+
+.menu-item {
+
+
+    width:100%;
+
+
+    margin-top:10px;
+
+
+    padding:16px;
+
+
+    border-radius:15px;
+
+
+    background:
+    rgba(214,51,132,.08);
+
+
+    color:#444;
+
+
+    text-align:left;
+
+
+    font-size:16px;
+
+
+    font-weight:600;
+
+
+    transition:.2s;
+
+
+}
+
+
+
+.menu-item:hover {
+
+
+    background:
+    rgba(214,51,132,.18);
+
+
+}
+
+
+
+
+
+
+
+
+/* Overlay dietro menu */
+
+
+#overlay-menu {
+
+
+    position:fixed;
+
+
+    inset:0;
+
+
+    background:
+    rgba(0,0,0,.35);
+
+
+    z-index:9999;
+
+
+    opacity:0;
+
+
+    visibility:hidden;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+
+#overlay-menu.aperto {
+
+
+    opacity:1;
+
+
+    visibility:visible;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   SCHERMATE FULLSCREEN
+========================================== */
 
 
 .schermo-intero {
 
+
     position:fixed;
 
+
     inset:0;
+
+
+    width:100%;
+
+
+    height:100dvh;
+
+
+    z-index:8000;
 
 
     display:none;
@@ -1111,19 +1094,9 @@ button:active {
     flex-direction:column;
 
 
-    z-index:200;
-
-
     background:
+    #fff;
 
-        linear-gradient(
-            135deg,
-            #ffd1e3,
-            #fff0f7
-        );
-
-
-    overflow:hidden;
 
 }
 
@@ -1132,15 +1105,14 @@ button:active {
 
 
 
-/* =========================================
-   HEADER COMUNE SCHERMATE
-========================================= */
+
+/* HEADER GENERALE */
 
 
-.screen-header {
+.galleria-header {
 
 
-    height:70px;
+    height:65px;
 
 
     flex-shrink:0;
@@ -1156,23 +1128,21 @@ button:active {
 
 
     padding:
-        15px 20px;
+    0 20px;
 
 
     background:
-        rgba(255,255,255,.75);
+    rgba(255,255,255,.85);
 
 
     backdrop-filter:
-        blur(15px);
-
-
-    -webkit-backdrop-filter:
-        blur(15px);
+    blur(15px);
 
 
     border-bottom:
-        1px solid rgba(0,0,0,.05);
+
+    1px solid
+    rgba(0,0,0,.08);
 
 
 }
@@ -1181,7 +1151,7 @@ button:active {
 
 
 
-.screen-header h2 {
+.galleria-header h2 {
 
 
     margin:0;
@@ -1190,11 +1160,10 @@ button:active {
     font-size:20px;
 
 
-    color:
-        var(--rosa-principale);
+    color:#d63384;
+
 
 }
-
 
 
 
@@ -1204,21 +1173,17 @@ button:active {
 
 
     background:
-        rgba(214,51,132,.1);
+    rgba(214,51,132,.1);
 
 
-    color:
-        var(--rosa-principale);
+    color:#d63384;
 
 
     padding:
-        10px 15px;
+    10px 15px;
 
 
-    border-radius:20px;
-
-
-    font-size:14px;
+    border-radius:25px;
 
 
 }
@@ -1227,9 +1192,13 @@ button:active {
 
 
 
-/* =========================================
-   GALLERIA
-========================================= */
+
+
+
+
+/* ==========================================
+   GALLERIA FOTO
+========================================== */
 
 
 .griglia-quadrata {
@@ -1238,43 +1207,26 @@ button:active {
     flex:1;
 
 
-    width:100%;
+    overflow-y:auto;
 
 
-    padding:10px;
+    padding:8px;
 
 
     display:grid;
 
 
     grid-template-columns:
-        repeat(auto-fill,minmax(90px,1fr));
+    repeat(3,1fr);
 
 
-    gap:8px;
-
-
-    overflow-y:auto;
+    gap:6px;
 
 
 }
 
 
 
-
-.img-wrapper {
-
-
-    aspect-ratio:1;
-
-
-    overflow:hidden;
-
-
-    border-radius:12px;
-
-
-}
 
 
 
@@ -1285,7 +1237,7 @@ button:active {
     width:100%;
 
 
-    height:100%;
+    aspect-ratio:1/1;
 
 
     object-fit:cover;
@@ -1294,22 +1246,13 @@ button:active {
     display:block;
 
 
+    border-radius:8px;
+
+
     cursor:pointer;
 
 
-    transition:
-        transform .25s ease;
-
-}
-
-
-
-
-.griglia-quadrata img:hover {
-
-
-    transform:
-        scale(.94);
+    transition:.2s;
 
 
 }
@@ -1318,35 +1261,50 @@ button:active {
 
 
 
+.griglia-quadrata img:active {
 
-/* =========================================
-   VISUALIZZATORE FOTO GRANDE
-========================================= */
+
+    transform:scale(.95);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   FOTO GRANDE
+========================================== */
 
 
 .visualizzatore-nascosto {
 
 
-    position:absolute;
+    position:fixed;
 
 
     inset:0;
 
 
-    z-index:300;
+    z-index:12000;
 
 
     background:
-        rgba(0,0,0,.92);
+    rgba(0,0,0,.95);
 
 
     display:flex;
 
 
-    justify-content:center;
-
-
     align-items:center;
+
+
+    justify-content:center;
 
 
     opacity:0;
@@ -1355,8 +1313,8 @@ button:active {
     visibility:hidden;
 
 
-    transition:
-        opacity .3s ease;
+    transition:.3s;
+
 
 }
 
@@ -1372,8 +1330,8 @@ button:active {
 
     visibility:visible;
 
-}
 
+}
 
 
 
@@ -1394,20 +1352,11 @@ button:active {
     border-radius:15px;
 
 
-    border:
-        3px solid white;
+    transform:scale(.9);
 
 
-    box-shadow:
-        0 0 40px rgba(0,0,0,.5);
+    transition:.3s;
 
-
-    transform:
-        scale(.9);
-
-
-    transition:
-        transform .3s ease;
 
 }
 
@@ -1418,8 +1367,7 @@ button:active {
 .visualizzatore-nascosto.mostra #immagine-grande {
 
 
-    transform:
-        scale(1);
+    transform:scale(1);
 
 
 }
@@ -1430,9 +1378,76 @@ button:active {
 
 
 
-/* =========================================
-   PULSANTE ELIMINA FOTO
-========================================= */
+
+/* Frecce foto */
+
+
+.btn-freccia {
+
+
+    position:absolute;
+
+
+    top:50%;
+
+
+    transform:
+    translateY(-50%);
+
+
+    width:50px;
+
+
+    height:50px;
+
+
+    border-radius:50%;
+
+
+    background:
+    rgba(255,255,255,.25);
+
+
+    backdrop-filter:
+    blur(10px);
+
+
+    color:white;
+
+
+    font-size:28px;
+
+
+}
+
+
+
+
+
+.btn-sinistra {
+
+
+    left:15px;
+
+
+}
+
+
+
+
+.btn-destra {
+
+
+    right:15px;
+
+
+}
+
+
+
+
+
+
 
 
 .btn-elimina-foto {
@@ -1456,8 +1471,7 @@ button:active {
     border-radius:50%;
 
 
-    background:
-        rgba(255,50,50,.8);
+    background:#ff3b30;
 
 
     color:white;
@@ -1473,91 +1487,6 @@ button:active {
 
 
 
-/* =========================================
-   FRECCE FOTO
-========================================= */
-
-
-.btn-freccia {
-
-
-    position:absolute;
-
-
-    top:50%;
-
-
-    transform:
-        translateY(-50%);
-
-
-    width:50px;
-
-
-    height:50px;
-
-
-    border-radius:50%;
-
-
-    background:
-        rgba(255,255,255,.25);
-
-
-    color:white;
-
-
-    font-size:28px;
-
-
-    backdrop-filter:
-        blur(10px);
-
-
-}
-
-
-
-.btn-sinistra {
-
-
-    left:15px;
-
-}
-
-
-
-
-.btn-destra {
-
-
-    right:15px;
-
-}
-
-
-
-
-
-.btn-freccia:hover {
-
-
-    background:
-        rgba(255,255,255,.45);
-
-
-}
-
-
-
-
-
-
-
-/* =========================================
-   CHIUDI FOTO GRANDE
-========================================= */
-
 
 .btn-chiudi-foto {
 
@@ -1568,52 +1497,82 @@ button:active {
     bottom:25px;
 
 
-    left:50%;
-
-
-    transform:
-        translateX(-50%);
-
-
-    background:
-        rgba(255,255,255,.25);
-
-
-    color:white;
-
-
-    border:
-        1px solid rgba(255,255,255,.4);
-
-
     padding:
-        12px 25px;
+    12px 25px;
 
 
     border-radius:30px;
 
 
+    background:
+    rgba(255,255,255,.25);
+
+
+    color:white;
+
+
     backdrop-filter:
-        blur(10px);
+    blur(10px);
+
 
 }
 
-/* =========================================
+/* ==========================================
    CHAT STILE iMESSAGE
-========================================= */
+========================================== */
 
 
-/* Header chat */
+#chat-schermo {
+
+
+    background:#fff;
+
+
+}
+
+
+
+
+
 
 .chat-header {
 
+
+    height:65px;
+
+
+    flex-shrink:0;
+
+
     display:flex;
+
 
     align-items:center;
 
+
     justify-content:space-between;
 
+
+    padding:
+    0 15px;
+
+
+    background:
+    rgba(255,255,255,.9);
+
+
+    backdrop-filter:
+    blur(15px);
+
+
+    border-bottom:
+
+    1px solid
+    rgba(0,0,0,.08);
+
+
 }
+
 
 
 
@@ -1622,7 +1581,7 @@ button:active {
 .btn-indietro {
 
 
-    background:transparent;
+    background:none;
 
 
     color:#007aff;
@@ -1640,15 +1599,6 @@ button:active {
 
 
 
-.header-spacer {
-
-
-    width:50px;
-
-}
-
-
-
 
 
 .chat-utente {
@@ -1663,8 +1613,6 @@ button:active {
     align-items:center;
 
 
-    justify-content:center;
-
 }
 
 
@@ -1676,6 +1624,7 @@ button:active {
 
     font-size:22px;
 
+
 }
 
 
@@ -1685,13 +1634,14 @@ button:active {
 .chat-utente h2 {
 
 
-    margin:2px 0 0;
+    margin:0;
+
+
+    color:#333;
 
 
     font-size:14px;
 
-
-    color:#333;
 
 }
 
@@ -1702,9 +1652,8 @@ button:active {
 
 
 
-/* =========================================
-   AREA MESSAGGI
-========================================= */
+
+/* Area messaggi */
 
 
 .area-messaggi {
@@ -1716,7 +1665,7 @@ button:active {
     overflow-y:auto;
 
 
-    padding:20px;
+    padding:15px;
 
 
     display:flex;
@@ -1728,10 +1677,7 @@ button:active {
     gap:10px;
 
 
-    background:
-
-
-        rgba(255,255,255,.55);
+    background:#fff;
 
 
 }
@@ -1741,10 +1687,6 @@ button:active {
 
 
 
-/* =========================================
-   BOLLE MESSAGGI
-========================================= */
-
 
 .messaggio {
 
@@ -1753,7 +1695,7 @@ button:active {
 
 
     padding:
-        12px 16px;
+    10px 15px;
 
 
     border-radius:20px;
@@ -1769,9 +1711,11 @@ button:active {
 
 
     animation:
-        messaggioEntrata .25s ease;
+    comparsa .25s;
+
 
 }
+
 
 
 
@@ -1783,8 +1727,7 @@ button:active {
     align-self:flex-end;
 
 
-    background:
-        #007aff;
+    background:#007aff;
 
 
     color:white;
@@ -1792,7 +1735,10 @@ button:active {
 
     border-bottom-right-radius:5px;
 
+
 }
+
+
 
 
 
@@ -1804,8 +1750,7 @@ button:active {
     align-self:flex-start;
 
 
-    background:
-        #e9e9eb;
+    background:#e9e9eb;
 
 
     color:#111;
@@ -1813,7 +1758,10 @@ button:active {
 
     border-bottom-left-radius:5px;
 
+
 }
+
+
 
 
 
@@ -1828,39 +1776,11 @@ button:active {
     font-size:10px;
 
 
-    opacity:.7;
+    opacity:.65;
 
 
     text-align:right;
 
-}
-
-
-
-
-
-
-@keyframes messaggioEntrata {
-
-
-    from {
-
-        opacity:0;
-
-        transform:
-            translateY(10px);
-
-    }
-
-
-    to {
-
-        opacity:1;
-
-        transform:
-            translateY(0);
-
-    }
 
 }
 
@@ -1872,9 +1792,7 @@ button:active {
 
 
 
-/* =========================================
-   INPUT CHAT
-========================================= */
+/* Barra input chat */
 
 
 .chat-input-bar {
@@ -1890,19 +1808,16 @@ button:active {
 
 
     padding:
-        12px 15px;
+    10px 15px;
 
 
-    background:
-        rgba(255,255,255,.85);
-
-
-    backdrop-filter:
-        blur(15px);
+    background:#f7f7f7;
 
 
     border-top:
-        1px solid rgba(0,0,0,.05);
+
+    1px solid
+    #ddd;
 
 
 }
@@ -1920,15 +1835,17 @@ button:active {
     height:42px;
 
 
+    padding:
+    0 18px;
+
+
     border-radius:25px;
 
 
     border:
-        1px solid #ddd;
 
-
-    padding:
-        0 18px;
+    1px solid
+    #ccc;
 
 
     outline:none;
@@ -1937,50 +1854,28 @@ button:active {
     font-size:15px;
 
 
-    background:white;
-
 }
 
 
 
 
 
-.chat-input-bar input:focus {
+#btn-invia {
 
 
-    border-color:
-        var(--rosa-principale);
-
-}
+    width:40px;
 
 
-
-
-
-#btn-invia-chat,
-#btn-aggiungi-bucket {
-
-
-    width:42px;
-
-
-    height:42px;
-
-
-    flex-shrink:0;
+    height:40px;
 
 
     border-radius:50%;
 
 
-    background:
-        #007aff;
+    background:#007aff;
 
 
     color:white;
-
-
-    font-size:22px;
 
 
     display:flex;
@@ -1990,6 +1885,9 @@ button:active {
 
 
     justify-content:center;
+
+
+    font-size:18px;
 
 
     padding:0;
@@ -2004,27 +1902,22 @@ button:active {
 
 
 
-/* =========================================
+
+/* ==========================================
    BUCKET LIST
-========================================= */
+========================================== */
 
 
-.screen-content {
+#bucket-schermo {
 
 
-    flex:1;
+    background:
+    linear-gradient(
+        135deg,
+        #fff0f7,
+        #ffffff
+    );
 
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    padding:20px;
-
-
-    overflow:hidden;
 
 }
 
@@ -2032,13 +1925,9 @@ button:active {
 
 
 
-.bucket-list {
 
 
-    flex:1;
-
-
-    overflow-y:auto;
+#lista-bucket {
 
 
     display:flex;
@@ -2050,9 +1939,12 @@ button:active {
     gap:12px;
 
 
-    padding-top:15px;
+    overflow-y:auto;
+
 
 }
+
+
 
 
 
@@ -2061,14 +1953,15 @@ button:active {
 .bucket-item {
 
 
-    width:100%;
-
-
-    padding:
-        15px;
+    background:
+    rgba(255,255,255,.9);
 
 
     border-radius:18px;
+
+
+    padding:
+    15px;
 
 
     display:flex;
@@ -2080,16 +1973,15 @@ button:active {
     justify-content:space-between;
 
 
-    background:
-        rgba(255,255,255,.85);
-
-
     box-shadow:
-        0 5px 20px rgba(0,0,0,.08);
+
+    0 5px 15px
+    rgba(214,51,132,.1);
 
 
-    transition:
-        transform .2s ease;
+    animation:
+    comparsa .25s;
+
 
 }
 
@@ -2097,22 +1989,9 @@ button:active {
 
 
 
-.bucket-item:hover {
 
 
-    transform:
-        translateY(-2px);
-
-}
-
-
-
-
-
-.bucket-info {
-
-
-    flex:1;
+.bucket-item span {
 
 
     display:flex;
@@ -2124,7 +2003,10 @@ button:active {
     gap:12px;
 
 
-    cursor:pointer;
+    color:#444;
+
+
+    font-size:16px;
 
 
 }
@@ -2133,7 +2015,9 @@ button:active {
 
 
 
-.bucket-info input {
+
+
+.bucket-item input {
 
 
     width:20px;
@@ -2142,10 +2026,12 @@ button:active {
     height:20px;
 
 
-    accent-color:
-        var(--rosa-principale);
+    accent-color:#d63384;
+
 
 }
+
+
 
 
 
@@ -2159,7 +2045,10 @@ button:active {
 
     opacity:.5;
 
+
 }
+
+
 
 
 
@@ -2168,7 +2057,7 @@ button:active {
 .bucket-elimina {
 
 
-    background:transparent;
+    background:none;
 
 
     color:#ff3b30;
@@ -2179,37 +2068,54 @@ button:active {
 
     padding:5px;
 
-}
-
-/* =========================================
-   MAGIC BALL - SFERA DELL'AMORE
-========================================= */
-
-
-.magic-container {
-
-
-    flex:1;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    text-align:center;
-
-
-    padding:20px;
 
 }
+
+
+
+
+
+
+
+
+/* Input bucket */
+
+
+#input-bucket {
+
+
+    background:white;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   MAGIC BALL
+========================================== */
+
+
+#magic-schermo {
+
+
+    background:
+    linear-gradient(
+        135deg,
+        #fff0f7,
+        #ffd1e3
+    );
+
+
+}
+
+
 
 
 
@@ -2227,10 +2133,23 @@ button:active {
     border-radius:50%;
 
 
-    cursor:pointer;
+    margin:auto;
 
 
-    position:relative;
+    background:
+
+    radial-gradient(
+        circle at 30% 30%,
+        #ffb6d5,
+        #d63384,
+        #8b0032
+    );
+
+
+    box-shadow:
+
+    0 20px 40px
+    rgba(214,51,132,.35);
 
 
     display:flex;
@@ -2242,34 +2161,14 @@ button:active {
     justify-content:center;
 
 
-
-    background:
-
-
-        radial-gradient(
-            circle at 30% 25%,
-            #ffb6d2,
-            #d63384 55%,
-            #8b0032
-        );
+    cursor:pointer;
 
 
-    box-shadow:
+    transition:.2s;
 
-
-        0 20px 45px rgba(214,51,132,.35),
-
-
-        inset -15px -15px 30px rgba(0,0,0,.25),
-
-
-        inset 15px 15px 25px rgba(255,255,255,.4);
-
-
-    transition:
-        transform .25s ease;
 
 }
+
 
 
 
@@ -2277,10 +2176,12 @@ button:active {
 .magic-ball:active {
 
 
-    transform:
-        scale(.95);
+    transform:scale(.95);
+
 
 }
+
+
 
 
 
@@ -2301,10 +2202,6 @@ button:active {
     background:#111;
 
 
-    border:
-        5px solid #333;
-
-
     display:flex;
 
 
@@ -2320,13 +2217,9 @@ button:active {
     text-align:center;
 
 
-    box-shadow:
-
-
-        inset 0 0 20px black;
-
-
 }
+
+
 
 
 
@@ -2341,14 +2234,11 @@ button:active {
     font-size:13px;
 
 
-    line-height:1.3;
-
-
     font-weight:bold;
 
 
-    transition:
-        opacity .3s ease;
+    transition:.3s;
+
 
 }
 
@@ -2357,14 +2247,15 @@ button:active {
 
 
 
-/* Animazione scuotimento */
 
 
 .shake-ball {
 
 
     animation:
-        shakeBall .6s ease;
+
+    scuoti .5s;
+
 
 }
 
@@ -2372,69 +2263,42 @@ button:active {
 
 
 
-@keyframes shakeBall {
+@keyframes scuoti {
 
 
-    0% {
+    0%,100%{
 
-        transform:
-            rotate(0deg);
-
-    }
-
-
-    20% {
-
-        transform:
-            rotate(-12deg);
+        transform:rotate(0);
 
     }
 
 
-    40% {
+    25%{
 
-        transform:
-            rotate(12deg);
-
-    }
-
-
-    60% {
-
-        transform:
-            rotate(-12deg);
+        transform:rotate(-12deg);
 
     }
 
 
-    80% {
+    50%{
 
-        transform:
-            rotate(12deg);
+        transform:rotate(12deg);
+
+    }
+
+
+    75%{
+
+        transform:rotate(-8deg);
 
     }
 
-
-    100% {
-
-        transform:
-            rotate(0deg);
-
-    }
 
 }
 
-
-
-
-
-
-
-
-
-/* =========================================
+/* ==========================================
    CUORICINI VOLANTI
-========================================= */
+========================================== */
 
 
 .cuoricino-volante {
@@ -2446,7 +2310,7 @@ button:active {
     bottom:-50px;
 
 
-    z-index:9999;
+    z-index:20000;
 
 
     pointer-events:none;
@@ -2454,8 +2318,8 @@ button:active {
 
     animation:
 
+    volaSu 3s linear forwards;
 
-        cuoreVola 3s linear forwards;
 
 }
 
@@ -2463,22 +2327,22 @@ button:active {
 
 
 
-@keyframes cuoreVola {
+@keyframes volaSu {
 
 
     0% {
 
 
         transform:
-
-
-            translateY(0)
-            rotate(0deg);
+        translateY(0)
+        rotate(0deg);
 
 
         opacity:1;
 
+
     }
+
 
 
     100% {
@@ -2486,14 +2350,15 @@ button:active {
 
         transform:
 
-
-            translateY(-120vh)
-            rotate(360deg);
+        translateY(-120dvh)
+        rotate(360deg);
 
 
         opacity:0;
 
+
     }
+
 
 }
 
@@ -2505,109 +2370,34 @@ button:active {
 
 
 
-/* =========================================
-   MENU LATERALE MIGLIORATO
-========================================= */
+/* ==========================================
+   EFFETTO VETRO GENERALE
+========================================== */
 
 
-#sidebar-menu {
-
-
-    position:fixed;
-
-
-    top:0;
-
-
-    right:-280px;
-
-
-    width:260px;
-
-
-    height:100%;
+.glass {
 
 
     background:
 
-
-        rgba(255,255,255,.92);
+    rgba(255,255,255,.35);
 
 
     backdrop-filter:
-        blur(20px);
+
+    blur(15px);
 
 
-    box-shadow:
+    -webkit-backdrop-filter:
+
+    blur(15px);
 
 
-        -10px 0 30px rgba(0,0,0,.15);
+    border:
 
+    1px solid
+    rgba(255,255,255,.4);
 
-    z-index:500;
-
-
-    transition:
-        right .35s ease;
-
-
-    padding:25px;
-
-}
-
-
-
-
-
-#sidebar-menu.aperto {
-
-
-    right:0;
-
-}
-
-
-
-
-
-#overlay-menu {
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    background:
-        rgba(0,0,0,.35);
-
-
-    z-index:400;
-
-
-    opacity:0;
-
-
-    visibility:hidden;
-
-
-    transition:
-        .3s;
-
-}
-
-
-
-
-
-#overlay-menu.aperto {
-
-
-    opacity:1;
-
-
-    visibility:visible;
 
 }
 
@@ -2619,22 +2409,64 @@ button:active {
 
 
 
-/* =========================================
-   RESPONSIVE TELEFONI
-========================================= */
+/* ==========================================
+   COMPATIBILITA' IPHONE
+========================================== */
 
 
-@media(max-width:600px){
+@supports (-webkit-touch-callout:none) {
+
+
+    body {
+
+
+        min-height:
+
+        -webkit-fill-available;
+
+
+    }
+
+
+
+    .schermo-intero {
+
+
+        height:
+
+        -webkit-fill-available;
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   TELEFONI PICCOLI
+========================================== */
+
+
+@media(max-width:380px){
 
 
 
     .container {
 
 
-        max-width:100%;
+        padding-left:15px;
 
+        padding-right:15px;
 
-        padding:15px;
 
     }
 
@@ -2644,7 +2476,7 @@ button:active {
     h1 {
 
 
-        font-size:28px;
+        font-size:26px;
 
 
     }
@@ -2658,17 +2490,7 @@ button:active {
         padding:18px;
 
 
-        border-radius:20px;
-
-    }
-
-
-
-
-    button {
-
-
-        width:100%;
+        border-radius:22px;
 
 
     }
@@ -2676,10 +2498,16 @@ button:active {
 
 
 
-    .bottoni-ricordi {
+    .key-btn {
 
 
-        flex-direction:column;
+        width:62px;
+
+
+        height:62px;
+
+
+        font-size:26px;
 
 
     }
@@ -2695,98 +2523,52 @@ button:active {
 
         height:190px;
 
-    }
-
-
-
-
-    .magic-inner-window {
-
-
-        width:95px;
-
-
-        height:95px;
 
     }
 
 
 
-
-    .key-btn {
-
-
-        width:65px;
+}
 
 
-        height:65px;
 
 
-        font-size:28px;
+
+
+
+
+
+/* ==========================================
+   TABLET / TELEFONI GRANDI
+========================================== */
+
+
+@media(min-width:600px){
+
+
+
+    .container {
+
+
+        max-width:450px;
+
 
     }
 
 
 
 
-    .dots-container {
+    .griglia-quadrata {
 
 
-        gap:12px;
+        grid-template-columns:
+
+        repeat(4,1fr);
+
 
     }
 
 
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   IPHONE SAFE AREA
-========================================= */
-
-
-@supports(padding:max(0px)){
-
-
-    body {
-
-
-        padding-bottom:
-            env(safe-area-inset-bottom);
-
-    }
-
-
-}
-
-/* =========================================
-   VARIABILI GLOBALI
-========================================= */
-
-
-:root {
-
-
-    --rosa-principale:#d63384;
-
-
-    --rosa-chiaro:#ffd1e3;
-
-
-    --rosa-soft:#fff0f7;
-
-
-    --testo:#444;
-
-
-    --bianco-vetro:rgba(255,255,255,.85);
-
 
 }
 
@@ -2795,73 +2577,48 @@ button:active {
 
 
 
-/* =========================================
-   RESET GENERALE
-========================================= */
-
-
-*,
-*::before,
-*::after {
-
-
-    box-sizing:border-box;
-
-
-}
 
 
 
+/* ==========================================
+   SCROLL PIU' PULITO
+========================================== */
 
 
-
-html {
-
-
-    width:100%;
+* {
 
 
-    height:100%;
+    scrollbar-width:
+
+    thin;
 
 
-    overflow-x:hidden;
+    scrollbar-color:
+
+    #d63384 transparent;
 
 
 }
 
 
 
+::-webkit-scrollbar {
+
+
+    width:6px;
+
+
+}
 
 
 
-body {
+::-webkit-scrollbar-thumb {
 
 
-    width:100%;
+    background:#d63384;
 
 
-    min-height:100vh;
-
-
-    margin:0;
-
-
-    padding:0;
-
-
-    overflow-x:hidden;
-
-
-    font-family:
-
-
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-
-    color:var(--testo);
+    border-radius:20px;
 
 
 }
@@ -2872,156 +2629,20 @@ body {
 
 
 
-/* =========================================
-   CONTENITORE PRINCIPALE SISTEMATO
-========================================= */
 
 
-.container {
+/* ==========================================
+   PREVENZIONE ZOOM IPHONE INPUT
+========================================== */
 
 
-    width:100%;
-
-
-    max-width:420px;
-
-
-    margin:
-
-
-        0 auto;
-
-
-    padding:
-
-
-        25px 20px 40px;
-
-
-    text-align:center;
-
-
-}
-
-
-
-
-
-
-h1 {
-
-
-    margin:
-
-
-        20px 0 10px;
-
-
-    font-size:32px;
-
-
-}
-
-
-
-
-
-.subtitle {
-
-
-    font-size:17px;
-
-
-    color:#777;
-
-}
-
-
-
-
-
-
-/* =========================================
-   CARD PRINCIPALI
-========================================= */
-
-
-.card {
-
-
-    width:100%;
-
-
-    margin:
-
-
-        20px 0;
-
-
-    padding:
-
-
-        22px;
-
-
-    background:
-
-
-        var(--bianco-vetro);
-
-
-    border-radius:
-
-
-        25px;
-
-
-    box-shadow:
-
-
-        0 10px 30px rgba(214,51,132,.15);
-
-
-    backdrop-filter:
-
-
-        blur(10px);
-
-
-}
-
-
-
-
-
-
-.card h2 {
-
-
-    margin-top:0;
-
-
-    color:
-
-
-        var(--rosa-principale);
-
-
-}
-
-
-
-
-
-.card p {
+input,
+textarea {
 
 
     font-size:16px;
 
 
-    line-height:1.6;
-
-
 }
 
 
@@ -3032,321 +2653,9 @@ h1 {
 
 
 
-/* =========================================
-   PULSANTI GENERALI
-========================================= */
-
-
-button {
-
-
-    font-family:inherit;
-
-
-    border:none;
-
-
-    cursor:pointer;
-
-
-    transition:
-
-
-        transform .2s ease,
-        opacity .2s ease;
-
-}
-
-
-
-
-
-button:active {
-
-
-    transform:
-        scale(.96);
-
-
-}
-
-
-
-
-
-button:hover {
-
-
-    opacity:.9;
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   COUNTDOWN
-========================================= */
-
-
-#counter {
-
-
-    color:
-        var(--rosa-principale);
-
-
-    font-weight:700;
-
-
-    font-size:20px;
-
-
-    line-height:1.5;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   MINI COUNTDOWN
-========================================= */
-
-
-.mini-countdown {
-
-
-    position:fixed;
-
-
-    top:15px;
-
-
-    left:15px;
-
-
-    z-index:300;
-
-
-    padding:
-
-
-        8px 15px;
-
-
-    border-radius:
-
-
-        25px;
-
-
-    background:
-
-
-        rgba(255,255,255,.35);
-
-
-    backdrop-filter:
-
-
-        blur(15px);
-
-
-    color:#8b0032;
-
-
-    font-size:13px;
-
-
-    font-weight:600;
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   MENU BUTTON
-========================================= */
-
-
-.btn-menu-top {
-
-
-    position:fixed;
-
-
-    top:15px;
-
-
-    right:15px;
-
-
-    z-index:300;
-
-
-    width:45px;
-
-
-    height:45px;
-
-
-    border-radius:50%;
-
-
-    background:
-
-
-        rgba(255,255,255,.35);
-
-
-    backdrop-filter:
-
-
-        blur(15px);
-
-
-    color:
-
-
-        var(--rosa-principale);
-
-
-    font-size:22px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* =========================================
-   SCHERMATA BLOCCO CODICE
-========================================= */
-
-
-#lock-screen {
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    z-index:9999;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-}
-
-
-
-
-
-.lock-content {
-
-
-    width:100%;
-
-
-    max-width:350px;
-
-
-    padding:20px;
-
-
-}
-
-
-
-
-
-.keypad {
-
-
-    display:grid;
-
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-
-    gap:15px;
-
-
-}
-
-
-
-
-
-.key-btn {
-
-
-    margin:auto;
-
-
-    width:75px;
-
-
-    height:75px;
-
-
-    border-radius:50%;
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================================
-   ANIMAZIONE ENTRATA PAGINE
-========================================= */
+/* ==========================================
+   ANIMAZIONE APERTURA SCHERMATE
+========================================== */
 
 
 .schermo-intero {
@@ -3354,16 +2663,14 @@ button:hover {
 
     animation:
 
+    aperturaSchermo .25s ease;
 
-        aperturaPagina .25s ease;
 
 }
 
 
 
-
-
-@keyframes aperturaPagina {
+@keyframes aperturaSchermo {
 
 
     from {
@@ -3373,9 +2680,12 @@ button:hover {
 
 
         transform:
-            scale(.98);
+
+        scale(.98);
+
 
     }
+
 
 
     to {
@@ -3385,42 +2695,9 @@ button:hover {
 
 
         transform:
-            scale(1);
 
-    }
+        scale(1);
 
-}
-
-
-
-
-
-
-
-/* =========================================
-   FIX PER IPHONE SAFARI
-========================================= */
-
-
-@media(max-height:700px){
-
-
-    .key-btn {
-
-
-        width:65px;
-
-
-        height:65px;
-
-    }
-
-
-    .lock-content {
-
-
-        transform:
-            scale(.9);
 
     }
 
@@ -3431,15 +2708,42 @@ button:hover {
 
 
 
-/* =========================================
-   BLOCCO SCROLL QUANDO APPLICAZIONE APERTA
-========================================= */
 
 
-body.blocca-scroll {
 
 
-    overflow:hidden;
+/* ==========================================
+   MIGLIORAMENTO TOUCH MOBILE
+========================================== */
+
+
+button,
+img {
+
+
+    -webkit-tap-highlight-color:
+
+    transparent;
+
+
+}
+
+
+
+
+
+
+
+
+/* ==========================================
+   NASCONDE ELEMENTI NON UTILIZZATI
+========================================== */
+
+
+.badge-nascosto {
+
+
+    display:none;
 
 
 }
