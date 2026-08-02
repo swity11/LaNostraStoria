@@ -638,3 +638,72 @@ function apriMessaggio() {
 function chiudiMessaggio() {
     document.getElementById('messaggio-schermo').style.display = 'none';
 }
+
+// --- FUNZIONALITÀ "MI MANCHI" ---
+
+// Elementi del DOM
+const navMiManchi = document.getElementById('nav-mi-manchi');
+const sectionMiManchi = document.getElementById('mi-manchi-section');
+const btnHeart = document.getElementById('miss-you-btn');
+const counterDisplay = document.getElementById('miss-you-counter');
+
+// 1. Gestione del Menu (Cambia schermata)
+navMiManchi.addEventListener('click', () => {
+    // Nascondi tutte le altre sezioni (adatta '.section' in base a come chiami le tue schermate)
+    document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+    
+    // Mostra la schermata "Mi Manchi"
+    sectionMiManchi.classList.remove('hidden');
+});
+
+// 2. Inizializzazione contatore
+// Recupera il numero salvato in locale, o parte da 0
+let missYouCount = localStorage.getItem('missYouCount') || 0;
+counterDisplay.innerText = missYouCount;
+
+// 3. Gestione del clic sul cuore gigante
+btnHeart.addEventListener('click', () => {
+    // Incrementa e salva
+    missYouCount++;
+    counterDisplay.innerText = missYouCount;
+    localStorage.setItem('missYouCount', missYouCount); // Puoi sostituire questo con un update su Firebase!
+
+    // Innesca l'animazione del battito cardiaco
+    btnHeart.classList.remove('beating');
+    // Piccolo trucco JS per riavviare un'animazione CSS
+    void btnHeart.offsetWidth; 
+    btnHeart.classList.add('beating');
+
+    // Crea i mini cuoricini fluttuanti
+    spawnFloatingHearts();
+});
+
+// 4. Funzione per creare la magia dei cuoricini che volano
+function spawnFloatingHearts() {
+    const container = document.querySelector('.heart-container');
+    
+    // Creiamo 3-4 cuoricini per ogni clic
+    for(let i = 0; i < 4; i++) {
+        const miniHeart = document.createElement('i');
+        // Usa FontAwesome per i cuoricini piccoli
+        miniHeart.classList.add('fas', 'fa-heart', 'floating-mini-heart');
+        
+        // Posizione casuale attorno al centro del contenitore
+        const randomX = (Math.random() - 0.5) * 80; // offset tra -40 e 40 px
+        const randomY = (Math.random() - 0.5) * 80;
+        
+        miniHeart.style.left = `calc(50% + ${randomX}px)`;
+        miniHeart.style.top = `calc(50% + ${randomY}px)`;
+        
+        // Se vuoi colori leggermente diversi per i mini cuori:
+        const colors = ['#ff4757', '#ff6b81', '#ffc0cb', '#ff9ff3'];
+        miniHeart.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+        container.appendChild(miniHeart);
+
+        // Rimuovi il cuoricino dal DOM dopo 1 secondo (quando finisce l'animazione CSS)
+        setTimeout(() => {
+            miniHeart.remove();
+        }, 1000);
+    }
+}
