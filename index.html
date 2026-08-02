@@ -76,11 +76,13 @@ giorni
 
 <!-- MENU LATERALE -->
 <div id="sidebar-menu">
-<button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
-<h3 class="menu-titolo">Menu 🩷</h3>
-<button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
-<button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
-<button class="menu-item" onclick="apriMessaggio()">🩷 Cliccami</button>
+    <button class="btn-chiudi-menu" onclick="chiudiMenu()">❌</button>
+    <h3 class="menu-titolo">Menu 🩷</h3>
+    <button class="menu-item" onclick="apriChatDalMenu()">💬 I nostri messaggi</button>
+    <button class="menu-item" onclick="apriMagicBallDalMenu()">🔮 Sfera dell'Amore</button>
+    <button class="menu-item" onclick="apriMessaggio()">🩷 Cliccami</button>
+    <!-- NUOVO BOTTONE AGGIUNTO QUI -->
+    <button class="menu-item" onclick="apriMiManchiDalMenu()">🥺 Mi manchi</button>
 </div>
 
 <!-- ======================================
@@ -241,6 +243,25 @@ Hai un cuore enorme, riesci a farmi sorridere anche nei giorni peggiori e da qua
 Vorrei che riuscissi a vederti con i miei occhi, perché capiresti quanto sei speciale. Per me sei meravigliosa, oggi, domani e sempre.
 Non vedo l'ora di costruire un futuro con te, vivere mille esperienze insieme, affrontare tutto mano nella mano e creare la nostra vita. Sei la persona con cui voglio condividere i miei sogni, i miei traguardi e ogni momento che verrà.
 Ti amo tantissimo e non smetterò mai di ricordarti quanto sei importante per me.🩷</p>
+        </div>
+    </div>
+</div>
+
+     <!-- ======================================
+     MI MANCHI
+====================================== -->
+<div id="mi-manchi-schermo" class="schermo-intero">
+    <div class="galleria-header">
+        <h2>Quanto mi manchi? 🥺</h2>
+        <button class="btn-chiudi" onclick="chiudiMiManchi()">❌ Chiudi</button>
+    </div>
+    
+    <div class="mi-manchi-container">
+        <p>Tocca il cuore ogni volta che pensi a me...</p>
+        <div class="heart-wrapper">
+            <div id="cuore-gigante" onclick="premiCuore()">
+                <span id="contatore-mimanchi">0</span>
+            </div>
         </div>
     </div>
 </div>
